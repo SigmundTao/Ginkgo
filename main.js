@@ -34,10 +34,23 @@ function loadNote(id){
 
 function createSidebarNoteCard(title, date, containerEl, noteID){
     const sidebarNoteCard = document.createElement('div');
+    sidebarNoteCard.classList.add('note-card')
     sidebarNoteCard.innerHTML = `
         <h2>${title}</h2>
         <p>${date}</p>
     `;
+
+    const deleteNoteBtn = document.createElement('button');
+    deleteNoteBtn.classList.add('delete-note-btn');
+    deleteNoteBtn.textContent = 'x';
+    deleteNoteBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        notes.splice(getNoteIndex(noteID), 1);
+        updateNoteData()
+        renderSidebarNoteCards()
+    })
+
+    sidebarNoteCard.appendChild(deleteNoteBtn) 
 
     sidebarNoteCard.addEventListener('click', () => loadNote(noteID))
     containerEl.appendChild(sidebarNoteCard)
