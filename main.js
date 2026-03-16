@@ -15,12 +15,12 @@ const notes = [{title: 'note1', body:'This is the first note in this app', date:
     {title: 'note2', body:'this is the second note in the app', date:'16-03-2026', id:'2'}
 ]
 
-function getNoteIndex(title){
-    return notes.findIndex(i => i.title === title);
+function getNoteIndex(id){
+    return notes.findIndex(i => i.id === id);
 }
 
-function loadNote(title){
-    const noteIndex = getNoteIndex(title);
+function loadNote(id){
+    const noteIndex = getNoteIndex(id);
     const note = notes[noteIndex];
 
     noteTitleEl.value = note.title;
@@ -30,20 +30,20 @@ function loadNote(title){
     currentNoteDisplayState = 'Editing'
 }
 
-function createSidebarNoteCard(title, date, containerEl){
+function createSidebarNoteCard(title, date, containerEl, noteID){
     const sidebarNoteCard = document.createElement('div');
     sidebarNoteCard.innerHTML = `
         <h2>${title}</h2>
         <p>${date}</p>
     `;
 
-    sidebarNoteCard.addEventListener('click', () => loadNote(title))
+    sidebarNoteCard.addEventListener('click', () => loadNote(noteID))
     containerEl.appendChild(sidebarNoteCard)
 }
 
 function updateNotes(){
     sidebarEl.innerHTML = '';
-    notes.forEach(note => createSidebarNoteCard(note.title, note.date, sidebarEl));
+    notes.forEach(note => createSidebarNoteCard(note.title, note.date, sidebarEl, note.id));
 }
 
 function createBlankNote(){
@@ -76,9 +76,14 @@ function checkForDuplicateNoteTitles(title){
     let hasDuplicates = false;
     notes.forEach(note => {
         console.log(title, note.title)
-        if(note.title === title){
-            hasDuplicates = true;
+        if(note.title === currentNoteTitle){
+            return;
+        } else {
+            if(note.title === title){
+                hasDuplicates = true;
+            }
         }
+        
     })
     return hasDuplicates;
 }
