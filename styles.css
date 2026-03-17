@@ -97,7 +97,6 @@ button {
 #nav-bar {
     list-style: none;
     display: flex;
-    border: 3px solid blue;
     height: 5%;
     justify-content: flex-start;
     align-items: center;
@@ -107,7 +106,6 @@ button {
 }
 
 .nav-item {
-    border: 1px solid green;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -116,7 +114,7 @@ button {
 }
 
 .nav-item:hover {
-    background-color: var(--tertiary);
+    background-color: red;
     cursor: pointer;
 }
 
@@ -124,4 +122,11 @@ button {
     background-image: url(/assets/bookmark-unfilled.svg);
     background-position: center;
     background-size: contain;
+}
+
+#all-notes-btn {
+    background-image: url(/assets/menu.svg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
