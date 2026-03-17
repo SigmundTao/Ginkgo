@@ -191,3 +191,16 @@ button {
     justify-content: flex-start;
     align-items: center;
 }
+
+#count-holder {
+    height: 3vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+    padding-right: 15px;
+}
+
+#count-holder * {
+    color: var(--secondary);
+}

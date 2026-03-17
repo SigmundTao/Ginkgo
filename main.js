@@ -50,6 +50,7 @@ function loadNote(id){
     noteTitleEl.value = note.title;
     noteBodyEl.value = note.body;
     updateCurrentNoteID(note.id)
+    updateWordCount()
 
     currentNoteDisplayState = 'Editing';
 
@@ -247,6 +248,25 @@ searchMenu.addEventListener('keydown', (e) => {
     }
 })
 closeSearchMenuBtn.addEventListener('click', closeSearchMenu);
+
+const wordCount = document.getElementById('word-count');
+const characterCount = document.getElementById('character-count');
+function updateWordCount(){
+    const words = noteBodyEl.value.split(' ').length;
+    const characters = noteBodyEl.value.split('').length;
+
+    wordCount.textContent = `${words} Words`;
+    characterCount.textContent = `${characters} Characters`
+}
+
+noteBodyEl.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+        updateWordCount()
+    },300)
+})
+
+
 
 window.addEventListener('keydown', (e) => {
     //Save note with alt+s
