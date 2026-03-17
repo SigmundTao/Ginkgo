@@ -109,6 +109,7 @@ function createBlankNote(){
     noteBodyEl.value = '';
     noteTitleEl.value = 'Untitled Note';
     currentNoteDisplayState = 'Creating';
+    noteTitleEl.focus()
 }
 
 function saveNoteChanges(){
@@ -172,18 +173,21 @@ function saveNote(){
 createNewNoteBtn.addEventListener('click', createBlankNote);
 saveNoteBtn.addEventListener('click', createOrEdit);
 
-//Save note with ctrl+s
 window.addEventListener('keydown', (e) => {
-    if(e.ctrlKey && e.key === 's'){
+    //Save note with alt+s
+    if(e.altKey && e.key === 's'){
         e.preventDefault()
         if(currentNoteDisplayState === 'Creating'){
             saveNote()
         } else if(currentNoteDisplayState === 'Editing'){
             saveNoteChanges()
         }
+    //create new note with alt+n
+    } else if(e.altKey && e.key === 'n'){
+        e.preventDefault()
+        createBlankNote()
     }
 })
-
 bookmarkNavBtn.addEventListener('click', showBookmarkedNotes);
 displayAllNotesBtn.addEventListener('click', showAllNotes);
 
