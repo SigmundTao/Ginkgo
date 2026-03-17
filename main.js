@@ -6,12 +6,13 @@ const sidebarEl = document.getElementById('sidebar');
 const saveNoteBtn = document.getElementById('save-note-btn');
 
 const noteDisplayStates = ['Idle', 'Editing', 'Creating'];
-let currentNoteDisplayState = 'idle';
+let currentNoteDisplayState = 'Idle';
 let currentNoteID = 0;
 
-let idNum = 2;
-
 const notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+let idNum = notes.length > 0 ? Math.max(...notes.map(n => n.id)) + 1 : 1;
+
 
 function updateNoteData(){
     localStorage.setItem('notes', JSON.stringify(notes));
@@ -121,12 +122,24 @@ function updateCurrentNoteID(id){
 }
 
 function saveNote(){
-    if(currentNoteDisplayState === 'Editing') return
-    createNewNote()
+    if(currentNoteDisplayState !== 'Creating') return;
+    createNewNote();
 }
 
 createNewNoteBtn.addEventListener('click', createBlankNote);
 saveNoteBtn.addEventListener('click', createOrEdit);
+
+//Save note with ctrl+s
+window.addEventListener('keydown', (e) => {
+    if(e.ctrlKey && e.key === 's'){
+        e.preventDefault()
+        if(currentNoteDisplayState === 'Creating'){
+            saveNote()
+        } else if(currentNoteDisplayState === 'Editing'){
+            saveNoteChanges()
+        }
+    }
+})
 
 noteTitleEl.value = '';
 noteBodyEl.value = '';
