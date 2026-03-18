@@ -7,6 +7,7 @@
 
 * {
     color: white;
+    box-sizing: border-box;
 }
 
 body {
@@ -220,4 +221,32 @@ button {
 
 #categories {
     height: 5%;
+}
+
+/* Tag styling */
+#tags-input {
+    height: 5%;
+    display: flex;
+    padding: 5px;
+}
+
+#tags-display {
+    display: none;
+    height: 5%;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px;
+    gap: 5px;
+}
+
+.tag {
+    height: 80%;
+    min-width: 10%;
+    background-color: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 3px;
 }

@@ -49,6 +49,11 @@ function loadNote(id){
 
     noteTitleEl.value = note.title;
     noteBodyEl.value = note.body;
+    if(!note.tags || note.tags.length === 0){
+        tagInputEl.value = ''
+    } else {
+        tagInputEl.value = note.tags.map(tag => `[${tag}]`).join(' ')
+    }
     updateCurrentNoteID(note.id)
     updateWordCount()
 
@@ -58,7 +63,11 @@ function loadNote(id){
     noteCards.forEach(card => {
         card.classList.remove('selected-note')
     })
-    noteCards[noteIndex].classList.add('selected-note');    
+    noteCards[noteIndex].classList.add('selected-note');
+    
+    tagDisplayEl.innerHTML = note.tags 
+    ? note.tags.map(tag => `<span class="tag">${tag}</span>`).join('')
+    : ''
 }
 
 function createSidebarNoteCard(title, date, containerEl, noteID, bookmarked){
@@ -248,6 +257,52 @@ searchMenu.addEventListener('keydown', (e) => {
 })
 closeSearchMenuBtn.addEventListener('click', closeSearchMenu);
 
+//Tags
+const tagInputEl = document.getElementById('tags-input');
+const tagDisplayEl = document.getElementById('tags-display');
+
+const tagColours = [
+    [98, 0, 255, 0.5],
+    [0, 223, 255, 0.5],
+    [255, 0, 0, 0.5],
+    [228, 255, 0, 0.5],
+    [218, 0, 255, 0.5],
+    [0, 255, 0, 0.5],
+];
+
+function getTags(){
+    const matches = tagInputEl.value.match(/\[([^\]]+)\]/g) || []
+    const tags = matches.map(tag => tag.slice(1, -1))
+    return tags
+}
+
+function saveTags(tagArr){
+    const index = getNoteIndex(currentNoteID)
+    if(index === -1) return
+    notes[index].tags = tagArr
+    updateNoteData()
+}
+
+tagInputEl.addEventListener('blur', () => {
+    const tags = getTags();
+    tagInputEl.style.display = 'none';
+    tagDisplayEl.style.display = 'flex';
+    tagDisplayEl.innerHTML = tags.map(tag => `
+        <span class="tag">${tag}</span>
+    `).join('')
+    saveTags(tags);
+})
+
+tagDisplayEl.addEventListener('click', () => {
+    tagDisplayEl.style.display = 'none'
+    tagInputEl.style.display = 'block'
+    tagInputEl.focus()
+})
+
+
+getTags()
+
+//character and word count
 const wordCount = document.getElementById('word-count');
 const characterCount = document.getElementById('character-count');
 function updateWordCount(){
@@ -311,4 +366,5 @@ displayAllNotesBtn.addEventListener('click', showAllNotes);
 window.addEventListener('keydown', (e) => {console.log(e.key)})
 noteTitleEl.value = '';
 noteBodyEl.value = `Press 'alt + n' to create a new note`;
+tagInputEl.value = '';
 renderSidebarNoteCards()
