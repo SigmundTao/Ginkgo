@@ -1,7 +1,7 @@
 import { notes, currentNoteID, currentNoteDisplayState, setCurrentNoteID, setDisplayState, resetDisplayingNotes, idNum, incrementIdNum, updateEditorVisibility } from './state.js'
 import { getNoteIndex, updateNoteData } from './storage.js'
 import { renderSidebarNoteCards } from './sidebar.js'
-import { loadTagsForNote, clearTags } from './tags.js'
+import { loadTagsForNote, clearTags, handleTagDisplayClick } from './tags.js'
 
 const noteTitleEl = document.getElementById('note-title')
 const noteBodyEl = document.getElementById('note-body')
@@ -9,11 +9,9 @@ const wordCountEl = document.getElementById('word-count')
 const characterCountEl = document.getElementById('character-count')
 
 let bodyDebounce
-let titleDebounce
 
 export function initEditor(){
     noteBodyEl.addEventListener('input', handleBodyInput)
-    noteTitleEl.addEventListener('input', handleTitleInput)
 }
 
 function handleBodyInput(){
@@ -24,14 +22,12 @@ function handleBodyInput(){
     }, 300)
 }
 
-function handleTitleInput(){
-    clearTimeout(titleDebounce)
-    titleDebounce = setTimeout(() => {
-        if(!checkForDuplicateNoteTitles(noteTitleEl.value, currentNoteID)){
-            if(currentNoteDisplayState === 'Editing') saveNoteChanges()
-            else if(currentNoteDisplayState === 'Creating') createNewNote()
-        }
-    }, 300)
+noteTitleEl.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter') handleTagDisplayClick()
+})
+
+export function focusOnNoteBody(){
+    noteBodyEl.focus()
 }
 
 function highlightSelectedNote(id){

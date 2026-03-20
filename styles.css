@@ -2,6 +2,7 @@
     --primary: #292524;
     --secondary: #44403B;
     --tertiary: #161517;
+    --accent: gold;
     --border-radius: 10px;
 }
 
@@ -48,7 +49,6 @@ button {
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
-    gap: 5px;
     padding: 5px;
     height: 85%;
 }
@@ -63,6 +63,7 @@ button {
     justify-content: flex-start;
     align-items: center;
     gap: 2px;
+    border-radius: var(--border-radius);
 }
 
 .note-card:hover {
@@ -72,12 +73,19 @@ button {
 
 .note-card-img {
     height: 100%;
-    width: 25px;
+    width: 20%;
     background-image: url('./assets/file.svg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
 
+}
+
+.file-name {
+    overflow: hidden;
+    font-size: 0.9rem;
+    height: 100%;
+    max-width: 80%;
 }
 
 #note-display-div {
@@ -93,7 +101,6 @@ button {
     font-size: 3rem;
     background-color: var(--primary);
     border: none;
-    border-bottom: 1px solid var(--secondary);
 }
 
 #note-body {
@@ -265,9 +272,10 @@ button {
     padding: 3px;
 }
 
-select {
+#tag-select {
     background-color: var(--primary);
     color: white;
+    max-width: 50%;
 }
 
 #idle-screen {

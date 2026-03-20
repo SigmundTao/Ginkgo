@@ -26,7 +26,7 @@ class NoteCard {
         card.classList.add('note-card')
         card.innerHTML = `
             <div class="note-card-img"></div>
-            <p>${this.note.title}</p>
+            <p class="file-name">${this.note.title}</p>
         `
         card.id = this.note.id;
         card.addEventListener('click', () => loadNote(this.note.id))

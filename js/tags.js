@@ -1,6 +1,7 @@
 import { notes, tags, currentNoteID, resetDisplayingNotes } from './state.js'
 import { updateTagData, updateNoteData, getNoteIndex } from './storage.js'
 import { renderSidebarNoteCards } from './sidebar.js'
+import { focusOnNoteBody } from './editor.js'
 
 const tagInputEl = document.getElementById('tags-input')
 const tagDisplayEl = document.getElementById('tags-display')
@@ -26,10 +27,13 @@ function handleTagBlur(){
 }
 
 tagInputEl.addEventListener('keydown', (e) => {
-    if(e.key === 'Enter') tagInputEl.blur()
+    if(e.key === 'Enter') {
+        handleTagBlur()
+        focusOnNoteBody()
+    }
 })
 
-function handleTagDisplayClick(){
+export function handleTagDisplayClick(){
     tagDisplayEl.style.display = 'none'
     tagInputEl.style.display = 'block'
     tagInputEl.focus()
