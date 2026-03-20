@@ -23,6 +23,7 @@ export function openSearchMenu(){
     displaySearchResults(notes, searchResultsHolderEl)
     searchMenu.showModal()
     searchBarEl.focus()
+    window.addEventListener('click', () => closeSearchMenu(), { once:true })
 }
 
 function closeSearchMenu(){

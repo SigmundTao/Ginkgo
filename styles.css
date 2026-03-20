@@ -323,12 +323,12 @@ select {
     background-color: var(--secondary);
     z-index: 1;
     width: 25vw;
-    border: none;
+    border: 1px solid gold;
     border-radius: var(--border-radius);
     display: flex;
     flex-direction: column;
     margin: 0;
-    padding: 0;
+    padding: 10px;
 }
 
 .rc-menu-item {
