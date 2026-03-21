@@ -27,9 +27,15 @@
         <input type="text" id="tags-input">
         <div id="tags-display"></div>
         <textarea name="note-body-textarea" id="note-body"></textarea>
-        <div id="count-holder">
-            <p id="word-count"></p>
-            <p id="character-count"></p>
+        <div id="note-info-holder">
+            <span id="dates-span" class="info-span">
+                <p id="date-created"></p>
+                <p id="date-last-edited"></p>
+            </span>
+            <span id="counts-span" class="info-span">
+                <p id="word-count"></p>
+                <p id="character-count"></p>
+            </span>
         </div>
     </div>
     <div id="idle-screen">Press  '<span id="new-file-anchor-text">Alt + n</span>'  to create a new note</div>

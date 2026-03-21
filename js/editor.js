@@ -51,6 +51,7 @@ export function loadNote(id){
     updateEditorVisibility()
     updateWordCount()
     highlightSelectedNote(note.id)
+    displayDates(note)
 }
 
 export function createBlankNote(){
@@ -62,17 +63,25 @@ export function createBlankNote(){
     noteTitleEl.focus()
 }
 
+function getLastEdited(today, lastEdited){
+    if(today !== lastEdited) return today
+    else { return lastEdited }
+}
+
 export function saveNoteChanges(){
     const noteIndex = getNoteIndex(currentNoteID)
     if(noteIndex === -1) return
-    if(checkForDuplicateNoteTitles(noteTitleEl.value, notes[noteIndex].id)) return
-
-    notes[noteIndex].title = noteTitleEl.value
-    notes[noteIndex].body = noteBodyEl.value
-    setCurrentNoteID(notes[noteIndex].id)
+    const note = notes[noteIndex];
+    if(checkForDuplicateNoteTitles(noteTitleEl.value, note.id)) return
+    note.title = noteTitleEl.value
+    note.body = noteBodyEl.value
+    note.lastEdited = getLastEdited(getFormattedDate(new Date()), note.lastEdited)
+    setCurrentNoteID(note.id)
     setDisplayState('Editing')
+    displayDates(note)
     updateNoteData()
     renderSidebarNoteCards()
+    console.log('firing')
 }
 
 function getFormattedDate(dateObj){
@@ -88,6 +97,7 @@ export function createNewNote(){
         body: noteBodyEl.value,
         id,
         date,
+        lastEdited: date,
         bookmarked: false,
         tags: []
     })
@@ -116,4 +126,26 @@ export function updateWordCount(){
     const characters = noteBodyEl.value.length
     wordCountEl.textContent = `${words} Words`
     characterCountEl.textContent = `${characters} Characters`
+}
+
+const dateCreatedEl = document.getElementById('date-created');
+const lastEditedEl = document.getElementById('date-last-edited');
+
+export function updateDates(id){
+    const note = notes[getNoteIndex(id)]
+    const today = getFormattedDate(new Date())
+
+    note.lastEdited = today;
+    displayDates(note)
+}
+
+function displayDates(note){
+    if(!note.lastEdited){
+        note.lastEdited = note.date
+    }
+    dateCreatedEl.innerHTML = `
+        <div class="created-at"></div>
+        <p>${note.date}</p>    
+    `
+    lastEditedEl.textContent = note.lastEdited
 }
