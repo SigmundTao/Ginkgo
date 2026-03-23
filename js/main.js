@@ -6,7 +6,6 @@ import { initShortcuts } from './shortcuts.js'
 import { initNavBar } from './navbar.js'
 
 initEditor()
-initTags()
 initSearch()
 initShortcuts()
 initNavBar()

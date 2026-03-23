@@ -1,10 +1,10 @@
-import { files, currentFolderId, isFileHolderOpen, toggleFileHolderState, incrementIdNum, idNum, getSelectedFileId, setSelectedFileId, setAppState, updateEditorVisibility, setDraggedElid, getDraggedElId } from './state.js'
+import { files, currentFolderId, isFileHolderOpen, incrementIdNum, idNum, getSelectedFileId, setSelectedFileId, setAppState, setDraggedElid, getDraggedElId, toggleFileHolderState } from './state.js'
 import { getFileIndex, getFormattedDate, updateFileData } from './storage.js'
 import { loadFile, createBlankNote, focusOnNoteTitle } from './editor.js'
 
-export const fileTreeEl = document.getElementById('sidebar');
-const fileTreeContainerEl = document.getElementById('displaying-notes-container')
-const createNoteBtn = document.getElementById('new-note-btn');
+export const fileTreeEl = document.getElementById('filetree');
+const filesContainerEl = document.getElementById('files-container')
+const createNoteBtn = document.getElementById('create-note-btn');
 const createFolderBtn = document.getElementById('create-folder-btn')
 
 createNoteBtn.addEventListener('click', createBlankNote)
@@ -15,7 +15,7 @@ export function renderFolderContents(){
         if(file.parentId) return
         const card = file.type === 'folder' ? renderFolder(file) : renderFile(file)
         
-        fileTreeContainerEl.appendChild(card)
+        filesContainerEl.appendChild(card)
     })  
 }
 
@@ -99,7 +99,7 @@ function dragstart(e){
 
 function dragEnter(e){
     e.preventDefault()
-    e.current.classList.add('drag-over')
+    e.currentTarget.classList.add('drag-over')
 }
 
 function dragOver(e){
@@ -197,16 +197,17 @@ function saveFolder(){
 createFolderBtn.addEventListener('click', createFolder)
 
 export function openFileHolder(){
-    fileTreeEl.style.display = 'flex'
+    fileTreeEl.classList.remove('closed')
 }
 
 export function closeFileHolder(){
-    fileTreeEl.style.display = 'none'
+    fileTreeEl.classList.add('closed')
 }
 
 export function toggleFileHolder(){
-    isFileHolderOpen ? closeFileHolder() : openFileHolder()
+    console.log('firing')
     toggleFileHolderState()
+    isFileHolderOpen ? closeFileHolder() : openFileHolder()
 }
 
 function createRightClickMenu(posX, posY, file){
@@ -241,7 +242,6 @@ export function deleteFile(id){
     if(id === getSelectedFileId()){
         setSelectedFileId(null)
         setAppState('Idle')
-        updateEditorVisibility()
     }
 }
 

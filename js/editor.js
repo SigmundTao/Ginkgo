@@ -37,7 +37,6 @@ export function loadFile(id){
     loadTagsForNote(file)
     setSelectedFileId(file.id)
     setAppState('Editing')
-    updateEditorVisibility()
     updateWordCount()
     highlightSelectedFile(file.id)
     displayDates(file)
@@ -48,7 +47,6 @@ export function createBlankNote(){
     noteBodyEl.value = ''
     noteTitleEl.value = 'Untitled'
     setAppState('Creating')
-    updateEditorVisibility()
     noteTitleEl.focus()
     noteTitleEl.setSelectionRange(noteTitleEl.value.length, noteTitleEl.value.length)
 }
