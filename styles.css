@@ -3,9 +3,11 @@
     --secondary: #4d4d4d;
     --tertiary: #212121;
     --accent: #fcb900;
+    --accent-hover: #FFF51F;
     --border-radius: 5px;
     --font-color: white;
     --hover: #212121;
+    --danger: red;
 }
 
 * {
@@ -175,8 +177,8 @@ input:focus {
 }
 
 .right-click-menu {
-    background-color: var(--secondary);
-    border: 0.5px solid var(--border);
+    background-color: var(--primary);
+    border: 0.5px solid var(--accent);
     border-radius: 6px;
     padding: 4px;
     min-width: 120px;
@@ -211,9 +213,40 @@ input:focus {
     background-color: var(--accent);
     height: 50px;
     width: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    justify-content: flex-start;
 }
 
-#current-tab-div {}
+.tab {
+    background-color: var(--primary);
+    width: 150px;
+    height: 75%;
+    border-top-right-radius: var(--border-radius);
+    border-top-left-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.close-tab-btn {
+    background-color: var(--primary);
+    color: var(--secondary);
+    border: none;
+}
+
+.close-tab-btn:hover {
+    cursor: pointer;
+    color: var(--font-color);
+}
+
+#current-tab {
+    height: calc(100vh - 50px);
+}
 
 /* =====================
    Search Menu
@@ -223,7 +256,6 @@ input:focus {
     height: 300px;
     width: 500px;
     overflow: hidden;
-    display: flex;
     padding: 25px;
     justify-content: center;
     border: none;
@@ -285,3 +317,18 @@ input:focus {
     height: 100%;
     gap: 5px;
 }
+
+/* default page */
+.default-page {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.default-page-text {
+    color: var(--secondary);
+}
+

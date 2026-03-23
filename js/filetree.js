@@ -1,13 +1,11 @@
 import { files, currentFolderId, isFileHolderOpen, toggleFileHolderState, incrementIdNum, idNum, getSelectedFileId, setSelectedFileId, setAppState, setDraggedElid, getDraggedElId } from './state.js'
 import { getFileIndex, getFormattedDate, updateFileData } from './storage.js'
-import { loadFile, createBlankNote, focusOnNoteTitle, updateEditorVisibility } from './editor.js'
+import { loadFile } from './editor.js'
 
 export const fileTreeEl = document.getElementById('filetree');
 const fileTreeContainerEl = document.getElementById('files-container')
 const createNoteBtn = document.getElementById('create-note-btn');
 const createFolderBtn = document.getElementById('create-folder-btn')
-
-createNoteBtn.addEventListener('click', createBlankNote)
 
 export function renderFolderContents(){
     fileTreeContainerEl.innerHTML = ''
@@ -213,7 +211,6 @@ function createRightClickMenu(posX, posY, file){
             e.stopPropagation()
             loadFile(file.id)
             menu.remove()
-            focusOnNoteTitle()
         })
         menu.appendChild(menuEditBtn)
     }
