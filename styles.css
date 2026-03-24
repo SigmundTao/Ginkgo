@@ -1,6 +1,6 @@
 :root {
     --primary: #333333;
-    --secondary: #4d4d4d;
+    --secondary: #262824;
     --tertiary: #212121;
     --accent: #fcb900;
     --accent-hover: #FFF51F;
@@ -69,7 +69,7 @@ input:focus {
 }
 
 #filetree.closed {
-    width: 0px;
+    width: 1px;
     overflow: hidden;
 }
 
@@ -78,7 +78,7 @@ input:focus {
     height: 50px;
     margin: 0;
     padding: 5px;
-    background-color: pink;
+    background-color: var(--tertiary);
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -115,10 +115,12 @@ input:focus {
     border-radius: 4px;
     cursor: pointer;
     user-select: none;
+    border: 2px var(--secondary);
 }
 
 .file-card:hover {
     background-color: var(--hover);
+    border: 1px solid var(--accent);
 }
 
 .file-card.folder {}
@@ -164,7 +166,8 @@ input:focus {
     outline: 1px solid var(--accent);
 }
 
-.temp {}
+.temp {
+}
 
 #temp-card-input {
     background: transparent;
@@ -172,7 +175,7 @@ input:focus {
     border-bottom: 1px solid var(--accent);
     outline: none;
     font-size: 13px;
-    width: 100%;
+    width: 60%;
     color: inherit;
 }
 
@@ -209,7 +212,7 @@ input:focus {
 }
 
 #tab-bar {
-    background-color: var(--accent);
+    background-color: var(--tertiary);
     height: 50px;
     width: 100%;
     padding: 0;
@@ -218,6 +221,7 @@ input:focus {
     flex-direction: row;
     align-items: end;
     justify-content: flex-start;
+    border-bottom: 1px solid var(--accent);
 }
 
 .tab-card {
@@ -230,6 +234,7 @@ input:focus {
     align-items: center;
     justify-content: space-between;
     padding: 10px;
+    border-bottom: green;
 }
 
 .tab-card:hover {cursor: pointer;}
@@ -237,6 +242,9 @@ input:focus {
 .current-tab {
     background-color: var(--primary);
     color: var(--accent);
+    margin-bottom: -2px;
+    border: 1px solid var(--accent);
+    border-bottom: none;
 }
 
 .current-tab button {
@@ -257,6 +265,7 @@ input:focus {
 
 #current-tab {
     height: calc(100vh - 50px);
+    border: 1px solid var(--accent);
 }
 
 /* =====================
@@ -347,7 +356,6 @@ input:focus {
 }
 
 .ginkgo-tree {
-    border: 1px solid red;
     position: absolute;
     height: 100%;
     width: 100%;

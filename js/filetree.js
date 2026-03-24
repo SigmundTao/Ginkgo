@@ -66,6 +66,7 @@ class FileCard {
             card.classList.add('folder')
             const contentsHolder = document.createElement('div')
             contentsHolder.classList.add('folder-contents')
+            contentsHolder.classList.add('showing-contents')
             card.appendChild(contentsHolder)
             fileCardHeader.addEventListener('click', () => {
                 contentsHolder.classList.toggle('showing-contents')
