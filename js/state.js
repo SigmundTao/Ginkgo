@@ -31,6 +31,10 @@ export function setAppState(state){
     currentAppState = state;
 }
 
+export function getFileIndex(id){
+    return files.findIndex(file => file.id === Number(id))
+}
+
 export function getCurrentFolderContents(){
     return files.filter(f => f.parentId === currentFolderId)
 }

@@ -55,7 +55,7 @@ function renderTabs(){
 
 function createTabCard(tab){
     const tabCard = document.createElement('div')
-    tabCard.classList.add('tab')
+    tabCard.classList.add('tab-card')
 
     const tabTitle = document.createElement('p')
     tabTitle.textContent = tab.fileId ? files[getFileIndex(tab.fileId)].title :
@@ -68,7 +68,8 @@ function createTabCard(tab){
         console.log('this is happening')
         deleteTab(tab.id)
         if(openTabs.length < 1){
-            setTimeout(createDefaultTab, 1000)
+            currentTabEl.innerHTML = '';
+            setTimeout(createDefaultTab, 500)
         }
     })
 
@@ -77,8 +78,32 @@ function createTabCard(tab){
     return tabCard
 }
 
-function updateCurrentTabDisplay(){}
-
 export function checkForDefaultTabs(){
     return openTabs.findIndex(t => t.fileId === null)
+}
+
+export function createNoteTab(file){
+    addNewTab({fileId: file.id, id:tabId})
+    incrementTabId()
+
+    currentTabEl.innerHTML = ``
+
+    const tab = document.createElement('div')
+    tab.classList.add('tab')
+
+    const titleInput = document.createElement('input')
+    titleInput.type = 'text'
+    titleInput.classList.add('note-title')
+    titleInput.value = file.title
+
+    const noteContentInput = document.createElement('textarea')
+    noteContentInput.classList.add('note-body')
+    noteContentInput.value = file.body
+
+    tab.appendChild(titleInput)
+    tab.appendChild(noteContentInput)
+
+    currentTabEl.appendChild(tab)
+
+    renderTabs()
 }

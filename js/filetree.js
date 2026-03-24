@@ -47,6 +47,7 @@ class FileCard {
     createElement(){
         const card = document.createElement('div')
         card.id = this.file.id
+        card.addEventListener('click', () => { loadFile(this.file) })
         this.addDragEventListner(card)
         const type = this.file.type
         const imgSrc = returnImgBasedOnFileType(type)

@@ -1,16 +1,10 @@
+import { createNoteTab } from "./tabs.js"
+import { files, getFileIndex } from "./state.js"
+
 export function highlightSelectedFile(id){
     document.querySelectorAll('.file-card').forEach(card => card.classList.remove('selected-note'))
     const selectedCard = document.getElementById(id)
     if(selectedCard) selectedCard.classList.add('selected-note')
-}
-
-export function loadFile(id){
-    const fileIndex = getFileIndex(id)
-    if(fileIndex === -1) return
-    const file = files[fileIndex]
-    setSelectedFileId(file.id)
-    setAppState('Editing')
-    highlightSelectedFile(file.id)
 }
 
 export function saveNoteChanges(file, title, body){
@@ -61,4 +55,8 @@ class Tab {
 
 export function initEditor(){
     
+}
+
+export function loadFile(file){
+    if(file.type === 'note') createNoteTab(file)
 }
