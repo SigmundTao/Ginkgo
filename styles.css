@@ -236,6 +236,7 @@ input:focus {
 
 .current-tab {
     background-color: var(--primary);
+    color: var(--accent);
 }
 
 .current-tab button {
@@ -336,10 +337,25 @@ input:focus {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 .default-page-text {
     color: var(--secondary);
+    z-index: 3;
+    color: var(--font-color);
+}
+
+.ginkgo-tree {
+    border: 1px solid red;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: url('./assets/ginkgo-tree.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.2;
+    z-index: 2;
 }
 
 .tab {
