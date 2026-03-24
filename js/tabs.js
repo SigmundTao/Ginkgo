@@ -88,7 +88,12 @@ export function openFile(fileId){
         const tabIndex = getTabIndexFromFileId(fileId)
         switchToTab(openTabs[tabIndex].id)
     } else {
-        createTab(fileId)
+        if(checkForDefaultTabs){
+            overwriteDefaultTab(fileId)
+            loadTab(fileId)
+        } else {
+            createTab(fileId)
+        }
     }
 }
 
@@ -142,4 +147,10 @@ function createNoteView(file){
     tab.appendChild(titleInput)
     tab.appendChild(noteContentInput)
     currentTabEl.appendChild(tab)
+}
+
+function overwriteDefaultTab(fileId){
+    const defaultTabIndex = getTabIndexFromFileId(null)
+
+    openTabs[defaultTabIndex].file = fileId
 }
