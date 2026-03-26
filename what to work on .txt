@@ -6,3 +6,8 @@
 [ ] Create Light mode + 1 more theme
 [ ] Create Note Pinning
 [ ] Create a data visualization
+[ ] Create progress bar md
+[ ] Create Warning block md
+[ ] Create color swatch md
+[ ] Create name tags md
+[ ] Create status badges md

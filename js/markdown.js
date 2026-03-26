@@ -8,7 +8,7 @@ const highlightExtension = {
         const match = src.match(/^==([^=]+)==/)
         if(match) return { type: 'highlight', raw: match[0], text: match[1] }
     },
-    renderer(token){ return `<mark>${token.text}</mark>` }
+    renderer(token){ return `<mark class="highlight-md">${token.text}</mark>` }
 }
 
 marked.use({ extensions: [highlightExtension] })
