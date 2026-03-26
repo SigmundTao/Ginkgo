@@ -133,6 +133,9 @@ function drop(e){
     if(e.currentTarget.id === 'files-container'){
         draggedFile.parentId = null
     } else {
+        if(draggedId === selectedFileId && !openFolderIds.has(targetId)){
+            openFolderIds.add(targetId)
+        }
         draggedFile.parentId = targetId
     }
     setDraggedElid(null)
