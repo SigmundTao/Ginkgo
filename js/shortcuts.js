@@ -2,7 +2,7 @@ import { selectedFileId, currentAppState, files, currentFolderId, currentNoteMod
 import { getFileIndex } from './storage.js'
 import { saveNote, createNewNote } from './editor.js'
 import { openSearchMenu } from './search.js'
-import { createFolder } from './filetree.js'
+import { createFolder, fileTreeEl } from './filetree.js'
 import {createDefaultTab, getCountHolder, openFile, toggleNoteMode, updateCountHolder } from './tabs.js'
 import { createQuickCaputeEl } from './quickcapture.js'
 
@@ -18,7 +18,7 @@ function handleKeydown(e){
 
     } else if(e.altKey && e.key === 'n'){
         e.preventDefault()
-       
+        createNewNote()
 
     } else if(e.altKey && e.key === 'ArrowDown'){
         const folderContents = files.filter(f => f.parentId === currentFolderId)
@@ -45,6 +45,10 @@ function handleKeydown(e){
         openSearchMenu()
     } else if(e.altKey && e.key === 'f'){
         e.preventDefault()
+        console.log(fileTreeEl.classList)
+        if(fileTreeEl.classList.contains('closed')){
+            fileTreeEl.classList.remove('closed')
+        }
         createFolder()
     } else if(e.altKey && e.key === 't'){
         e.preventDefault()
