@@ -3,7 +3,7 @@ import { getFileIndex } from './storage.js'
 import { saveNote, createNewNote } from './editor.js'
 import { openSearchMenu } from './search.js'
 import { createFolder } from './filetree.js'
-import {createDefaultTab, openFile } from './tabs.js'
+import {createDefaultTab, openFile, toggleNoteMode } from './tabs.js'
 
 export function initShortcuts(){
     window.addEventListener('keydown', handleKeydown)
@@ -48,5 +48,8 @@ function handleKeydown(e){
     } else if(e.altKey && e.key === 't'){
         e.preventDefault()
         createDefaultTab()
+    } else if(e.altKey && e.key === 'p'){
+        e.preventDefault()
+        toggleNoteMode()
     }
 }

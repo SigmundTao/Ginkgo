@@ -1,7 +1,8 @@
-import { openTabs, setCurrentTabId, tabId, currentTabId, getTabIndex, getTabIndexFromFileId, incrementTabId, files, setSelectedFileId } from "./state.js"
+import { openTabs, setCurrentTabId, tabId, currentTabId, getTabIndex, getTabIndexFromFileId, incrementTabId, files, setSelectedFileId, currentNoteMode, setCurrentNoteMode } from "./state.js"
 import { checkForDuplicateTitles, getFileIndex } from "./storage.js"
 import { highlightSelectedFile, getTitleInput, getBodyInput, saveNote } from "./editor.js"
 import { deleteFile } from "./filetree.js"
+import { marked } from 'https://cdn.jsdelivr.net/npm/marked/+esm'
 
 const currentTabEl = document.getElementById('current-tab')
 const tabBar = document.getElementById('tab-bar')
@@ -162,11 +163,17 @@ function createNoteView(file){
     noteContentInput.classList.add('note-body')
     noteContentInput.value = file.body
 
+    const markdownDisplay = document.createElement('div');
+    markdownDisplay.classList.add('note-body')
+    markdownDisplay.id = 'markdown-div'
+    markdownDisplay.addEventListener('click', () => { switchToEditMode(noteContentInput, markdownDisplay) })
+
     const countHolder = document.createElement('div')
     countHolder.classList.add('count-holder')
 
     tab.appendChild(titleInput)
     tab.appendChild(noteContentInput)
+    tab.appendChild(markdownDisplay)
     tab.appendChild(countHolder)
     currentTabEl.appendChild(tab)
     updateCountHolder(countHolder, file)
@@ -187,6 +194,37 @@ function createNoteView(file){
         }, 300);
     })
 
+}
+
+function getMarkdownEl(){
+    return document.getElementById('markdown-div')
+}
+
+export function toggleNoteMode(){
+    const bodyInput = getBodyInput()
+    const markdownEl = getMarkdownEl()
+
+    if(bodyInput && markdownEl){
+            if(currentNoteMode === 'display'){
+            switchToEditMode(bodyInput, markdownEl)
+        } else {
+            switchToDisplayMode(bodyInput, markdownEl)
+        }
+    }
+}
+    
+
+function switchToDisplayMode(bodyInput, markdownDiv){
+    markdownDiv.innerHTML = marked.parse(bodyInput.value)
+    bodyInput.style.display = 'none'
+    markdownDiv.style.display = 'flex'
+    setCurrentNoteMode('display')
+}
+
+function switchToEditMode(bodyInput, markdownDiv){
+    markdownDiv.style.display = 'none'
+    bodyInput.style.display = 'flex'
+    setCurrentNoteMode('edit')
 }
 
 function updateCountHolder(holder, file){

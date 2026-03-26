@@ -8,6 +8,11 @@ export let idNum = files.length > 0 ? Math.max(...files.map(n => n.id)) + 1 : 1
 export const appStates = ['Idle', 'Editing', 'Creating']
 export let isFileHolderOpen = true
 export const openFolderIds = new Set()
+export let currentNoteMode = 'display'
+
+export function setCurrentNoteMode(mode){
+    currentNoteMode = mode
+}
 
 /// Tabs
 export const openTabs = []

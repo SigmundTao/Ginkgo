@@ -1,6 +1,6 @@
 26/3/26
 
 [x] Auto save on body input
-[ ] Add markdown rendering
+[x] Add markdown rendering
 [x] Add Word and character count
 [x] Add dragging notes out of folders
