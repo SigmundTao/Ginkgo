@@ -34,6 +34,74 @@
     --caret: #9a7a2e;
 }
 
+:root.sakura {
+    --bg-primary: #fdf0eb;
+    --bg-secondary: #f7e2da;
+    --bg-tertiary: #efd4cc;
+    --gold: #c4614d;
+    --gold-subtle: rgba(196, 97, 77, 0.14);
+    --border-tertiary: rgba(196, 97, 77, 0.1);
+    --border-secondary: rgba(196, 97, 77, 0.18);
+    --border-default: rgba(196, 97, 77, 0.3);
+    --border-strong: rgba(196, 97, 77, 0.55);
+    --font-primary: #2d1f1a;
+    --font-secondary: #8a6560;
+    --font-tertiary: #b89a96;
+    --highlight: rgba(196, 97, 77, 0.2);
+    --caret: #c4614d;
+}
+
+:root.matcha {
+    --bg-primary: #1a1f1a;
+    --bg-secondary: #1f261f;
+    --bg-tertiary: #252d25;
+    --gold: #7a9e6e;
+    --gold-subtle: rgba(122, 158, 110, 0.12);
+    --border-tertiary: rgba(122, 158, 110, 0.08);
+    --border-secondary: rgba(122, 158, 110, 0.14);
+    --border-default: rgba(122, 158, 110, 0.25);
+    --border-strong: rgba(122, 158, 110, 0.5);
+    --font-primary: #e8e4d9;
+    --font-secondary: #8a9a84;
+    --font-tertiary: #556050;
+    --highlight: rgba(122, 158, 110, 0.2);
+    --caret: #7a9e6e;
+}
+
+:root.urushi {
+    --bg-primary: #0d0806;
+    --bg-secondary: #150e0a;
+    --bg-tertiary: #1c120d;
+    --gold: #c9a84c;
+    --gold-subtle: rgba(201, 168, 76, 0.12);
+    --border-tertiary: rgba(201, 168, 76, 0.08);
+    --border-secondary: rgba(201, 168, 76, 0.14);
+    --border-default: rgba(201, 168, 76, 0.22);
+    --border-strong: rgba(201, 168, 76, 0.5);
+    --font-primary: #f0e6d8;
+    --font-secondary: #9a7a6a;
+    --font-tertiary: #5c3a2a;
+    --highlight: rgba(201, 168, 76, 0.2);
+    --caret: #c9a84c;
+}
+
+:root.yuki {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #f0f4f8;
+    --bg-tertiary: #e8eef4;
+    --gold: #7a96b0;
+    --gold-subtle: rgba(122, 150, 176, 0.1);
+    --border-tertiary: rgba(122, 150, 176, 0.08);
+    --border-secondary: rgba(122, 150, 176, 0.14);
+    --border-default: rgba(122, 150, 176, 0.25);
+    --border-strong: rgba(122, 150, 176, 0.5);
+    --font-primary: #1a2430;
+    --font-secondary: #5a7080;
+    --font-tertiary: #9ab0c0;
+    --highlight: rgba(122, 150, 176, 0.15);
+    --caret: #7a96b0;
+}
+
 * {
     box-sizing: border-box;
 }
