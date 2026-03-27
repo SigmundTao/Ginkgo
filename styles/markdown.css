@@ -43,6 +43,8 @@
 .markdown-display a {}
 .markdown-display ul {}
 .markdown-display ol {}
-.markdown-display li {}
+.markdown-display li {
+    list-style: none;
+}
 .markdown-display hr {}
 .markdown-display img {}

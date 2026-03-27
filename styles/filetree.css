@@ -317,3 +317,9 @@
     background-color: var(--gold-subtle);
     border-left: 2px solid var(--gold);
 }
+
+#pinned {
+    border-right: 1px solid var(--border-secondary);
+    border-bottom: 1px solid var(--border-secondary);
+    padding: 10px;
+}

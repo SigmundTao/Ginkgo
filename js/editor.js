@@ -8,8 +8,8 @@ createNoteBtn.addEventListener('click', createNewNote)
 
 export function highlightSelectedFile(id){
     document.querySelectorAll('.file-card').forEach(card => card.classList.remove('selected-file'))
-    const selectedCard = document.getElementById(id)
-    if(selectedCard) selectedCard.classList.add('selected-file')
+    if(!id) return
+    document.querySelectorAll(`[id="${id}"]`).forEach(card => card.classList.add('selected-file'))
 }
 
  export function getTitleInput(){

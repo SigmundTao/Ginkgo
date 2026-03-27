@@ -2,22 +2,28 @@ import { highlightSelectedFile } from './editor.js';
 import { files, currentFolderId, isFileHolderOpen, toggleFileHolderState, incrementIdNum, idNum, getSelectedFileId, setSelectedFileId, setAppState, setDraggedElid, getDraggedElId, selectedFileId, openTabs, getTabIndexFromFileId, openFolderIds } from './state.js'
 import { getFileIndex, getFormattedDate, updateFileData } from './storage.js'
 import { openFile, checkIfTabExists, deleteTab } from './tabs.js';
+
 export const fileTreeEl = document.getElementById('filetree');
 const fileTreeContainerEl = document.getElementById('files-container')
 const createNoteBtn = document.getElementById('create-note-btn');
 const createFolderBtn = document.getElementById('create-folder-btn')
+const pinnedDisplayEl = document.getElementById('pinned')
 
 fileTreeContainerEl.addEventListener('dragenter', dragEnter)
 fileTreeContainerEl.addEventListener('dragover', dragOver)
 fileTreeContainerEl.addEventListener('dragleave', dragLeave)
 fileTreeContainerEl.addEventListener('drop', drop)
+pinnedDisplayEl.addEventListener('dragenter', dragEnter)
+pinnedDisplayEl.addEventListener('dragover', dragOver)
+pinnedDisplayEl.addEventListener('dragleave', dragLeave)
+pinnedDisplayEl.addEventListener('drop', drop)
 
- export function renderFiletree(){
+export function renderFiletree(){
     fileTreeContainerEl.innerHTML = ''
     files.forEach(file => {
         if(file.parentId) return
         if(file.type === 'folder'){
-            renderFolder(file, 0)
+            renderFolder(file, 0, fileTreeContainerEl)
         } else {
             fileTreeContainerEl.appendChild(renderFile(file))
         }
@@ -25,21 +31,21 @@ fileTreeContainerEl.addEventListener('drop', drop)
     highlightSelectedFile(selectedFileId)
 }
 
-function renderFolder(folder, depth = 0){
-    const folderCard = new FileCard(folder)
+function renderFolder(folder, depth = 0, container){
+    const folderCard = new FileCard(folder, container)
     folderCard.element.style.paddingLeft = `${depth * 12}px`
-    fileTreeContainerEl.appendChild(folderCard.element)
+    container.appendChild(folderCard.element)
     
     if(!openFolderIds.has(folder.id)) return
     
     const folderContents = files.filter(f => f.parentId === folder.id)
     folderContents.forEach(file => {
         if(file.type === 'folder'){
-            renderFolder(file, depth + 1)
+            renderFolder(file, depth + 1, container)
         } else {
             const card = renderFile(file)
             card.style.paddingLeft = `${(depth + 1) * 12}px`
-            fileTreeContainerEl.appendChild(card)
+            container.appendChild(card)
         }
     })
 }
@@ -50,10 +56,11 @@ function renderFile(file){
 }
 
 class FileCard {
-    constructor(file){
+    constructor(file, container = fileTreeContainerEl){
         this.file = file
-        this.element = this.createElement()
         this.id = file.id
+        this.container = container
+        this.element = this.createElement()
     }
 
     createElement(){
@@ -78,11 +85,11 @@ class FileCard {
             fileCardHeader.addEventListener('click', () => {
                 if(openFolderIds.has(this.id)){
                     openFolderIds.delete(this.id)
-                    renderFiletree()
-                } else if(!openFolderIds.has(this.id)){
+                } else {
                     openFolderIds.add(this.id)
-                    renderFiletree()
                 }
+                renderFiletree()
+                renderPinnedFiles()
             })
         }
         return card
@@ -132,15 +139,22 @@ function drop(e){
     
     if(e.currentTarget.id === 'files-container'){
         draggedFile.parentId = null
+        draggedFile.pinned = false
+    } else if(e.currentTarget.id === 'pinned'){
+        draggedFile.pinned = true
+        draggedFile.parentId = null
+        renderPinnedFiles()
     } else {
         if(draggedId === selectedFileId && !openFolderIds.has(targetId)){
             openFolderIds.add(targetId)
         }
         draggedFile.parentId = targetId
+        draggedFile.pinned = false
     }
     setDraggedElid(null)
     updateFileData()
     renderFiletree()
+    renderPinnedFiles()
 }
 
 function isDescendant(draggedId, targetId){
@@ -223,6 +237,7 @@ function createRightClickMenu(posX, posY, file){
     const menu = document.createElement('div')
     menu.classList.add('right-click-menu')
     menu.appendChild(createDeleteBtn(file.id, menu))
+    menu.append(createPinBtn(file, menu))
 
     if(file.type === 'note'){
         const menuEditBtn = document.createElement('div')
@@ -243,9 +258,14 @@ function createRightClickMenu(posX, posY, file){
 }
 
 export function deleteFile(id){
+    const file = files[getFileIndex(id)]
+    if(file.pinned){
+        unpinFile(file)
+    }
     files.splice(getFileIndex(id), 1)
     updateFileData()
     renderFiletree()
+    renderPinnedFiles()
     if(id === getSelectedFileId()){
         setSelectedFileId(null)
         setAppState('Idle')
@@ -267,16 +287,77 @@ function createDeleteBtn(toBeDeleted, menu){
     return deleteBtn
 }
 
+function createPinBtn(file, menu){
+    const pinBtn = document.createElement('div')
+    pinBtn.classList.add('rc-menu-item')
+    pinBtn.classList.add('rc-pin-btn')
+    if(file.pinned){
+        pinBtn.textContent = 'Unpin'
+        pinBtn.addEventListener('click', () => {
+            unpinFile(file)
+            menu.remove()
+        })
+    } else {
+        pinBtn.textContent = 'Pin'
+        pinBtn.addEventListener('click', () => {
+            pinFile(file)
+            menu.remove()
+        })
+    }
+    return pinBtn
+}
+
 fileTreeContainerEl.addEventListener('contextmenu', (event) => {
     event.preventDefault()
-    const eventTarget = event.target
-    const file = eventTarget.closest('.file-card')
+    const file = event.target.closest('.file-card')
     if(!file) return
-
     document.querySelector('.right-click-menu')?.remove()
-
     const menu = createRightClickMenu(event.clientX, event.clientY, files[getFileIndex(Number(file.id))])
     fileTreeEl.appendChild(menu)
     menu.addEventListener('click', (e) => e.stopPropagation())
     window.addEventListener('click', () => menu.remove(), { once: true })
 })
+
+pinnedDisplayEl.addEventListener('contextmenu', (event) => {
+    event.preventDefault()
+    const file = event.target.closest('.file-card')
+    if(!file) return
+    document.querySelector('.right-click-menu')?.remove()
+    const menu = createRightClickMenu(event.clientX, event.clientY, files[getFileIndex(Number(file.id))])
+    fileTreeEl.appendChild(menu)
+    menu.addEventListener('click', (e) => e.stopPropagation())
+    window.addEventListener('click', () => menu.remove(), { once: true })
+})
+
+function unpinFile(file){
+    file.pinned = false
+    updateFileData()
+    renderPinnedFiles()
+}
+
+function pinFile(file){
+    file.pinned = true
+    updateFileData()
+    renderPinnedFiles()
+}
+
+export function renderPinnedFiles(){
+    pinnedDisplayEl.innerHTML = ''
+    const pinnedFiles = files.filter(f => f.pinned === true)
+
+    if(pinnedFiles.length < 1){
+        pinnedDisplayEl.style.display = 'none'
+        return
+    }
+
+    pinnedDisplayEl.style.display = 'block'
+
+    pinnedFiles.forEach(file => {
+        if(file.type === 'folder'){
+            renderFolder(file, 0, pinnedDisplayEl)
+        } else {
+            pinnedDisplayEl.appendChild(renderFile(file))
+        }
+    })
+    highlightSelectedFile(getSelectedFileId())
+}

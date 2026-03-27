@@ -17,3 +17,4 @@
 [ ] Style code blocks and code snippets
 [ ] Improve right click menu
 [ ] Come up with and implement a way to vizualise data
+[ ] Ginkgo tree graph view
