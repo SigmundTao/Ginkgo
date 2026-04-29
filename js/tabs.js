@@ -10,7 +10,7 @@ const tabBar = document.getElementById('tab-bar')
 const visualizerBtn = document.getElementById('visualizer-btn')
 let noteDebounce
 
-visualizerBtn.addEventListener('click', () => openVisualizerTab());
+visualizerBtn.addEventListener('click', () => loadTab('graph'));
 
 export function createTab(fileId){
     openTabs.push({file: fileId, id: tabId})
@@ -20,10 +20,17 @@ export function createTab(fileId){
     renderTabs()
 }
 
+function createGraphView(){
+    currentTabEl.innerHTML = ``;
+    openVisualizerTab()
+}
+
 export function loadTab(id){
     const tabIndex = getTabIndex(id)
     if(tabIndex === -1) return
+
     const fileId = openTabs[tabIndex].file
+
     if(fileId === null){
         createDefaultView()
         setSelectedFileId(null)
@@ -130,21 +137,12 @@ function createDefaultView(){
     const defaultPage = document.createElement('div')
     defaultPage.classList.add('default-page')
 
-    const noteText = document.createElement('p')
-    noteText.textContent = 'Press Alt + n to create a note'
-    noteText.classList.add('default-page-text')
+    defaultPage.innerHTML = `
+        <p class="default-page-text">Press Alt + n to create a note</p>
+        <p class="default-page-text">Press Alt + f to create a new folder</p>
+        <p class="default-page-text">Press Alt + d to search for a file</p>
+    `
 
-    const folderText = document.createElement('p')
-    folderText.textContent = 'Press Alt + f to create a new folder'
-    folderText.classList.add('default-page-text')
-
-    const searchText = document.createElement('p')
-    searchText.textContent = 'Press Alt + d to search for a file'
-    searchText.classList.add('default-page-text')
-
-    defaultPage.appendChild(noteText)
-    defaultPage.appendChild(folderText)
-    defaultPage.appendChild(searchText)
     currentTabEl.appendChild(defaultPage)
 }
 
