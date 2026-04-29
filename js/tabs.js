@@ -188,6 +188,7 @@ function createNoteView(file){
     titleInput.addEventListener('keydown', (e) => {
         if(e.key === 'Enter'){
             saveNote(file)
+            toggleNoteMode()
             noteContentInput.focus()
         }
     })
@@ -201,6 +202,7 @@ function createNoteView(file){
         }, 300);
     })
 
+    titleInput.focus()
 }
 
 function getMarkdownEl(){
@@ -228,11 +230,8 @@ function switchToDisplayMode(bodyInput, markdownDiv){
     setCurrentNoteMode('display')
     setTimeout(() => {
     const bars = document.querySelectorAll('.progress-bar-fill')
-    console.log('bars found:', bars.length)
     bars.forEach(bar => {
-        console.log('data-value:', bar.dataset.value)
         bar.style.width = bar.dataset.value + '%'
-        console.log('style after:', bar.style.width)
     })
 }, 0)
 }
@@ -248,13 +247,10 @@ export function updateCountHolder(holder, file, currentNoteMode){
     if(currentNoteMode === 'display') imgClass = 'display-mode'
     else imgClass = 'edit-mode'
 
-    console.log(imgClass)
-
     holder.innerHTML = `
         <div class="note-mode-img ${imgClass}" ></div>
         <div class="word-count">${getWordCount(file)} Words</div>
         <div class="char-count">${getCharacterCount(file)} Characters</div>`
-    console.log('imgClass at render time:', imgClass)
 }
 
 export function getCountHolder(){
