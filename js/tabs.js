@@ -10,7 +10,14 @@ const tabBar = document.getElementById('tab-bar')
 const visualizerBtn = document.getElementById('visualizer-btn')
 let noteDebounce
 
-visualizerBtn.addEventListener('click', () => loadTab('graph'));
+visualizerBtn.addEventListener('click', () => {
+    const visualizerIndex = checkForVisualizerTab()
+    if(visualizerIndex !== -1){
+        switchToTab(openTabs[visualizerIndex].id)
+    } else {
+        createTab('visualizer')
+    }
+});
 
 export function createTab(fileId){
     openTabs.push({file: fileId, id: tabId})
@@ -20,7 +27,7 @@ export function createTab(fileId){
     renderTabs()
 }
 
-function createGraphView(){
+function createVisualizerView(){
     currentTabEl.innerHTML = ``;
     openVisualizerTab()
 }
@@ -35,12 +42,20 @@ export function loadTab(id){
         createDefaultView()
         setSelectedFileId(null)
         highlightSelectedFile()
-    } else {
+    } else if(fileId === 'visualizer'){
+        setSelectedFileId(null)
+        highlightSelectedFile()
+        createVisualizerView()
+    }else {
         const file = files[getFileIndex(fileId)]
         setSelectedFileId(file.id)
         highlightSelectedFile(file.id)
         createNoteView(file)
     }
+}
+
+function checkForVisualizerTab(){
+    return openTabs.findIndex(t => t.file === 'visualizer')
 }
 
 export function createDefaultTab(){
@@ -90,7 +105,11 @@ function createTabCard(tab){
     tabCard.id = tab.id
 
     const tabTitle = document.createElement('p')
-    tabTitle.textContent = tab.file ? files[getFileIndex(tab.file)].title : 'New tab'
+    if(tab.file === 'visualizer') {
+        tabTitle.textContent = 'Visualizer'
+    } else {
+        tabTitle.textContent = tab.file ? files[getFileIndex(tab.file)].title : 'New tab'
+    }
 
     const closeTabBtn = document.createElement('button')
     closeTabBtn.classList.add('close-tab-btn')
@@ -114,7 +133,7 @@ export function openFile(fileId){
     } else {
         if(checkForDefaultTabs() !== -1){
             overwriteDefaultTab(fileId)
-            loadTab(fileId)
+            loadTab(openTabs[getTabIndexFromFileId(fileId)].id)
             const defaultTabIndex = openTabs.findIndex(t => t.file === fileId)
             switchToTab(openTabs[defaultTabIndex].id)
         } else {
