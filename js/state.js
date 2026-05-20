@@ -15,7 +15,7 @@ export function setCurrentNoteMode(mode){
 }
 
 /// Tabs
-export const openTabs = []
+export const openTabs = JSON.parse(localStorage.getItem('tabs')) || []
 export let tabId = openTabs.length > 0 ? Math.max(...openTabs.map(n => n.id)) + 1 : 1
 
 export function incrementTabId(){

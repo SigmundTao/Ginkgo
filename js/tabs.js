@@ -1,5 +1,5 @@
 import { openTabs, setCurrentTabId, tabId, currentTabId, getTabIndex, getTabIndexFromFileId, incrementTabId, files, setSelectedFileId, currentNoteMode, setCurrentNoteMode } from "./state.js"
-import { checkForDuplicateTitles, getFileIndex } from "./storage.js"
+import { checkForDuplicateTitles, getFileIndex, updateOpenTabs } from "./storage.js"
 import { highlightSelectedFile, getTitleInput, getBodyInput, saveNote } from "./editor.js"
 import { deleteFile } from "./filetree.js"
 import { marked } from './markdown.js'
@@ -25,6 +25,7 @@ export function createTab(fileId){
     incrementTabId()
     loadTab(currentTabId)
     renderTabs()
+    updateOpenTabs()
 }
 
 function createVisualizerView(){
@@ -66,7 +67,7 @@ export function createDefaultTab(){
     createTab(null)
 }
 
-function switchToTab(id){
+export function switchToTab(id){
     setCurrentTabId(id)
     loadTab(id)
     renderTabs()
@@ -117,6 +118,7 @@ function createTabCard(tab){
     closeTabBtn.addEventListener('click', (e) => {
         e.stopPropagation()
         deleteTab(tab.id)
+        updateOpenTabs()
     })
 
     tabCard.addEventListener('click', () => switchToTab(tab.id))
@@ -286,5 +288,7 @@ export function overwriteDefaultTab(fileId){
     const defaultTabIndex = getTabIndexFromFileId(null)
 
     openTabs[defaultTabIndex].file = fileId
+
+    updateOpenTabs()
 }
 

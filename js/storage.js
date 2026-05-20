@@ -1,4 +1,4 @@
-import { files } from './state.js'
+import { files, openTabs } from './state.js'
 
 export function updateFileData(){
     localStorage.setItem('files', JSON.stringify(files))
@@ -17,3 +17,9 @@ export function checkForDuplicateTitles(title, id){
 export function getFormattedDate(dateObj){
     return `${dateObj.getDate()}-${dateObj.getMonth() + 1}-${dateObj.getFullYear()}`
 }
+
+export function updateOpenTabs(){
+    localStorage.setItem('tabs', JSON.stringify(openTabs))
+}
+
+
