@@ -1,3 +1,4 @@
+import { getUntitledTitle } from "./editor.js";
 import { renderFiletree } from "./filetree.js";
 import { files, idNum, currentFolderId, incrementIdNum } from "./state.js";
 import { updateFileData, getFormattedDate } from "./storage.js";
@@ -39,7 +40,7 @@ export function createQuickCaputeEl(){
 function quickCapture(content){
     const date = getFormattedDate(new Date())
     const id = idNum
-    const title = `${getQuickCaptureTitle()} (${content.substring(0, 10)})`
+    const title = getUntitledTitle()
     files.push({
         title: title,
         body: content,
@@ -56,13 +57,3 @@ function quickCapture(content){
     renderFiletree()
 }
 
-function getQuickCaptureTitle(){
-    const quickTitles = new Set(files.filter(f => f.title.startsWith('Quick Capture')).map(f => f.title))
-    if(!quickTitles.has('QC')) return 'QC'
-    let i = 1
-    while(quickTitles.has(`QC ${i}`)){
-        i++
-        if(i > 1000) break
-    }
-    return `QC ${i}`
-}
