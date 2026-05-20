@@ -202,8 +202,11 @@ a {
 }
 
 .nav-item {
-    width: 90%;
+    width: 80%;
     aspect-ratio: 1;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .nav-item:hover {
@@ -212,16 +215,14 @@ a {
 
 #open-files-btn {
     background-image: url('../assets/file.svg');
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
 }
 
 #visualizer-btn {
     background-image: url('../assets/visualizer.svg');
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
+}
+
+#daily-note-btn {
+   background-image: url('../assets/dailynote.svg'); 
 }
 
 /* =====================

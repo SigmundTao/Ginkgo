@@ -35,10 +35,13 @@ export function saveNote(file){
     renderTabs()
 }
 
-export function createNewNote(){
+export function createNewNote(isDailyNote){
     const date = getFormattedDate(new Date())
     const id = idNum
-    const title = getUntitledTitle()
+    let title = getUntitledTitle()
+    if(isDailyNote){
+        title = date
+    }
     files.push({
         title: title,
         body: '',

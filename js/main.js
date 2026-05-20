@@ -12,8 +12,9 @@ initShortcuts()
 initNavBar()
 initSettings()
 renderFiletree()
+console.log(openTabs)
 
-if(!openTabs >= 1){
+if(!openTabs.length >= 1){
     createDefaultTab()
 } else {
    switchToTab(openTabs[openTabs.length - 1].id) 
