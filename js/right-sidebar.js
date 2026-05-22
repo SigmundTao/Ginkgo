@@ -111,3 +111,21 @@ toDoBtn.addEventListener('click', () => {
 
     sidebarContents.appendChild(createToDoList())
 })
+
+function renderScrapPaper(){
+    sidebarContents.innerHTML = '';
+
+    const scrapPaper = createScrapPaper()
+    sidebarContents.appendChild(scrapPaper)
+
+    scrapPaper.focus()
+}
+
+function createScrapPaper(){
+    const input = document.createElement('textarea');
+    input.classList.add('scrap-paper')
+    
+    return input;
+}
+
+scrapPaperBtn.addEventListener('click', renderScrapPaper)

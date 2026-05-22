@@ -42,6 +42,10 @@
     border: 1px solid white;
 }
 
+.sidebar-nav-item:hover {
+    cursor: pointer;
+}
+
 #to-do-btn {
     background-image: url('../assets/todo.svg');
 }
@@ -51,5 +55,17 @@
 //////////////////////////////////////////////////////*/
 
 .toDoList {
+    color: white;
+}
+
+/*/////////////////////////////////////////////////////
+                scrap paper styling
+//////////////////////////////////////////////////////*/
+
+.scrap-paper {
+    height: 80vh;
+    width: 175px;
+    border: none;
+    background-color: var(--bg-tertiary);
     color: white;
 }
