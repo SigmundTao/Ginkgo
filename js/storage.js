@@ -1,4 +1,5 @@
 import { files, openTabs } from './state.js'
+import { todoData } from './right-sidebar.js'
 
 export function updateFileData(){
     localStorage.setItem('files', JSON.stringify(files))
@@ -22,4 +23,6 @@ export function updateOpenTabs(){
     localStorage.setItem('tabs', JSON.stringify(openTabs))
 }
 
-
+export function updateTodoData(){
+    localStorage.setItem('todoData', JSON.stringify(todoData))
+}

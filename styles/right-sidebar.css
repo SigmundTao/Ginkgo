@@ -19,3 +19,37 @@
     width: 0px;
     overflow: hidden;
 }
+
+#right-sidebar-nav {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    gap: 5px;
+    width: 100%;
+    border: 1px solid red;
+    justify-content: start;
+    align-items: center;
+    padding: 0;
+    height: 50px;
+}
+
+.sidebar-nav-item {
+    height: 30px;
+    aspect-ratio: 1;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: 1px solid white;
+}
+
+#to-do-btn {
+    background-image: url('../assets/todo.svg');
+}
+
+/*////////////////////////////////////////////////////////
+////           to do styling                           //
+//////////////////////////////////////////////////////*/
+
+.toDoList {
+    color: white;
+}
