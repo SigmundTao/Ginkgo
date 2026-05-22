@@ -5,12 +5,14 @@ import { initNavBar } from './navbar.js'
 import { createDefaultTab, renderTabs, switchToTab } from './tabs.js'
 import { initSettings } from './settings.js'
 import { openTabs } from './state.js'
+import { initRightSidebar } from './right-sidebar.js'
 
 
 initSearch()
 initShortcuts()
 initNavBar()
 initSettings()
+initRightSidebar()
 renderFiletree()
 console.log(openTabs)
 

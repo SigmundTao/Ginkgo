@@ -1,0 +1,19 @@
+#right-sidebar {
+    height: 100vh;
+    border: 2px solid white;
+    width: 300px;
+    transition: width 0.3s ease;
+}
+
+#right-sidebar-btn {
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    background-color: aqua;
+    z-index: 999;
+}
+
+#right-sidebar.closed-sidebar{
+    width: 0px;
+    overflow: hidden;
+}
