@@ -2,17 +2,26 @@
 
 #right-sidebar {
     height: 100vh;
-    border: 2px solid white;
     width: 300px;
     transition: width 0.3s ease;
+    background-color: var(--bg-secondary);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
 }
 
 #right-sidebar-btn {
     position: fixed;
     top: 5px;
     right: 5px;
-    background-color: aqua;
     z-index: 999;
+    background-image: url(../assets/sidebar.svg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 30px;
+    aspect-ratio: 1;
+    border: none;
 }
 
 #right-sidebar.closed-sidebar{
@@ -26,11 +35,12 @@
     list-style: none;
     gap: 5px;
     width: 100%;
-    border: 1px solid red;
     justify-content: start;
     align-items: center;
-    padding: 0;
-    height: 50px;
+    padding: 5px;
+    height: 40px;
+    margin: 0;
+    background-color: var(--bg-tertiary);
 }
 
 .sidebar-nav-item {
@@ -39,7 +49,6 @@
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-    border: 1px solid white;
 }
 
 .sidebar-nav-item:hover {
@@ -52,6 +61,11 @@
 
 #scrap-paper-btn {
     background-image: url('../assets/book.svg');
+}
+
+#sidebar-contents {
+    border-left: 1px solid var(--border-secondary);
+    border-top: 1px solid var(--border-secondary);
 }
 
 /*////////////////////////////////////////////////////////

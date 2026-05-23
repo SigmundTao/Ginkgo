@@ -205,6 +205,18 @@ a {
     letter-spacing: 0.05em;
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+.tab::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.tab {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}  
+
+
 /* =====================
    Search Menu
    ===================== */
