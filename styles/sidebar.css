@@ -63,6 +63,10 @@
     background-image: url('../assets/book.svg');
 }
 
+#timer-btn {
+    background-image: url('../assets/timer.svg');
+}
+
 #sidebar-contents {
     border-left: 1px solid var(--border-secondary);
     border-top: 1px solid var(--border-secondary);
@@ -87,3 +91,8 @@
     background-color: var(--bg-tertiary);
     color: white;
 }
+
+/*//////////////////////////////////////////////////////
+                Timer styling
+//////////////////////////////////////////////////////*/
+
