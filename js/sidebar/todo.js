@@ -1,20 +1,7 @@
-import { updateTodoData } from "./storage.js";
+import { updateTodoData } from "../storage.js";
+import { sidebarContents } from "./sidebar.js";
 
-const rightSidebar = document.getElementById('right-sidebar')
-const sidebarBtn = document.getElementById('right-sidebar-btn')
 const toDoBtn = document.getElementById('to-do-btn');
-const scrapPaperBtn = document.getElementById('scrap-paper-btn');
-const sidebarContents = document.getElementById('sidebar-contents');
-
-export function initRightSidebar(){
-    sidebarBtn.addEventListener('click', openAndCloseSidebar)
-}
-
-function openAndCloseSidebar(){
-    rightSidebar.classList.toggle('closed-sidebar')
-    console.log(rightSidebar.classList)
-}
-
 export const todoData = JSON.parse(localStorage.getItem('todoData')) || [];
 
 function renderToDos(container){
@@ -108,24 +95,6 @@ function createToDoList(){
 
 toDoBtn.addEventListener('click', () => {
     sidebarContents.innerHTML = ``
-
+    console.log('clicking')
     sidebarContents.appendChild(createToDoList())
 })
-
-function renderScrapPaper(){
-    sidebarContents.innerHTML = '';
-
-    const scrapPaper = createScrapPaper()
-    sidebarContents.appendChild(scrapPaper)
-
-    scrapPaper.focus()
-}
-
-function createScrapPaper(){
-    const input = document.createElement('textarea');
-    input.classList.add('scrap-paper')
-    
-    return input;
-}
-
-scrapPaperBtn.addEventListener('click', renderScrapPaper)

@@ -50,6 +50,10 @@
     background-image: url('../assets/todo.svg');
 }
 
+#scrap-paper-btn {
+    background-image: url('../assets/book.svg');
+}
+
 /*////////////////////////////////////////////////////////
 ////           to do styling                           //
 //////////////////////////////////////////////////////*/

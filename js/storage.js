@@ -1,5 +1,5 @@
 import { files, openTabs } from './state.js'
-import { todoData } from './right-sidebar.js'
+import { todoData } from './sidebar/todo.js'
 
 export function updateFileData(){
     localStorage.setItem('files', JSON.stringify(files))

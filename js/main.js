@@ -5,7 +5,7 @@ import { initNavBar } from './navbar.js'
 import { createDefaultTab, renderTabs, switchToTab } from './tabs.js'
 import { initSettings } from './settings.js'
 import { openTabs } from './state.js'
-import { initRightSidebar } from './right-sidebar.js'
+import { initRightSidebar } from './sidebar/sidebar.js'
 
 
 initSearch()
