@@ -1,5 +1,5 @@
 import { sidebarContents } from "./sidebar.js";
-import { appendChildren } from "../helpers.js";
+import { appendChildren } from "../utils/helpers.js";
 
 const timerBtn = document.getElementById('timer-btn');
 
@@ -27,4 +27,10 @@ function renderTimer(){
 
     appendChildren(timerSettingsEl, [pomodoroInput, shortBreakInput, longBreakInput])
     appendChildren(container, [timerDisplay, timerSettingsEl])
+
+    sidebarContents.appendChild(container)
+}
+
+export function initTimerBtn(){
+    timerBtn.addEventListener('click', renderTimer)
 }
