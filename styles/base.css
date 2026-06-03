@@ -463,3 +463,7 @@ a {
     background-position: center;
     background-size: contain;
 }
+
+input[type="checkbox"]:hover {
+    cursor: pointer;
+}

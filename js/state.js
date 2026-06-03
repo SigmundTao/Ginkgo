@@ -9,6 +9,16 @@ export const appStates = ['Idle', 'Editing', 'Creating']
 export let isFileHolderOpen = true
 export const openFolderIds = new Set()
 export let currentNoteMode = 'display'
+export let timer = 25 * 60;
+export let currentTimerType = 'Pomodoro';
+
+export function setTimer(time){
+    timer = time * 60;
+}
+
+export function setTimerType(type){
+    currentTimerType = type
+}
 
 export function setCurrentNoteMode(mode){
     currentNoteMode = mode

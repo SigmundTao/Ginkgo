@@ -7,7 +7,6 @@ import { initSettings } from './settings.js'
 import { openTabs } from './state.js'
 import { initRightSidebar } from './sidebar/sidebar.js'
 
-
 initSearch()
 initShortcuts()
 initNavBar()

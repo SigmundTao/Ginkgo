@@ -190,7 +190,27 @@ function createNoteView(file){
     markdownDisplay.classList.add('note-body')
     markdownDisplay.classList.add('markdown-display')
     markdownDisplay.id = 'markdown-div'
-    markdownDisplay.addEventListener('click', () => { switchToEditMode(noteContentInput, markdownDisplay) })
+    markdownDisplay.addEventListener('click', (e) => {
+        if (e.target.matches('input[type="checkbox"]')) {
+            const checkboxes = [...markdownDisplay.querySelectorAll('input[type="checkbox"]')];
+            const index = checkboxes.indexOf(e.target);
+
+            let count = -1;
+            state.activeNote.content = state.activeNote.content.replace(/- \[(x| )\]/gi, (match) => {
+            count++;
+            if (count === index) {
+                return match.includes('x') ? '- [ ]' : '- [x]';
+            }
+            return match;
+            createNoteView(file)
+            });
+
+            saveNote();
+            switchToDisplayMode(bodyInput, markdownDisplay)
+            return;
+        }
+        switchToEditMode(noteContentInput, markdownDisplay);
+    });
 
     const countHolder = document.createElement('div')
     countHolder.classList.add('count-holder')
@@ -277,7 +297,7 @@ export function getCountHolder(){
 }
 
 export function getWordCount(file){
-    return file.body.split(' ').length
+    return file.body.split('').length
 }
 
 function getCharacterCount(file){

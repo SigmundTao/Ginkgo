@@ -18,6 +18,7 @@ function renderToDos(container){
 
 function createTaskCard(taskDataObj){
     const card = document.createElement('li');
+    card.classList.add('task-card');
     card.id = taskDataObj.id;
 
     const checkbox = document.createElement('input');

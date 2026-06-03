@@ -80,6 +80,13 @@
     color: white;
 }
 
+.task-card {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid white;
+    width: 100%;
+}
+
 /*/////////////////////////////////////////////////////
                 scrap paper styling
 //////////////////////////////////////////////////////*/
