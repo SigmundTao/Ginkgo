@@ -126,7 +126,7 @@ a {
     color: var(--gold);
     height: calc(80% + 2px);
     margin-bottom: -2px;
-    border-bottom: 2px solid var(--bg-primary);
+    border-bottom: 2px solid var(--accent);
     z-index: 2;
     border-top-right-radius: 2px;
     border-top-left-radius: 2px;
