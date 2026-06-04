@@ -4,7 +4,9 @@ import { renderTabs, checkForDefaultTabs, createTab, overwriteDefaultTab, loadTa
 import { renderFiletree } from "./filetree.js"
 
 const createNoteBtn = document.getElementById('create-note-btn')
-createNoteBtn.addEventListener('click', createNewNote)
+createNoteBtn.addEventListener('click', () => {
+    createNewNote(false)
+})
 
 export function highlightSelectedFile(id){
     document.querySelectorAll('.file-card').forEach(card => card.classList.remove('selected-file'))
