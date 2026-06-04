@@ -1,5 +1,9 @@
 @import url('./themes.css');
 
+* {
+    box-sizing: border-box;
+}
+
 #right-sidebar {
     height: 100vh;
     width: 300px;
@@ -70,6 +74,7 @@
 #sidebar-contents {
     border-left: 1px solid var(--border-secondary);
     border-top: 1px solid var(--border-secondary);
+    width: 100%;
 }
 
 /*////////////////////////////////////////////////////////
@@ -103,3 +108,48 @@
                 Timer styling
 //////////////////////////////////////////////////////*/
 
+/* module styling */
+
+.add-module-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--bg-secondary);
+    min-height: 150px;
+    color: var(--font-secondary)
+}
+
+.add-module-btn:hover {
+  cursor:pointer;
+}
+
+.module-menu {
+   min-height: 200px;
+   width: 100%;
+   display:flex;
+   margin: 0px;
+   padding: 15px;
+}
+
+.module-card {
+   width: 100px;
+   aspect-ratio: 1;
+   border: 1px solid black;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+
+.module-pic {
+    width: 100%;
+    aspect-ratio: 1;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    border: 1px solid black;
+}
+
+.module-title {
+    color: var(--font-secondary);
+}
