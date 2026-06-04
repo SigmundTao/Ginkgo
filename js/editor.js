@@ -11,7 +11,13 @@ createNoteBtn.addEventListener('click', () => {
 export function highlightSelectedFile(id){
     document.querySelectorAll('.file-card').forEach(card => card.classList.remove('selected-file'))
     if(!id) return
-    document.querySelectorAll(`[id="${id}"]`).forEach(card => card.classList.add('selected-file'))
+    const targets = document.querySelectorAll(`[id="${id}"]`);
+    targets.forEach(target => {
+
+        if(target.classList.contains('file-card')){
+           target.classList.add('selected-file')   
+        }
+    })
 }
 
  export function getTitleInput(){
