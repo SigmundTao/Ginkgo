@@ -191,11 +191,11 @@ export function createFolder(){
     temporaryCard.innerHTML = `
         <div class="file-card-header">
             <img class="file-card-img" src="./assets/empty-folder.svg">
-            <input type="text" id="temp-card-input">
+            <input type="text" class="temp-card-input">
         </div>
     `
     fileTreeContainerEl.appendChild(temporaryCard)
-    const input = document.querySelector('#temp-card-input')
+    const input = document.querySelector('.temp-card-input')
     input.focus()
     input.addEventListener('keydown', (e) => {
         if(e.key === 'Enter') {
@@ -213,7 +213,7 @@ function removeTempFile(){
 }
 
 function saveFolder(){
-    const folderName = document.querySelector('#temp-card-input').value
+    const folderName = document.querySelector('.temp-card-input').value
     const id = idNum
     const date = getFormattedDate(new Date())
     files.push({
@@ -267,6 +267,11 @@ function createRightClickMenu(posX, posY, file){
             menu.remove()
         })
         menu.appendChild(menuEditBtn)
+    }
+
+    if(file.type === 'folder'){
+
+      menu.appendChild(createRenameBtn(file, menu));
     }
 
     menu.style.left = posX + 'px'
@@ -323,6 +328,46 @@ function createPinBtn(file, menu){
         })
     }
     return pinBtn
+}
+
+function createRenameBtn(file, menu){
+
+  const renameBtn = document.createElement('div');
+
+  renameBtn.classList.add('rc-menu-item');
+  renameBtn.classList.add('rc-rename-btn');
+  renameBtn.textContent = 'Rename';
+
+  renameBtn.addEventListener('click', () => {
+      changeTitleToInput(findFileTreeEl(file.id), file);
+      menu.remove()
+  })
+
+  return renameBtn;
+}
+
+function changeTitleToInput(element, file){
+    console.log(element)
+    element.innerHTML = ``;
+    const input = document.createElement('input');
+    input.classList.add('temp-card-input');
+    input.value = file.title;
+
+    input.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter'){
+            file.title = input.value;
+            updateFileData()
+            renderFiletree()
+        }
+    })
+
+    element.appendChild(input)
+    input.focus()
+}
+
+function findFileTreeEl(fileId){
+    const fileCards = document.querySelectorAll('.file-card');
+    return Array.from(fileCards).find(card => card.id === String(fileId));  
 }
 
 fileTreeContainerEl.addEventListener('contextmenu', (event) => {

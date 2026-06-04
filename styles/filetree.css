@@ -108,7 +108,7 @@
 
 .temp {}
 
-#temp-card-input {
+.temp-card-input {
     background: transparent;
     border: none;
     border-bottom: 1px solid var(--gold);
