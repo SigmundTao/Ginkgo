@@ -1,5 +1,6 @@
 import { createTimer } from "./timer.js";
 import { createToDoList, todoData } from "./todo.js";
+import { openModules, removeOpenModule, addOpenModule } from "../state.js";
 
 const rightSidebar = document.getElementById('right-sidebar');
 const sidebarBtn = document.getElementById('right-sidebar-btn');
@@ -18,6 +19,12 @@ class Module {
         const module = document.createElement('div');
         module.classList.add('module');
         module.appendChild(this.element());
+
+        const deleteModuleBtn = document.createElement('button');
+        deleteModuleBtn.addEventListener('click', () => module.remove())
+        deleteModuleBtn.textContent = 'X';
+        
+        module.appendChild(deleteModuleBtn)
         sidebarContents.appendChild(module);
     }
 
@@ -26,7 +33,7 @@ class Module {
         menuItem.classList.add('module-menu-item');
 
         menuItem.innerHTML = `
-            <div class="module-img" style="backgroundImage:url('${this.image}')">
+            <div class="module-img" style="background-image:url('${this.image}')">
             <p>${this.title}</p>
         `
         menuItem.addEventListener('click', this.createModule.bind(this));

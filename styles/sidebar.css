@@ -141,7 +141,13 @@
    justify-content: center;
 }
 
-.module-pic {
+.module {
+    border: 1px solid black;
+    width: 300px;
+    height: auto;
+}
+
+.module-img {
     width: 100%;
     aspect-ratio: 1;
     background-repeat: no-repeat;

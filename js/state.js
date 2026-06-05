@@ -11,6 +11,15 @@ export const openFolderIds = new Set()
 export let currentNoteMode = 'display'
 export let timer = 25 * 60;
 export let currentTimerType = 'Pomodoro';
+export const openModules = [];
+
+export function addOpenModule(moduleTitle){
+    openModules.push(moduleTitle)
+}
+
+export function removeOpenModule(moduleTitle){
+  openModules.splice(openModules[openModules.findIndex(module => module === moduleTitle)], 1)
+}
 
 export function setTimer(time){
     timer = time * 60;
