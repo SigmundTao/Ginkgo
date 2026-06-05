@@ -1,5 +1,4 @@
 import { updateTodoData } from "../storage.js";
-import { sidebarContents } from "./sidebar.js";
 
 const toDoBtn = document.getElementById('to-do-btn');
 export const todoData = JSON.parse(localStorage.getItem('todoData')) || [];
@@ -70,7 +69,7 @@ function createTask(container){
     taskInput.focus()
 }
 
-function createToDoList(){
+export function createToDoList(){
     const toDoList = document.createElement('div');
     toDoList.classList.add('to-do-list');
 
@@ -94,8 +93,4 @@ function createToDoList(){
     return toDoList;
 }
 
-toDoBtn.addEventListener('click', () => {
-    sidebarContents.innerHTML = ``
-    console.log('clicking')
-    sidebarContents.appendChild(createToDoList())
-})
+

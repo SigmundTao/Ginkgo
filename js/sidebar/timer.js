@@ -1,4 +1,3 @@
-import { sidebarContents } from "./sidebar.js";
 import { appendChildren } from "../utils/helpers.js";
 import { setTimer, setTimerType, currentTimerType } from "../state.js";
 
@@ -8,9 +7,7 @@ let pomodoro = 25
 let shortBreak = 5
 let longBreak = 15
 
-function renderTimer(){
-    sidebarContents.innerHTML = ``
-
+export function createTimer(){
     const container = document.createElement('div')
 
     const timerDisplay = document.createElement('div')
@@ -49,17 +46,13 @@ function renderTimer(){
     appendChildren(timerSettingsEl, [pomodoroLabel, pomodoroInput, shortBreakLabel, shortBreakInput, longBreakLabel, longBreakInput, startBtn])
     appendChildren(container, [timerDisplay, timerSettingsEl])
 
-    sidebarContents.appendChild(container)
+    return container;
 }
 
 function updateTimerDisplay(timer){
     timer.textContent = '';
 
     timer.textContent = `${pomodoro}:00`
-}
-
-export function initTimerBtn(){
-    timerBtn.addEventListener('click', renderTimer)
 }
 
 function renderActiveTimer(){
