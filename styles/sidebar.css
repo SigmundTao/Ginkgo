@@ -131,7 +131,7 @@
    padding: 15px;
 }
 
-.module-card {
+.module-menu-item {
    width: 100px;
    aspect-ratio: 1;
    border: 1px solid black;
@@ -144,7 +144,7 @@
 .module {
     border: 1px solid black;
     width: 300px;
-    height: auto;
+    flex: 1;
 }
 
 .module-img {

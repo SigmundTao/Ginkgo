@@ -297,7 +297,7 @@ export function getCountHolder(){
 }
 
 export function getWordCount(file){
-    return file.body.split('').length
+    return file.body.split(' ').length
 }
 
 function getCharacterCount(file){

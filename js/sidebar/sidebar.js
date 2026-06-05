@@ -25,7 +25,10 @@ class Module {
         module.appendChild(this.element());
 
         const deleteModuleBtn = document.createElement('button');
-        deleteModuleBtn.addEventListener('click', () => module.remove())
+        deleteModuleBtn.addEventListener('click', () => {
+            module.remove()
+            removeOpenModule(this.title)
+        })
         deleteModuleBtn.textContent = 'X';
         
         module.appendChild(deleteModuleBtn)
@@ -50,6 +53,7 @@ class Module {
 const modules = [
     new Module({id:'todo-module', title: 'todo', image: '../../assets/todo.svg', element:createToDoList}),
     new Module({id:'timer-module', title: 'timer', image: '../../assets/timer.svg', element:createTimer}), 
+    new Module({id:'flashcard-module', title: 'flashcards', image: '../../assets/timer.svg', element:createTimer}), 
 ]
 
 export const sidebarContents = document.getElementById('sidebar-contents');
