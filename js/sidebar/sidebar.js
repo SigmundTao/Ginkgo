@@ -16,6 +16,10 @@ class Module {
     }
 
     createModule(){
+        if(openModules.includes(this.title)) return;
+        if(openModules.length >= 4) return;
+        
+        addOpenModule(this.title)
         const module = document.createElement('div');
         module.classList.add('module');
         module.appendChild(this.element());
@@ -37,6 +41,7 @@ class Module {
             <p>${this.title}</p>
         `
         menuItem.addEventListener('click', this.createModule.bind(this));
+        menuItem.addEventListener('click', removeModuleMenu);
 
         return menuItem;
     }
@@ -54,9 +59,8 @@ export function initRightSidebar(){
     console.log(modules)
 }
 
-function openAndCloseSidebar(){
+export function openAndCloseSidebar(){
     rightSidebar.classList.toggle('closed-sidebar')
-    console.log(rightSidebar.classList)
 }
 
 function createModuleMenu(){
@@ -68,6 +72,10 @@ function createModuleMenu(){
     })
 
     sidebarContents.appendChild(moduleMenuEl)
+}
+
+function removeModuleMenu (){
+    document.querySelector('.module-menu').remove()
 }
 
 addModuleBtn.addEventListener('click', createModuleMenu)
