@@ -10,15 +10,14 @@ class Module {
     constructor(moduleObj){
         this.id = moduleObj.id;
         this.title = moduleObj.title;
-        this.image = moduleObj.img;
+        this.image = moduleObj.image;
         this.element = moduleObj.element; 
     }
 
     createModule(){
         const module = document.createElement('div');
         module.classList.add('module');
-        
-        module.appendChild(this.element);
+        module.appendChild(this.element());
         sidebarContents.appendChild(module);
     }
 
@@ -27,23 +26,25 @@ class Module {
         menuItem.classList.add('module-menu-item');
 
         menuItem.innerHTML = `
-            <div backgroundImage="url${this.image}" class="module-img">
+            <div class="module-img" style="backgroundImage:url('${this.image}')">
             <p>${this.title}</p>
         `
-        menuItem.addEventListener('click', this.createModule);
+        menuItem.addEventListener('click', this.createModule.bind(this));
 
         return menuItem;
     }
 }
 
 const modules = [
-    new Module({id:'todo-module', title: 'todo', image: '../../assets/todo.svg', element:createToDoList()}),
-    new Module({id:'timer-module', title: 'timer', image: '../../assets/timer.svg', element:createTimer()}), 
+    new Module({id:'todo-module', title: 'todo', image: '../../assets/todo.svg', element:createToDoList}),
+    new Module({id:'timer-module', title: 'timer', image: '../../assets/timer.svg', element:createTimer}), 
 ]
+
 export const sidebarContents = document.getElementById('sidebar-contents');
 
 export function initRightSidebar(){
     sidebarBtn.addEventListener('click', openAndCloseSidebar)
+    console.log(modules)
 }
 
 function openAndCloseSidebar(){
