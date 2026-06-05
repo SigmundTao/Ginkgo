@@ -26,6 +26,9 @@
     height: 30px;
     aspect-ratio: 1;
     border: none;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
 }
 
 #right-sidebar.closed-sidebar{
@@ -72,9 +75,10 @@
 }
 
 #sidebar-contents {
-    border-left: 1px solid var(--border-secondary);
-    border-top: 1px solid var(--border-secondary);
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
 }
 
 /*////////////////////////////////////////////////////////
