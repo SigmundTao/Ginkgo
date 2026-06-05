@@ -1,6 +1,7 @@
-import { createTimer } from "./timer.js";
-import { createToDoList, todoData } from "./todo.js";
-import { openModules, removeOpenModule, addOpenModule } from "../state.js";
+import { createTimer } from "./timer.js"
+import { createToDoList, todoData } from "./todo.js"
+import { openModules, removeOpenModule, addOpenModule } from "../state.js"
+import { createFlashcardModule } from "./flashcards.js"
 
 const rightSidebar = document.getElementById('right-sidebar');
 const sidebarBtn = document.getElementById('right-sidebar-btn');
@@ -53,7 +54,7 @@ class Module {
 const modules = [
     new Module({id:'todo-module', title: 'todo', image: '../../assets/todo.svg', element:createToDoList}),
     new Module({id:'timer-module', title: 'timer', image: '../../assets/timer.svg', element:createTimer}), 
-    new Module({id:'flashcard-module', title: 'flashcards', image: '../../assets/timer.svg', element:createTimer}), 
+    new Module({id:'flashcard-module', title: 'flashcards', image: '../../assets/flashcards.svg', element:createFlashcardModule}), 
 ]
 
 export const sidebarContents = document.getElementById('sidebar-contents');
