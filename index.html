@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ginkgo</title>
     <link rel="stylesheet" href="./styles/base.css">
+    <link rel="stylesheet" href="./styles/settings.css">
     <link rel="stylesheet" href="./styles/markdown.css">
     <link rel="stylesheet" href="./styles/filetree.css">
     <link rel="stylesheet" href="./styles/visualizer.css">
@@ -47,20 +48,12 @@
         </div>
     </dialog>
     <dialog id="settings">
-        <button id="close-settings-btn">X</button>
-        <p>Theme:</p>
-        <select name="" id="theme-select">
-            <option value="sumi-dark">Sumi Dark</option>
-            <option value="sumi-light">Sumi Light</option>
-            <option value="hanako">Hanako</option>
-            <option value="sakura">Sakura</option>
-            <option value="hanako">Hanako</option>
-            <option value="katana">Katana</option>
-            <option value="matcha">Matcha</option>
-            <option value="yuki">Yuki</option>
-            <option value="koi">Koi</option>
-            <option value="murasaki">Murasaki</option>
-        </select>
+        <div id="settings-nav">
+            <div class="settings-nav-item" id="appearance-btn">Appearance</div>
+            <div class="settings-nav-item" id="flashcard-btn">Flashcards</div>
+        </div>
+        <div id="settings-output"></div>
+        <button id="close-settings-btn">X</button> 
     </dialog>
 
     <script type="module" src="js/main.js" ></script>

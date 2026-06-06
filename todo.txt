@@ -1,0 +1,26 @@
+[] create study view for flashcards
+[] get pomodoro timer module working
+[] add multiple lists for todo module
+[] remove add module btn and create a shortcut instead
+[] remove filetree navbar and add logo with name instead
+[] update all icons to the right colour
+[] shrink all buttons to maximize whitespace
+[] create some note templates
+[] create backlinks feature
+[] create backlinks module
+[] find new minimal icons to replace folder and note icons
+[] make module menu pop up instead of appending to sidebar
+[] center tab text
+[] make site reactive to screen size and shape
+[] polish all css
+[] spend time looking for bugs and fix them
+[] create markdown list and implement them all
+[] create new visualizer
+[] centralise all storage data
+[] refactor all code, get rid of repition
+[] write good README
+[] create website or ginkgo launch
+
+---
+[] Ship ginkgo v0.1
+

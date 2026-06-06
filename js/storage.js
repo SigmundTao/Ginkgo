@@ -1,6 +1,6 @@
 import { files, openTabs } from './state.js'
 import { todoData } from './sidebar/todo.js'
-import { flashcards } from './sidebar/flashcards.js'
+import { state } from './sidebar/flashcards.js'
 
 export function updateFileData(){
     localStorage.setItem('files', JSON.stringify(files))
@@ -29,5 +29,5 @@ export function updateTodoData(){
 }
 
 export function updateFlashcardData(){
-    localStorage.setItem('flashcards', JSON.stringify(flashcards))
+    localStorage.setItem('flashcards', JSON.stringify(state.packs))
 }
