@@ -50,19 +50,22 @@ a {
 }
 
 .nav-item {
-    width: 80%;
+    width: 50%;
     aspect-ratio: 1;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+    border-radius: 5px;
 }
 
 .nav-item:hover {
     cursor: pointer;
+    background-color: var(--bg-secondary);
 }
 
 #open-files-btn {
-    background-image: url('../assets/file.svg');
+    background-image: url('../assets/logo.svg');
+    width: 50px;
 }
 
 #visualizer-btn {
