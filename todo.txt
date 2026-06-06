@@ -18,6 +18,7 @@
 [] create markdown list and implement them all
 [] create new visualizer
 [] centralise all storage data
+[] Add proper error handling
 [] refactor all code, get rid of repition
 [] write good README
 [] create website or ginkgo launch

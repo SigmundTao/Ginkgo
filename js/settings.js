@@ -29,7 +29,7 @@ export function initSettings(){
     openSettingsBtn.addEventListener('click', openSettingsMenu)
 
   flashcardBtn.addEventListener('click', () => {
-    clearSettingsOuput()
+    clearSettingsOutput()
     render(createFlashcardModule(false))
   })
 

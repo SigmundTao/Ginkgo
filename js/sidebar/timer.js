@@ -1,3 +1,10 @@
+let timer = 25;
+let timerIsGoing = false;
+let countDown = null;
+let pomodoroCounter = 0;
+let currentTimerType = 'pomodoro'; // 'pomodoro', 'shortbreak', 'longbreak';
+let timerSound = new Audio('../../assets/timer.mp3')
+
 function createState(){
   return {
     view: 'timer', // 'timer' || 'settings'
@@ -58,14 +65,85 @@ function createSettingElement(label, stateKey, state){
 }
 
 function createPomodoroTimer(root, state){
-  const time = document.createElement('div');
-  time.textContent = formatTime(state.settings.pomodoro * 60);
-  root.appendChild(time)
+  const timerLabel = document.createElement('p');
+  timerLabel.classList.add('timer-label');
+  updateTimerLabel(timerLabel)
+  root.appendChild(timerLabel);
+
+  setTimer(state.settings.pomodoro)
+  const timerEl = document.createElement('div');
+  timerEl.textContent = formatTime(state.settings.pomodoro * 60);
+  root.appendChild(timerEl)
+
+  root.addEventListener('click', () => {
+    if(!timerIsGoing) startTimer(timerEl, state, timerLabel);
+    else stopTimer();
+  })
+}
+
+function setTimer(timeInMinutes){
+  timer = timeInMinutes * 60;
+}
+
+function setTimerType(type){
+  currentTimerType = type;
+}
+
+function decrementTimer(){
+  timer--;
+}
+
+function startTimer(displayEl, state, label){
+  updateTimerLabel(label)
+  timerIsGoing = true;
+  countDown = setInterval(() => {
+    decrementTimer()
+    updateUI(displayEl, timer)
+    if(timer <= 0){
+      stopTimer()
+      handleTimerEnd(displayEl, state, label)
+    } 
+  }, 1000);
+}
+
+function stopTimer(){
+  clearInterval(countDown);
+  timerIsGoing = false;
+  countDown = null;
+  timerSound.play()
+  window.alert(`${currentTimerType} has ended`)
+}
+
+function handleTimerEnd(displayEl, state, label){
+  if(currentTimerType === 'pomodoro'){
+    pomodoroCounter++;
+    if(pomodoroCounter % state.settings.pomodorosBeforeLongBreak === 0){
+      setTimerType('longbreak');
+      setTimer(state.settings.longBreak);
+    } else {
+      setTimerType('shortbreak');
+      setTimer(state.settings.shortBreak);
+    }
+  } else {
+    setTimerType('pomodoro');
+    setTimer(state.settings.pomodoro);
+  }
+  startTimer(displayEl, state, label);
+}
+
+function updateUI(timerEl, time){
+  timerEl.textContent = formatTime(time);
 }
 
 function formatTime(timeInSeconds){
-  const minutes = timeInSeconds / 60;
+  const minutes = Math.floor(timeInSeconds / 60);
   const seconds = timeInSeconds % 60;
 
   return `${minutes}:${String(seconds).padStart(2, '0')}`
+}
+
+function updateTimerLabel(labelEl){
+  if(currentTimerType === 'pomodoro') labelEl.textContent = 'Focus';
+  else if(currentTimerType === 'shortbreak') labelEl.textContent = 'Short Break';
+  else if(currentTimerType === 'longbreak') labelEl.textContent = 'Long Break';
 }
