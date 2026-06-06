@@ -10,6 +10,7 @@
 [] create backlinks module
 [] find new minimal icons to replace folder and note icons
 [] make module menu pop up instead of appending to sidebar
+[] Create some flashcard packs people can download
 [] center tab text
 [] make site reactive to screen size and shape
 [] polish all css

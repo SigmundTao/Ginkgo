@@ -163,3 +163,12 @@
 .module-title {
     color: var(--font-secondary);
 }
+
+/* flashcard styling */
+.flashcard-nav-btn {
+  height: 40px;
+  aspect-ratio: 1;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}

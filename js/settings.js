@@ -29,7 +29,7 @@ export function initSettings(){
 
     flashcardBtn.addEventListener('click', () => {
         settingsOutputEl.innerHTML = ``;
-        settingsOutputEl.appendChild(createFlashcardModule())
+        settingsOutputEl.appendChild(createFlashcardModule(false))
         console.log('firing');
     })
 }

@@ -1,30 +1,33 @@
-import { updateFlashcardData } from "../storage.js";
+function createState() {
+  return {
+    packs: JSON.parse(localStorage.getItem('flashcards')) || [],
+    view: 'packList',
+    activePack: null,
+    currentCard: null,
+  };
+}
 
-export let state = {
-  packs: JSON.parse(localStorage.getItem('flashcards')) || [],
-  view: 'packList',   // 'packList' | 'cardList' | 'study'
-  activePack: null,
-};
-
-function save() {
+function save(state) {
   localStorage.setItem('flashcards', JSON.stringify(state.packs));
   updateFlashcardData();
 }
 
-export function createFlashcardModule() {
+export function createFlashcardModule(isInSidebar = false) {
+  const state = createState();
   const root = document.createElement('div');
   root.id = 'flashcard-root';
-  render(root);
+  render(root, state, isInSidebar);
   return root;
 }
 
-function render(root) {
+function render(root, state, isInSidebar = false) {
   root.innerHTML = '';
-  if (state.view === 'packList') renderPackList(root);
-  if (state.view === 'cardList') renderCardList(root);
+  if (state.view === 'packList') renderPackList(root, state, isInSidebar);
+  if (state.view === 'cardList') renderCardList(root, state, isInSidebar);
+  if (state.view === 'study') renderStudyView(root, state, isInSidebar);
 }
 
-function renderPackList(root) {
+function renderPackList(root, state, isInSidebar) {
   const title = document.createElement('h3');
   title.textContent = 'My Packs';
   root.appendChild(title);
@@ -35,26 +38,26 @@ function renderPackList(root) {
     packEl.textContent = pack.title;
     packEl.addEventListener('click', () => {
       state.activePack = index;
-      state.view = 'cardList';
-      render(root);
+      state.view = isInSidebar ? 'study' : 'cardList';
+      render(root, state, isInSidebar);
     });
     root.appendChild(packEl);
   });
 
   const addBtn = document.createElement('button');
   addBtn.textContent = '+';
-  addBtn.addEventListener('click', () => promptNewPack(root));
+  addBtn.addEventListener('click', () => promptNewPack(root, state, isInSidebar));
   root.appendChild(addBtn);
 }
 
-function renderCardList(root) {
+function renderCardList(root, state, isInSidebar) {
   const pack = state.packs[state.activePack];
 
   const backBtn = document.createElement('button');
   backBtn.textContent = '← Back';
   backBtn.addEventListener('click', () => {
     state.view = 'packList';
-    render(root);
+    render(root, state, isInSidebar);
   });
   root.appendChild(backBtn);
 
@@ -71,26 +74,85 @@ function renderCardList(root) {
 
   const addCardBtn = document.createElement('button');
   addCardBtn.textContent = '+ Add Card';
-  addCardBtn.addEventListener('click', () => promptNewCard(root, pack));
+  addCardBtn.addEventListener('click', () => promptNewCard(root, state, pack, isInSidebar));
   root.appendChild(addCardBtn);
 }
 
-function promptNewPack(root) {
+function renderStudyView(root, state, isInSidebar) {
+  state.currentCard = 0;
+  const pack = state.packs[state.activePack];
+  
+  const packTitle = document.createElement('h3');
+  packTitle.textContent = pack.title;
+  root.appendChild(packTitle);
+
+  const flashcardDisplayEl = document.createElement('div');
+  flashcardDisplayEl.classList.add('flashcard-display-el');
+  root.appendChild(flashcardDisplayEl);
+
+  const flashcardEl = document.createElement('div');
+  flashcardEl.classList.add('flashcard');
+
+  const backBtn = document.createElement('div');
+  backBtn.classList.add('flashcard-nav-btn');
+  backBtn.style.backgroundImage = `url('../../assets/leftarrow.svg')`;
+  backBtn.addEventListener('click', () => {
+    if (state.currentCard <= 0) return;
+    state.currentCard--;
+    createFlashcard(pack.cards[state.currentCard], flashcardEl);
+  });
+
+  const forwardBtn = document.createElement('div');
+  forwardBtn.classList.add('flashcard-nav-btn');
+  forwardBtn.style.backgroundImage = `url('../../assets/rightarrow.svg')`;
+  forwardBtn.addEventListener('click', () => {
+    if (state.currentCard >= pack.cards.length - 1) return;
+    state.currentCard++;
+    createFlashcard(pack.cards[state.currentCard], flashcardEl);
+  });
+
+  const returnBtn = document.createElement('button');
+  returnBtn.textContent = '← Back';
+  returnBtn.addEventListener('click', () => {
+    state.view = 'packList';
+    render(root, state, isInSidebar);
+  });
+
+  root.appendChild(returnBtn);
+  flashcardDisplayEl.appendChild(backBtn);
+  flashcardDisplayEl.appendChild(flashcardEl);
+  flashcardDisplayEl.appendChild(forwardBtn);
+
+  createFlashcard(pack.cards[state.currentCard], flashcardEl);
+}
+
+function createFlashcard(card, element) {
+  const front = card.front;
+  const back = card.back;
+  element.textContent = front;
+
+  element.onclick = () => {
+    const showingText = element.textContent === front ? back : front;
+    element.textContent = showingText;
+  };
+}
+
+function promptNewPack(root, state, isInSidebar) {
   const input = document.createElement('input');
   input.placeholder = 'Pack name...';
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && input.value.trim()) {
       state.packs.push({ title: input.value.trim(), cards: [] });
-      save();
-      render(root);  // re-render wipes the input automatically
+      save(state);
+      render(root, state, isInSidebar);
     }
-    if (e.key === 'Escape') render(root);
+    if (e.key === 'Escape') render(root, state, isInSidebar);
   });
   root.appendChild(input);
   input.focus();
 }
 
-function promptNewCard(root, pack) {
+function promptNewCard(root, state, pack, isInSidebar) {
   const frontInput = document.createElement('input');
   frontInput.placeholder = 'Front...';
   const backInput = document.createElement('input');
@@ -103,8 +165,8 @@ function promptNewCard(root, pack) {
     const back = backInput.value.trim();
     if (front && back) {
       pack.cards.push({ front, back });
-      save();
-      render(root);
+      save(state);
+      render(root, state, isInSidebar);
     }
   });
 
