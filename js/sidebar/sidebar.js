@@ -1,4 +1,4 @@
-import { createPomodoroModule } from "./timer.js"
+import { createPomodoroModule, countDown as timerIntervalID } from "./timer.js"
 import { createToDoList, todoData } from "./todo.js"
 import { openModules, removeOpenModule, addOpenModule } from "../state.js"
 import { createFlashcardModule } from "./flashcards.js"
@@ -27,6 +27,7 @@ class Module {
 
         const deleteModuleBtn = document.createElement('button');
         deleteModuleBtn.addEventListener('click', () => {
+            if(this.id === 'timer-module') clearInterval(timerIntervalID);
             module.remove()
             removeOpenModule(this.title)
         })

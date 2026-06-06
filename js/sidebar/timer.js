@@ -1,6 +1,6 @@
 let timer = 25;
 let timerIsGoing = false;
-let countDown = null;
+export let countDown = null;
 let pomodoroCounter = 0;
 let currentTimerType = 'pomodoro'; // 'pomodoro', 'shortbreak', 'longbreak';
 let timerSound = new Audio('../../assets/timer.mp3')
