@@ -9,7 +9,6 @@ function createState() {
 
 function save(state) {
   localStorage.setItem('flashcards', JSON.stringify(state.packs));
-  updateFlashcardData();
 }
 
 export function createFlashcardModule(isInSidebar = false) {

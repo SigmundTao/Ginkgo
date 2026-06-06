@@ -1,4 +1,4 @@
-[] create study view for flashcards
+[x] create study view for flashcards
 [] get pomodoro timer module working
 [] add multiple lists for todo module
 [] remove add module btn and create a shortcut instead
