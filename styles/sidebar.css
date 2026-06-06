@@ -146,7 +146,6 @@
 }
 
 .module {
-    border: 1px solid black;
     width: 300px;
     flex: 1;
 }
