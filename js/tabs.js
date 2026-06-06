@@ -161,7 +161,7 @@ function createDefaultView(){
     defaultPage.innerHTML = `
         <p class="default-page-text">Press Alt + n to create a note</p>
         <p class="default-page-text">Press Alt + f to create a new folder</p>
-        <p class="default-page-text">Press Alt + d to search for a file</p>
+        <p class="default-page-text">Press Alt + d to search for a file</p> 
     `
 
     currentTabEl.appendChild(defaultPage)

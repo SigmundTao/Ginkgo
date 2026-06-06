@@ -3,11 +3,6 @@ import { getFormattedDate, updateFileData, checkForDuplicateTitles } from "./sto
 import { renderTabs, checkForDefaultTabs, createTab, overwriteDefaultTab, loadTab } from "./tabs.js"
 import { renderFiletree } from "./filetree.js"
 
-const createNoteBtn = document.getElementById('create-note-btn')
-createNoteBtn.addEventListener('click', () => {
-    createNewNote(false)
-})
-
 export function highlightSelectedFile(id){
     document.querySelectorAll('.file-card').forEach(card => card.classList.remove('selected-file'))
     if(!id) return

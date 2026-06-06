@@ -230,8 +230,6 @@ function saveFolder(){
     updateFileData()
 }
 
-createFolderBtn.addEventListener('click', createFolder)
-
 export function openFileHolder(){
     fileTreeEl.classList.remove('closed')
 }

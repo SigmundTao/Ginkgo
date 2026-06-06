@@ -69,7 +69,7 @@ export function openAndCloseSidebar(){
     rightSidebar.classList.toggle('closed-sidebar')
 }
 
-function createModuleMenu(){
+export function createModuleMenu(){
     const moduleMenuEl = document.createElement('div');
     moduleMenuEl.classList.add('module-menu');
 
@@ -83,5 +83,3 @@ function createModuleMenu(){
 function removeModuleMenu (){
     document.querySelector('.module-menu').remove()
 }
-
-addModuleBtn.addEventListener('click', createModuleMenu)

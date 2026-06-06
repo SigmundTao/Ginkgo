@@ -1,7 +1,7 @@
 [x] create study view for flashcards
-[] get pomodoro timer module working
+[x] get pomodoro timer module working
 [] add multiple lists for todo module
-[] remove add module btn and create a shortcut instead
+[x] remove add module btn and create a shortcut instead
 [] remove filetree navbar and add logo with name instead
 [] update all icons to the right colour
 [] shrink all buttons to maximize whitespace
@@ -15,6 +15,7 @@
 [] make site reactive to screen size and shape
 [] polish all css
 [] spend time looking for bugs and fix them
+[] Optimize keyboard shortcuts
 [] create markdown list and implement them all
 [] create new visualizer
 [] centralise all storage data
