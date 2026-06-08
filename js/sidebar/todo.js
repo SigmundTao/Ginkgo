@@ -1,30 +1,39 @@
 import { updateTodoData } from "../storage.js";
 
 const toDoBtn = document.getElementById('to-do-btn');
-export const todoData = JSON.parse(localStorage.getItem('todoData')) || [];
+let currentList = 'todo';
 
-function renderToDos(container){
+export const todoData = JSON.parse(localStorage.getItem('todoData')) || {lists: [
+  {name: 'todo', tasks: [/*{taskName: 'name', completed: false}*/]}
+]}
+ 
+function renderToDos(container) {
     container.innerHTML = ``
 
-    if(todoData.length < 1){
+    if(!todoData.lists[findListIndex(currentList)].tasks.length){
         container.textContent = 'Press + to create a task';
     } else {
-        todoData.forEach(item => {
-           container.appendChild(createTaskCard(item)); 
+        todoData.lists[findListIndex(currentList)].tasks.forEach(task => {
+           container.appendChild(createTaskCard(task)); 
         });
     }
 }
 
-function createTaskCard(taskDataObj){
+function createTaskCard(taskDataObj) {
+    const task = todoData.lists[findListIndex(currentList)].tasks[findTaskIndex(taskDataObj.taskName)];
     const card = document.createElement('li');
     card.classList.add('task-card');
-    card.id = taskDataObj.id;
 
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
+    if(taskDataObj.completed) checkbox.checked = true;
+    checkbox.addEventListener('change', () => {
+      task.completed = !task.completed;
+      updateTodoData();
+    })
 
     const title = document.createElement('p');
-    title.textContent = taskDataObj.task;
+    title.textContent = taskDataObj.taskName;
 
     if(taskDataObj.completed){
         checkbox.checked = true
@@ -46,18 +55,18 @@ function createTaskCard(taskDataObj){
     return card;
 }
 
-function findTaskIndex(taskTitle){
-    return todoData.findIndex(obj => obj.task === taskTitle)
+function findTaskIndex(taskTitle) {
+    return todoData.lists[findListIndex(currentList)].tasks.findIndex(task => task.taskName === taskTitle)
 }
 
-function createTask(container){
+function createTask(container) {
     const card = document.createElement('li');
 
     const taskInput = document.createElement('input');
 
     taskInput.addEventListener('keydown', (e) => {
         if(e.key === 'Enter'){
-            todoData.push({task: taskInput.value, completed: false});
+            todoData.lists[findListIndex(currentList)].tasks.push({taskName: taskInput.value, completed: false});
             updateTodoData()
             renderToDos(container)
         }
@@ -69,28 +78,91 @@ function createTask(container){
     taskInput.focus()
 }
 
-export function createToDoList(){
-    const toDoList = document.createElement('div');
-    toDoList.classList.add('to-do-list');
+export function createToDoList() {
 
-    const todoTitle = document.createElement('h3');
-    todoTitle.textContent = 'To Do:';
+  const toDoList = document.createElement('div');
+  toDoList.classList.add('to-do-list');
 
-    const taskContainer = document.createElement('li');
-    taskContainer.classList.add('task-container');
+  const listsContainer = document.createElement('div');
+  listsContainer.classList.add('list-container');
 
-    const createTaskBtn = document.createElement('button');
-    createTaskBtn.textContent = '+';
+  const listSelect = document.createElement('select');
+  listsContainer.appendChild(listSelect)
+  renderSelectOptions(listSelect, todoData.lists[0].name)
+  
+  const addListBtn = document.createElement('button');
+  addListBtn.textContent = '+';
+  listsContainer.appendChild(addListBtn)
+  
+  const todoTitle = document.createElement('h3');
+  todoTitle.textContent = 'To Do:';
 
-    toDoList.appendChild(todoTitle)
-    toDoList.appendChild(taskContainer)
-    toDoList.appendChild(createTaskBtn)
+  const taskContainer = document.createElement('li');
+  taskContainer.classList.add('task-container');
 
-    createTaskBtn.addEventListener('click', () => {createTask(taskContainer)})
+  const createTaskBtn = document.createElement('button');
+  createTaskBtn.textContent = '+';
 
+  listSelect.addEventListener('change', () => {
+    currentList = listSelect.textContent;
     renderToDos(taskContainer)
-    
-    return toDoList;
+  })
+
+  addListBtn.addEventListener('click', () => {
+    createListNameInput(listsContainer, taskContainer, listSelect);
+  });
+
+  toDoList.appendChild(todoTitle)
+  toDoList.appendChild(listsContainer)
+  toDoList.appendChild(taskContainer)
+  toDoList.appendChild(createTaskBtn)
+
+  listSelect.addEventListener('change', () => {
+    currentList = listSelect.value;
+    renderToDos(taskContainer)
+  })
+
+  createTaskBtn.addEventListener('click', () => {createTask(taskContainer)})
+  renderToDos(taskContainer)
+  console.log(currentList)
+  return toDoList;
 }
 
+function renderSelectOptions(selectEl, selectValue) {
+  selectEl.innerHTML = ``
 
+  todoData.lists.forEach(list => {
+      selectEl.appendChild(createSelectOption(list.name))
+  })
+
+  selectEl.value = selectValue;
+}
+
+function createSelectOption(optionName) {
+  const optionEl = document.createElement('option');
+  optionEl.value = optionName;
+  optionEl.textContent = optionName;
+
+  return optionEl;
+}
+
+function findListIndex(listName) {
+  return todoData.lists.findIndex(target => target.name === listName)
+}
+
+function createListNameInput(inputContainer, containerEl, selectEl) {
+  const input = document.createElement('input');
+  
+  input.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter') {
+      todoData.lists.push({name: `${input.value.trim('')}`, tasks: []});
+      input.remove();
+      updateTodoData()
+      currentList = input.value.trim();
+      renderSelectOptions(selectEl, input.value.trim(''));
+      renderToDos(containerEl)
+    }
+  })
+
+  inputContainer.appendChild(input);
+}
