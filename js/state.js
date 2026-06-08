@@ -5,7 +5,7 @@ export let currentAppState = 'Idle'
 export let currentTabId = null
 export let draggedElId = null
 export let idNum = files.length > 0 ? Math.max(...files.map(n => n.id)) + 1 : 1
-export const appStates = ['Idle', 'Editing', 'Creating']
+export const APP_STATES = ['Idle', 'Editing', 'Creating']
 export let isFileHolderOpen = true
 export const openFolderIds = new Set()
 export let currentNoteMode = 'display'
@@ -47,7 +47,7 @@ export function setCurrentTabId(id){
 const idleScreenEl = document.getElementById('idle-screen');
 
 export function setAppState(state){
-    if(!appStates.includes(state)){
+    if(!APP_STATES.includes(state)){
         console.warn('Not a valid state:', state)
         return;
     }

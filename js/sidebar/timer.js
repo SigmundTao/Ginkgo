@@ -5,6 +5,12 @@ let pomodoroCounter = 0;
 let currentTimerType = 'pomodoro'; // 'pomodoro', 'shortbreak', 'longbreak';
 let timerSound = new Audio('../../assets/timer.mp3')
 
+const TIMER_TYPES = {
+  pomodoro: 'pomodoro', 
+  shorbreak:'shortbreak', 
+  longbreak:'longbreak'
+}
+
 function createState(){
   return {
     view: 'timer', // 'timer' || 'settings'
@@ -115,17 +121,17 @@ function stopTimer(){
 }
 
 function handleTimerEnd(displayEl, state, label){
-  if(currentTimerType === 'pomodoro'){
+  if(currentTimerType === TIMER_TYPES.pomodoro){
     pomodoroCounter++;
     if(pomodoroCounter % state.settings.pomodorosBeforeLongBreak === 0){
-      setTimerType('longbreak');
+      setTimerType(TIMER_TYPES.longbreak);
       setTimer(state.settings.longBreak);
     } else {
-      setTimerType('shortbreak');
+      setTimerType(TIMER_TYPES.shortbreak)
       setTimer(state.settings.shortBreak);
     }
   } else {
-    setTimerType('pomodoro');
+    setTimerType(TIMER_TYPES.pomodoro);
     setTimer(state.settings.pomodoro);
   }
   startTimer(displayEl, state, label);
@@ -143,7 +149,7 @@ function formatTime(timeInSeconds){
 }
 
 function updateTimerLabel(labelEl){
-  if(currentTimerType === 'pomodoro') labelEl.textContent = 'Focus';
-  else if(currentTimerType === 'shortbreak') labelEl.textContent = 'Short Break';
-  else if(currentTimerType === 'longbreak') labelEl.textContent = 'Long Break';
+  if(currentTimerType === TIMER_TYPES.pomodoro) labelEl.textContent = 'Focus';
+  else if(currentTimerType === TIMER_TYPES.shortbreak) labelEl.textContent = 'Short Break';
+  else if(currentTimerType === TIMER_TYPES.longbreak) labelEl.textContent = 'Long Break';
 }

@@ -1,7 +1,4 @@
-[x] create study view for flashcards
-[x] get pomodoro timer module working
 [] add multiple lists for todo module
-[x] remove add module btn and create a shortcut instead
 [] remove filetree navbar and add logo with name instead
 [] update all icons to the right colour
 [] shrink all buttons to maximize whitespace
