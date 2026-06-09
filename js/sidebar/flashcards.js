@@ -133,13 +133,23 @@ function renderStudyView(root, state, isInSidebar) {
 }
 
 function createFlashcard(card, element) {
-  const front = card.front;
-  const back = card.back;
-  element.textContent = front;
+  element.innerHTML = '';
+  const cardContainer = document.createElement('div');
+  cardContainer.classList.add('card-container');
+  element.appendChild(cardContainer);
+
+  const frontOfCard = document.createElement('div');
+  frontOfCard.classList.add('card-front');
+  frontOfCard.textContent = card.front;
+  cardContainer.appendChild(frontOfCard);
+
+  const backOfCard = document.createElement('div');
+  backOfCard.classList.add('card-back');
+  backOfCard.textContent = card.back;
+  cardContainer.appendChild(backOfCard);
 
   element.onclick = () => {
-    const showingText = element.textContent === front ? back : front;
-    element.textContent = showingText;
+    cardContainer.classList.toggle('flipped');
   };
 }
 
