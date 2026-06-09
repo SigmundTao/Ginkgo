@@ -43,6 +43,7 @@ function save(state) {
 export function createFlashcardModule(isInSidebar = false) {
   const state = createState();
   const root = document.createElement('div');
+  root.classList.add('flashcard-module')
   root.id = 'flashcard-root';
   render(root, state, isInSidebar);
   return root;
@@ -111,6 +112,7 @@ function renderStudyView(root, state, isInSidebar) {
   const pack = state.packs[state.activePack];
   
   const packTitle = document.createElement('h3');
+  packTitle.classList.add('pack-title');
   packTitle.textContent = pack.title;
   root.appendChild(packTitle);
 
@@ -121,9 +123,13 @@ function renderStudyView(root, state, isInSidebar) {
   const flashcardEl = document.createElement('div');
   flashcardEl.classList.add('flashcard');
 
+  const flashcardBtnHolder = document.createElement('div');
+  flashcardBtnHolder.classList.add('flashcard-btn-holder');
+
   const backBtn = document.createElement('div');
   backBtn.classList.add('flashcard-nav-btn');
   backBtn.style.backgroundImage = `url('../../assets/leftarrow.svg')`;
+  flashcardBtnHolder.appendChild(backBtn);
   backBtn.addEventListener('click', () => {
     if (state.currentCard <= 0) return;
     state.currentCard--;
@@ -133,6 +139,7 @@ function renderStudyView(root, state, isInSidebar) {
   const forwardBtn = document.createElement('div');
   forwardBtn.classList.add('flashcard-nav-btn');
   forwardBtn.style.backgroundImage = `url('../../assets/rightarrow.svg')`;
+  flashcardBtnHolder.appendChild(forwardBtn);
   forwardBtn.addEventListener('click', () => {
     if (state.currentCard >= pack.cards.length - 1) return;
     state.currentCard++;
@@ -147,9 +154,8 @@ function renderStudyView(root, state, isInSidebar) {
   });
 
   root.appendChild(returnBtn);
-  flashcardDisplayEl.appendChild(backBtn);
   flashcardDisplayEl.appendChild(flashcardEl);
-  flashcardDisplayEl.appendChild(forwardBtn);
+  flashcardDisplayEl.appendChild(flashcardBtnHolder);
 
   if(pack.cards.length) createFlashcard(pack.cards[state.currentCard], flashcardEl);
   else flashcardEl.textContent = 'This pack has no cards. Go to flashcards in settings to add some';

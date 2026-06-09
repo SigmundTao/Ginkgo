@@ -60,7 +60,7 @@ function findTaskIndex(taskTitle) {
 }
 
 function createTask(container) {
-    const card = document.createElement('li');
+    const card = document.createElement('div');
 
     const taskInput = document.createElement('input');
 
@@ -79,25 +79,29 @@ function createTask(container) {
 }
 
 export function createToDoList() {
-
   const toDoList = document.createElement('div');
-  toDoList.classList.add('to-do-list');
+  toDoList.classList.add('todo-module');
 
   const listsContainer = document.createElement('div');
   listsContainer.classList.add('list-container');
 
+  const label = document.createElement('span');
+  label.classList.add('list-kanji');
+  label.style.fontWeight = 'bold';
+  label.textContent = '用';
+  listsContainer.appendChild(label)
+
   const listSelect = document.createElement('select');
+  listSelect.classList.add('list-select');
   listsContainer.appendChild(listSelect)
   renderSelectOptions(listSelect, todoData.lists[0].name)
   
   const addListBtn = document.createElement('button');
+  addListBtn.classList.add('add-list-btn');
   addListBtn.textContent = '+';
   listsContainer.appendChild(addListBtn)
   
-  const todoTitle = document.createElement('h3');
-  todoTitle.textContent = 'To Do:';
-
-  const taskContainer = document.createElement('li');
+  const taskContainer = document.createElement('div');
   taskContainer.classList.add('task-container');
 
   const createTaskBtn = document.createElement('button');
@@ -112,7 +116,6 @@ export function createToDoList() {
     createListNameInput(listsContainer, taskContainer, listSelect);
   });
 
-  toDoList.appendChild(todoTitle)
   toDoList.appendChild(listsContainer)
   toDoList.appendChild(taskContainer)
   toDoList.appendChild(createTaskBtn)
@@ -142,6 +145,7 @@ function createSelectOption(optionName) {
   const optionEl = document.createElement('option');
   optionEl.value = optionName;
   optionEl.textContent = optionName;
+  optionEl.classList.add('todo-option-el')
 
   return optionEl;
 }

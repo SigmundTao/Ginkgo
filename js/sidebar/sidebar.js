@@ -27,12 +27,13 @@ class Module {
         module.appendChild(this.element());
 
         const deleteModuleBtn = document.createElement('button');
+        deleteModuleBtn.classList.add('delete-module-btn');
         deleteModuleBtn.addEventListener('click', () => {
             if(this.id === 'timer-module') clearInterval(timerIntervalID);
             module.remove()
             removeOpenModule(this.title)
         })
-        deleteModuleBtn.textContent = 'X';
+        deleteModuleBtn.textContent = 'x';
         
         module.appendChild(deleteModuleBtn)
         sidebarContents.appendChild(module);

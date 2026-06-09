@@ -74,6 +74,7 @@ function createSettingElement(label, stateKey, state){
 function createPomodoroTimer(root, state){
   const timerLabel = document.createElement('p');
   timerLabel.classList.add('timer-label');
+  timerLabel.style.fontWeight = 'bold';
   updateTimerLabel(timerLabel)
   root.appendChild(timerLabel);
 
