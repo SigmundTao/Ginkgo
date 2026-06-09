@@ -28,3 +28,32 @@
     height: 25px;
     font-size: 0.8rem;
 }
+
+.custom-select {
+  position: relative;
+}
+
+.custom-select-selected {
+  cursor: pointer;
+}
+
+.custom-select-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 100;
+  background: var(--bg);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  min-width: 120px;
+}
+
+.custom-select-item {
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.custom-select-item:hover {
+  background: var(--accent);
+  opacity: 0.8;
+}

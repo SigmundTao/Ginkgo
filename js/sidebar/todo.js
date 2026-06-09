@@ -85,45 +85,27 @@ export function createToDoList() {
   const listsContainer = document.createElement('div');
   listsContainer.classList.add('list-container');
 
-  const label = document.createElement('span');
-  label.classList.add('list-kanji');
-  label.style.fontWeight = 'bold';
-  label.textContent = '用';
-  listsContainer.appendChild(label)
-
-  const listSelect = document.createElement('select');
-  listSelect.classList.add('list-select');
-  listsContainer.appendChild(listSelect)
-  renderSelectOptions(listSelect, todoData.lists[0].name)
-  
   const addListBtn = document.createElement('button');
   addListBtn.classList.add('add-list-btn');
   addListBtn.textContent = '+';
-  listsContainer.appendChild(addListBtn)
   
   const taskContainer = document.createElement('div');
   taskContainer.classList.add('task-container');
 
+  const { wrapper, renderOptions } = createCustomSelect(listsContainer, taskContainer);
+
   const createTaskBtn = document.createElement('button');
   createTaskBtn.textContent = '+';
 
-  listSelect.addEventListener('change', () => {
-    currentList = listSelect.textContent;
-    renderToDos(taskContainer)
-  })
-
   addListBtn.addEventListener('click', () => {
-    createListNameInput(listsContainer, taskContainer, listSelect);
+    createListNameInput(listsContainer, taskContainer, renderOptions);
   });
 
+  listsContainer.appendChild(wrapper);
+  listsContainer.appendChild(addListBtn)
   toDoList.appendChild(listsContainer)
   toDoList.appendChild(taskContainer)
   toDoList.appendChild(createTaskBtn)
-
-  listSelect.addEventListener('change', () => {
-    currentList = listSelect.value;
-    renderToDos(taskContainer)
-  })
 
   createTaskBtn.addEventListener('click', () => {createTask(taskContainer)})
   renderToDos(taskContainer)
@@ -141,32 +123,107 @@ function renderSelectOptions(selectEl, selectValue) {
   selectEl.value = selectValue;
 }
 
-function createSelectOption(optionName) {
-  const optionEl = document.createElement('option');
-  optionEl.value = optionName;
-  optionEl.textContent = optionName;
-  optionEl.classList.add('todo-option-el')
+function createCustomSelect(listsContainer, taskContainer) {
+  const wrapper = document.createElement('div');
+  wrapper.classList.add('custom-select');
 
-  return optionEl;
+  const selected = document.createElement('div');
+  selected.classList.add('custom-select-selected');
+  selected.textContent = `用${currentList}`;
+
+  const dropdown = document.createElement('div');
+  dropdown.classList.add('custom-select-dropdown');
+  dropdown.style.display = 'none';
+
+  const renderOptions = () => {
+    dropdown.innerHTML = '';
+    todoData.lists.forEach(list => {
+      const item = document.createElement('div');
+      item.classList.add('custom-select-item');
+      item.textContent = list.name;
+
+      item.addEventListener('click', () => {
+        currentList = list.name;
+        selected.textContent = `用${list.name}`;
+        dropdown.style.display = 'none';
+        renderToDos(taskContainer);
+      });
+
+      item.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        createDeleteBtn(e.clientX, e.clientY, list.name, renderOptions, taskContainer, selected);
+      });
+
+      dropdown.appendChild(item);
+    });
+  };
+
+  selected.addEventListener('click', () => {
+    dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+  });
+
+  window.addEventListener('click', (e) => {
+    if (!wrapper.contains(e.target)) {
+      dropdown.style.display = 'none';
+    }
+  });
+
+  renderOptions();
+  wrapper.appendChild(selected);
+  wrapper.appendChild(dropdown);
+  return { wrapper, renderOptions };
+}
+
+function createDeleteBtn(posX, posY, listName) {
+  document.querySelector('.list-delete-btn')?.remove();
+
+  const deleteBtn = document.createElement('div');
+  deleteBtn.classList.add('list-delete-btn');
+  deleteBtn.textContent = 'Delete';
+  deleteBtn.style.left = posX + 'px';
+  deleteBtn.style.top = posY + 'px';
+  deleteBtn.style.position = 'fixed';
+
+  document.body.appendChild(deleteBtn);
+
+  deleteBtn.addEventListener('click', () => {
+    deleteList(listName);
+    currentList = todoData.lists[0].name;
+    renderSelectOptions(document.querySelector('.list-select'), todoData.lists[0].name);
+    renderToDos(document.querySelector('.task-container'));
+    deleteBtn.remove();
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target !== deleteBtn) {
+      deleteBtn.remove();
+    }
+  }, { once: true });
+}
+
+function deleteList(listName){
+  todoData.lists.splice(findListIndex(listName), 1)
+  updateTodoData()
 }
 
 function findListIndex(listName) {
   return todoData.lists.findIndex(target => target.name === listName)
 }
 
-function createListNameInput(inputContainer, containerEl, selectEl) {
+function createListNameInput(inputContainer, containerEl, renderOptions) {
   const input = document.createElement('input');
-  
+
   input.addEventListener('keydown', (e) => {
-    if(e.key === 'Enter') {
-      todoData.lists.push({name: `${input.value.trim('')}`, tasks: []});
+    if (e.key === 'Enter') {
+      todoData.lists.push({ name: input.value.trim(), tasks: [] });
       input.remove();
-      updateTodoData()
+      updateTodoData();
       currentList = input.value.trim();
-      renderSelectOptions(selectEl, input.value.trim(''));
-      renderToDos(containerEl)
+      renderOptions();
+      renderToDos(containerEl);
     }
-  })
+  });
 
   inputContainer.appendChild(input);
+  input.focus();
 }
