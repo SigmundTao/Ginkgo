@@ -1,3 +1,9 @@
+const ROOT_STATES = {
+  packlist: 'packList',
+  cardlist: 'cardList',
+  study: 'study',
+}
+
 function createState() {
   return {
     packs: JSON.parse(localStorage.getItem('flashcards')) || [],
@@ -21,9 +27,9 @@ export function createFlashcardModule(isInSidebar = false) {
 
 function render(root, state, isInSidebar = false) {
   root.innerHTML = '';
-  if (state.view === 'packList') renderPackList(root, state, isInSidebar);
-  if (state.view === 'cardList') renderCardList(root, state, isInSidebar);
-  if (state.view === 'study') renderStudyView(root, state, isInSidebar);
+  if (state.view === ROOT_STATES.packlist) renderPackList(root, state, isInSidebar);
+  if (state.view === ROOT_STATES.cardlist) renderCardList(root, state, isInSidebar);
+  if (state.view === ROOT_STATES.study) renderStudyView(root, state, isInSidebar);
 }
 
 function renderPackList(root, state, isInSidebar) {
@@ -37,7 +43,7 @@ function renderPackList(root, state, isInSidebar) {
     packEl.textContent = pack.title;
     packEl.addEventListener('click', () => {
       state.activePack = index;
-      state.view = isInSidebar ? 'study' : 'cardList';
+      state.view = isInSidebar ? ROOT_STATES.study : ROOT_STATES.cardlist;
       render(root, state, isInSidebar);
     });
     root.appendChild(packEl);
@@ -55,7 +61,7 @@ function renderCardList(root, state, isInSidebar) {
   const backBtn = document.createElement('button');
   backBtn.textContent = '← Back';
   backBtn.addEventListener('click', () => {
-    state.view = 'packList';
+    state.view = ROOT_STATES.packlist;
     render(root, state, isInSidebar);
   });
   root.appendChild(backBtn);
@@ -113,7 +119,7 @@ function renderStudyView(root, state, isInSidebar) {
   const returnBtn = document.createElement('button');
   returnBtn.textContent = '← Back';
   returnBtn.addEventListener('click', () => {
-    state.view = 'packList';
+    state.view = ROOT_STATES.packlist;
     render(root, state, isInSidebar);
   });
 
@@ -122,7 +128,8 @@ function renderStudyView(root, state, isInSidebar) {
   flashcardDisplayEl.appendChild(flashcardEl);
   flashcardDisplayEl.appendChild(forwardBtn);
 
-  createFlashcard(pack.cards[state.currentCard], flashcardEl);
+  if(pack.cards.length) createFlashcard(pack.cards[state.currentCard], flashcardEl);
+  else flashcardEl.textContent = 'This pack has no cards. Go to flashcards in settings to add some';
 }
 
 function createFlashcard(card, element) {

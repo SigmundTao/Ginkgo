@@ -62,7 +62,7 @@ export const sidebarContents = document.getElementById('sidebar-contents');
 
 export function initRightSidebar(){
     sidebarBtn.addEventListener('click', openAndCloseSidebar)
-    console.log(modules)
+    initAddModuleBtn()
 }
 
 export function openAndCloseSidebar(){
@@ -82,4 +82,8 @@ export function createModuleMenu(){
 
 function removeModuleMenu (){
     document.querySelector('.module-menu').remove()
+}
+
+function initAddModuleBtn(){
+  addModuleBtn.addEventListener('click', createModuleMenu)
 }
