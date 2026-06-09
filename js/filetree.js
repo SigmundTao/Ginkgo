@@ -10,6 +10,8 @@ const createFolderBtn = document.getElementById('create-folder-btn')
 const pinnedDisplayEl = document.getElementById('pinned')
 const dailyNoteBtn = document.getElementById('daily-note-btn');
 
+createNoteBtn.addEventListener('click', () => createNewNote(false))
+
 dailyNoteBtn.addEventListener('click', () => {
     const date = getFormattedDate(new Date())
     const fileIndex = files.findIndex(file => file.title === date)

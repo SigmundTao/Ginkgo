@@ -33,11 +33,15 @@
 }
 
 .filetree-nav-item:hover {
+    background-color: gray;
+}
+
+.filetree-nav-item:hover {
     cursor: pointer;
 }
 
 #create-note-btn {
-    background-image: url('../assets/new-file.svg');
+    background-image: url('../assets/file.svg');
     background-size: contain;
 }
 

@@ -6,6 +6,7 @@ import { createFlashcardModule } from "./flashcards.js"
 const rightSidebar = document.getElementById('right-sidebar');
 const sidebarBtn = document.getElementById('right-sidebar-btn');
 const addModuleBtn = document.getElementById('add-module-btn');
+export const sidebarContents = document.getElementById('sidebar-contents');
 
 class Module {
     /// Expecting {id, title, imageURL, element}
@@ -58,13 +59,6 @@ const modules = [
     new Module({id:'flashcard-module', title: 'flashcards', image: '../../assets/flashcards.svg', element:() => createFlashcardModule(true)}), 
 ]
 
-export const sidebarContents = document.getElementById('sidebar-contents');
-
-export function initRightSidebar(){
-    sidebarBtn.addEventListener('click', openAndCloseSidebar)
-    initAddModuleBtn()
-}
-
 export function openAndCloseSidebar(){
     rightSidebar.classList.toggle('closed-sidebar')
 }
@@ -86,4 +80,9 @@ function removeModuleMenu (){
 
 function initAddModuleBtn(){
   addModuleBtn.addEventListener('click', createModuleMenu)
+}
+
+export function initRightSidebar(){
+    sidebarBtn.addEventListener('click', openAndCloseSidebar)
+    initAddModuleBtn()
 }
