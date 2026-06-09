@@ -1,0 +1,20 @@
+.timer-module {
+  cursor: pointer;
+  border: 1px solid black;
+  position: relative;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.timer-label {
+  position: absolute;
+  top: 0;
+  left: 5px;
+  font-size: 0.8rem;
+}
+
+.timer {
+  font-size: 2rem;
+}

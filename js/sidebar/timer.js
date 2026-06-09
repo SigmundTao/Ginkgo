@@ -30,6 +30,7 @@ function save(state){
 export function createPomodoroModule(isOnSidebar = false){
   const state = createState();
   const root = document.createElement('div');
+  root.classList.add('timer-module')
   root.id = 'timer-root';
   render(root, isOnSidebar, state)
   return root;
@@ -78,6 +79,7 @@ function createPomodoroTimer(root, state){
 
   setTimer(state.settings.pomodoro)
   const timerEl = document.createElement('div');
+  timerEl.classList.add('timer')
   timerEl.textContent = formatTime(state.settings.pomodoro * 60);
   root.appendChild(timerEl)
 
@@ -149,7 +151,7 @@ function formatTime(timeInSeconds){
 }
 
 function updateTimerLabel(labelEl){
-  if(currentTimerType === TIMER_TYPES.pomodoro) labelEl.textContent = 'Focus';
-  else if(currentTimerType === TIMER_TYPES.shortbreak) labelEl.textContent = 'Short Break';
-  else if(currentTimerType === TIMER_TYPES.longbreak) labelEl.textContent = 'Long Break';
+  if(currentTimerType === TIMER_TYPES.pomodoro) labelEl.textContent = '集Focus';
+  else if(currentTimerType === TIMER_TYPES.shortbreak) labelEl.textContent = '息Short Break';
+  else if(currentTimerType === TIMER_TYPES.longbreak) labelEl.textContent = '暇Long Break';
 }
