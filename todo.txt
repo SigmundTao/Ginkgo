@@ -2,6 +2,7 @@
 [] remove filetree navbar and add logo with name instead
 [] update all icons to the right colour
 [] shrink all buttons to maximize whitespace
+[] nvim dashboard style default tab
 [] create some note templates
 [] create backlinks feature
 [] create backlinks module
@@ -24,3 +25,7 @@
 ---
 [] Ship ginkgo v0.1
 
+---
+future features:
+
+[] create desktop loader

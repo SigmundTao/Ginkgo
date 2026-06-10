@@ -55,9 +55,9 @@ class Module {
 }
 
 const modules = [
-    new Module({id:'todo-module', title: 'todo', image: '../../assets/todo.svg', element:createToDoList}),
-    new Module({id:'timer-module', title: 'timer', image: '../../assets/timer.svg', element:() => createPomodoroModule(true)}), 
-    new Module({id:'flashcard-module', title: 'flashcards', image: '../../assets/flashcards.svg', element:() => createFlashcardModule(true)}), 
+    new Module({id:'todo-module', title: 'todo', image: 'assets/todo.svg', element:createToDoList}),
+    new Module({id:'timer-module', title: 'timer', image: 'assets/timer.svg', element:() => createPomodoroModule(true)}), 
+    new Module({id:'flashcard-module', title: 'flashcards', image: 'assets/flashcards.svg', element:() => createFlashcardModule(true)}), 
 ]
 
 export function openAndCloseSidebar(){

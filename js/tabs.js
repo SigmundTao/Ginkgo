@@ -4,6 +4,7 @@ import { highlightSelectedFile, getTitleInput, getBodyInput, saveNote } from "./
 import { deleteFile } from "./filetree.js"
 import { marked } from './markdown.js'
 import { openVisualizerTab } from "./visualizer.js"
+import { createDashboard } from "./dashboard.js"
 
 export const currentTabEl = document.getElementById('current-tab')
 const tabBar = document.getElementById('tab-bar')
@@ -109,7 +110,7 @@ function createTabCard(tab){
     if(tab.file === 'visualizer') {
         tabTitle.textContent = 'Visualizer'
     } else {
-        tabTitle.textContent = tab.file ? files[getFileIndex(tab.file)].title : 'New tab'
+        tabTitle.textContent = tab.file ? files[getFileIndex(tab.file)].title : 'Dashboard'
     }
 
     const closeTabBtn = document.createElement('button')
@@ -153,18 +154,7 @@ export function checkIfTabExists(fileId){
 }
 
 function createDefaultView(){
-    currentTabEl.innerHTML = ''
-
-    const defaultPage = document.createElement('div')
-    defaultPage.classList.add('default-page')
-
-    defaultPage.innerHTML = `
-        <p class="default-page-text">Press Alt + n to create a note</p>
-        <p class="default-page-text">Press Alt + f to create a new folder</p>
-        <p class="default-page-text">Press Alt + d to search for a file</p> 
-    `
-
-    currentTabEl.appendChild(defaultPage)
+  createDashboard()
 }
 
 function createNoteView(file){
