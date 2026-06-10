@@ -64,12 +64,12 @@ const DASHBOARD_SHORTCUTS = [
   }),
   new DashboardShortcut({
     name: 'Toggle Filetree',
-    key: `${LEADER_KEY} + d`,
+    key: `${LEADER_KEY} + i`,
     img: '../assets/dailynote.svg',
   }),
   new DashboardShortcut({
     name: 'Toggle Toolbar',
-    key: `${LEADER_KEY} + d`,
+    key: `${LEADER_KEY} + /`,
     img: '../assets/dailynote.svg',
   }),
 
