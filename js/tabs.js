@@ -74,6 +74,18 @@ export function switchToTab(id){
     renderTabs()
 }
 
+export function switchToNextTab(){
+  const currentIndex = getTabIndex(currentTabId)
+  if(currentIndex + 1 > openTabs.length - 1) return;
+  switchToTab(openTabs[currentIndex + 1].id)
+}
+
+export function switchToPrevTab(){
+  const currentIndex = getTabIndex(currentTabId)
+  if(currentIndex - 1 < 0) return;
+  switchToTab(openTabs[currentIndex - 1].id)
+}
+
 export function deleteTab(id){
     const tabIndex = getTabIndex(id)
     openTabs.splice(tabIndex, 1)

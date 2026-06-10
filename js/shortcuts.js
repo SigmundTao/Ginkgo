@@ -2,74 +2,89 @@ import { selectedFileId, currentAppState, files, currentFolderId, currentNoteMod
 import { getFileIndex } from './storage.js'
 import { saveNote, createNewNote } from './editor.js'
 import { openSearchMenu } from './search.js'
-import { createFolder, fileTreeEl } from './filetree.js'
-import {createDefaultTab, getCountHolder, openFile, toggleNoteMode, updateCountHolder } from './tabs.js'
+import { createFolder, fileTreeEl, toggleFileHolder } from './filetree.js'
+import { createDefaultTab, getCountHolder, openFile, toggleNoteMode, updateCountHolder, switchToNextTab, switchToPrevTab } from './tabs.js'
 import { createQuickCaputeEl } from './quickcapture.js'
 import { openSettingsMenu } from './settings.js'
 import { openAndCloseSidebar, createModuleMenu } from './sidebar/sidebar.js'
 
+export const LEADER_KEY = 'Alt'; // swap to 'Control' for Electron
+
 export function initShortcuts(){
-    window.addEventListener('keydown', handleKeydown)
+  window.addEventListener('keydown', handleKeydown)
 }
 
 function handleKeydown(e){
-    if(e.altKey && e.key === 's'){
-        e.preventDefault()
-        saveNote(files[getFileIndex(selectedFileId)])
-        console.log('trying to save')
+  const leaderHeld = LEADER_KEY === 'Alt' ? e.altKey : e.ctrlKey;
+  if (!leaderHeld) return;
 
-    } else if(e.altKey && e.key === 'n'){
-        e.preventDefault()
-        createNewNote()
+  e.preventDefault();
 
-    } else if(e.altKey && e.key === 'ArrowDown'){
-        const folderContents = files.filter(f => f.parentId === currentFolderId)
-        if(selectedFileId === null){
-            openFile(folderContents[0].id)
-        } else {
-            const nextIndex = folderContents.findIndex(f => f.id === selectedFileId) + 1
-            if(nextIndex > folderContents.length - 1) return
-            loadTab(folderContents[nextIndex].id)
-        }
-
-    } else if(e.altKey && e.key === 'ArrowUp'){
-        const folderContents = files.filter(f => f.parentId === currentFolderId)
-        if(selectedFileId === null){
-            openFile(folderContents[folderContents.length - 1].id)
-        } else {
-            const prevIndex = folderContents.findIndex(f => f.id === selectedFileId) - 1
-            if(prevIndex < 0) return
-            openFile(folderContents[prevIndex].id)
-        }
-
-    } else if(e.altKey && e.key === 'd'){
-        e.preventDefault()
-        openSearchMenu()
-    } else if(e.altKey && e.key === 'f'){
-        e.preventDefault()
-        console.log(fileTreeEl.classList)
-        if(fileTreeEl.classList.contains('closed')){
-            fileTreeEl.classList.remove('closed')
-        }
-        createFolder()
-    } else if(e.altKey && e.key === 't'){
-        e.preventDefault()
-        createDefaultTab()
-    } else if(e.altKey && e.key === 'p'){
-        e.preventDefault()
-        toggleNoteMode()
-        updateCountHolder(getCountHolder(), files[getFileIndex(selectedFileId)], currentNoteMode)
-    } else if(e.altKey && e.key === 'q'){
-        e.preventDefault()
-        createQuickCaputeEl()
-    } else if(e.altKey && e.key === 'm'){
-        e.preventDefault()
-        openSettingsMenu()
-    } else if(e.altKey && e.key === '/'){
-        e.preventDefault()
-        openAndCloseSidebar()
-    } else if(e.altKey && e.key === 'u'){
-        e.preventDefault()
-        createModuleMenu()
+  switch(e.key){
+    case 's':
+      saveNote(files[getFileIndex(selectedFileId)])
+      break
+    case 'n':
+      createNewNote()
+      break
+    case 'd':
+      createNewNote(true)
+      break
+    case 'f':
+      openSearchMenu()
+      break
+    case 'i':
+      toggleFileHolder()
+      break
+    case 'c':
+      createFolder()
+      break
+    case 'ArrowDown': {
+      const folderContents = files.filter(f => f.parentId === currentFolderId)
+      if(selectedFileId === null){
+        openFile(folderContents[0].id)
+      } else {
+        const nextIndex = folderContents.findIndex(f => f.id === selectedFileId) + 1
+        if(nextIndex > folderContents.length - 1) return
+        openFile(folderContents[nextIndex].id)
+      }
+      break
     }
+    case 'ArrowUp': {
+      const folderContents = files.filter(f => f.parentId === currentFolderId)
+      if(selectedFileId === null){
+        openFile(folderContents[folderContents.length - 1].id)
+      } else {
+        const prevIndex = folderContents.findIndex(f => f.id === selectedFileId) - 1
+        if(prevIndex < 0) return
+        openFile(folderContents[prevIndex].id)
+      }
+      break
+    }
+    case 't':
+      createDefaultTab()
+      break
+    case 'p':
+      toggleNoteMode()
+      updateCountHolder(getCountHolder(), files[getFileIndex(selectedFileId)], currentNoteMode)
+      break
+    case 'q':
+      createQuickCaputeEl()
+      break
+    case 'm':
+      openSettingsMenu()
+      break
+    case '/':
+      openAndCloseSidebar()
+      break
+    case 'u':
+      createModuleMenu()
+      break
+    case 'h':
+      switchToPrevTab()
+      break
+    case 'l':
+      switchToNextTab()
+      break
+  }
 }

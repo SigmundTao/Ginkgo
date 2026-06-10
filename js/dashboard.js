@@ -2,6 +2,7 @@ import { currentTabEl } from './tabs.js';
 import { createNewNote } from './editor.js';
 import { openSearchMenu } from './search.js';
 import { openSettingsMenu } from './settings.js';
+import { LEADER_KEY } from './shortcuts.js';
 
 class DashboardShortcut {
   constructor(shortcutObj){
@@ -34,6 +35,7 @@ class DashboardShortcut {
     element.appendChild(nameAndIconSpan);
 
     const shortcut = document.createElement('p');
+    shortcut.classList.add('dashboard-key');
     shortcut.textContent = this.key;
     element.appendChild(shortcut);
     shortcut.addEventListener('keydown', (e) => {
@@ -50,25 +52,25 @@ class DashboardShortcut {
 const DASHBOARD_SHORTCUTS = [
   new DashboardShortcut({
     name: 'New File',
-    key: 'n',
+    key: `${LEADER_KEY} + n`,
     img: '../assets/file.svg',
     function: createNewNote,
   }),
   new DashboardShortcut({
     name: 'Find File',
-    key: 'f',
+    key: `${LEADER_KEY} + f`,
     img: '../assets/file.svg',
     function: openSearchMenu,
   }),
   new DashboardShortcut({
     name: 'Config',
-    key: 'c',
+    key: `${LEADER_KEY} + m`,
     img: '../assets/settings.svg',
     function: openSettingsMenu,
   }),
   new DashboardShortcut({
     name: 'Daily Note',
-    key: 'd',
+    key: `${LEADER_KEY} + d`,
     img: '../assets/dailynote.svg',
     function: () => createNewNote(true),
   }),
