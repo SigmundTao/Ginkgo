@@ -7,6 +7,7 @@ import { createDefaultTab, getCountHolder, openFile, toggleNoteMode, updateCount
 import { createQuickCaputeEl } from './quickcapture.js'
 import { openSettingsMenu } from './settings.js'
 import { openAndCloseSidebar, createModuleMenu } from './sidebar/sidebar.js'
+import { createDailyNote } from './navbar.js';
 
 export const LEADER_KEY = 'Alt'; // swap to 'Control' for Electron
 
@@ -28,7 +29,7 @@ function handleKeydown(e){
       createNewNote()
       break
     case 'd':
-      createNewNote(true)
+      createDailyNote()
       break
     case 'f':
       openSearchMenu()

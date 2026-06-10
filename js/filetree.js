@@ -8,20 +8,8 @@ const fileTreeContainerEl = document.getElementById('files-container')
 const createNoteBtn = document.getElementById('create-note-btn');
 const createFolderBtn = document.getElementById('create-folder-btn')
 const pinnedDisplayEl = document.getElementById('pinned')
-const dailyNoteBtn = document.getElementById('daily-note-btn');
 
 createNoteBtn.addEventListener('click', () => createNewNote(false))
-
-dailyNoteBtn.addEventListener('click', () => {
-    const date = getFormattedDate(new Date())
-    const fileIndex = files.findIndex(file => file.title === date)
-
-    if(fileIndex !== -1){
-        openFile(files[fileIndex].id)
-    } else {
-        createNewNote(true)   
-    }
-});
 
 fileTreeContainerEl.addEventListener('dragenter', dragEnter)
 fileTreeContainerEl.addEventListener('dragover', dragOver)
