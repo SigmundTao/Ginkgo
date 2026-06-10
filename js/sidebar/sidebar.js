@@ -3,7 +3,7 @@ import { createToDoList, todoData } from "./todo.js"
 import { openModules, removeOpenModule, addOpenModule } from "../state.js"
 import { createFlashcardModule } from "./flashcards.js"
 
-const rightSidebar = document.getElementById('right-sidebar');
+const toolbar = document.getElementById('right-sidebar');
 const sidebarBtn = document.getElementById('right-sidebar-btn');
 const addModuleBtn = document.getElementById('add-module-btn');
 export const sidebarContents = document.getElementById('sidebar-contents');
@@ -61,7 +61,7 @@ const modules = [
 ]
 
 export function openAndCloseSidebar(){
-    rightSidebar.classList.toggle('closed-sidebar')
+    toolbar.classList.toggle('closed-sidebar')
 }
 
 export function createModuleMenu(){
@@ -84,6 +84,6 @@ function initAddModuleBtn(){
 }
 
 export function initRightSidebar(){
-    sidebarBtn.addEventListener('click', openAndCloseSidebar)
+    sidebarBtn.addEventListener('click', openAndCloseSidebar);
     initAddModuleBtn()
 }

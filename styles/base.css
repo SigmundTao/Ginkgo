@@ -14,6 +14,7 @@ body {
     overflow: hidden;
     font-family: 'Noto Serif JP', serif;
     background-color: var(--bg-primary);
+    color: var(--font-primary);
 }
 
 main {
@@ -31,7 +32,7 @@ hr {
 }
 
 a {
-    color: var(--gold);
+    color: var(--accent);
 }
 
 /* =====================
@@ -39,7 +40,7 @@ a {
    ===================== */
 #nav-bar {
     height: 100vh;
-    min-width: 60px;
+    min-width: 40px;
     margin: 0;
     padding: 5px;
     background-color: var(--bg-tertiary);
@@ -50,22 +51,20 @@ a {
 }
 
 .nav-item {
-    width: 50%;
+    width: 100%;
     aspect-ratio: 1;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    border-radius: 5px;
 }
 
 .nav-item:hover {
     cursor: pointer;
-    background-color: var(--bg-secondary);
+    background-color: var(--cedar-hover);
 }
 
 #open-files-btn {
     background-image: url('../assets/logo.svg');
-    width: 50px;
 }
 
 #visualizer-btn {
@@ -87,7 +86,6 @@ a {
 }
 
 #tab-bar {
-    background-color: var(--bg-tertiary);
     height: 40px;
     width: 100%;
     padding: 0;
@@ -101,11 +99,9 @@ a {
     position: relative;
     z-index: 100;
     overflow: visible;
-    border-bottom: 1px solid var(--border-tertiary);
 }
 
 .tab-card {
-    background-color: var(--bg-tertiary);
     width: 150px;
     height: 80%;
     display: flex;

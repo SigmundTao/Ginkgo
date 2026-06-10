@@ -9,7 +9,6 @@ class DashboardShortcut {
     this.img = shortcutObj.img;
     this.name = shortcutObj.name;
     this.key = shortcutObj.key;
-    this.function = shortcutObj.function;
   }
 
   createShortcutEl(){
@@ -26,7 +25,6 @@ class DashboardShortcut {
     icon.style.backgroundSize = 'contain';
     icon.style.backgroundRepeat = 'no-repeat';
     nameAndIconSpan.appendChild(icon);
-
     const name = document.createElement('p');
     name.classList.add('dashboard-shortcut-name');
     name.textContent = this.name;
@@ -38,12 +36,6 @@ class DashboardShortcut {
     shortcut.classList.add('dashboard-key');
     shortcut.textContent = this.key;
     element.appendChild(shortcut);
-    shortcut.addEventListener('keydown', (e) => {
-      if(e.key === this.key){
-        e.preventDefault()
-        this.function();
-      }
-    })
 
     return element;
   }
@@ -54,26 +46,33 @@ const DASHBOARD_SHORTCUTS = [
     name: 'New File',
     key: `${LEADER_KEY} + n`,
     img: '../assets/file.svg',
-    function: createNewNote,
   }),
   new DashboardShortcut({
     name: 'Find File',
     key: `${LEADER_KEY} + f`,
     img: '../assets/file.svg',
-    function: openSearchMenu,
   }),
   new DashboardShortcut({
     name: 'Config',
     key: `${LEADER_KEY} + m`,
     img: '../assets/settings.svg',
-    function: openSettingsMenu,
   }),
   new DashboardShortcut({
     name: 'Daily Note',
     key: `${LEADER_KEY} + d`,
     img: '../assets/dailynote.svg',
-    function: () => createNewNote(true),
   }),
+  new DashboardShortcut({
+    name: 'Toggle Filetree',
+    key: `${LEADER_KEY} + d`,
+    img: '../assets/dailynote.svg',
+  }),
+  new DashboardShortcut({
+    name: 'Toggle Toolbar',
+    key: `${LEADER_KEY} + d`,
+    img: '../assets/dailynote.svg',
+  }),
+
 ]
 
 
