@@ -5,7 +5,7 @@ import { openSearchMenu } from './search.js'
 import { createFolder, fileTreeEl, toggleFileHolder } from './filetree.js'
 import { createDefaultTab, getCountHolder, openFile, toggleNoteMode, updateCountHolder, switchToNextTab, switchToPrevTab } from './tabs.js'
 import { createQuickCaputeEl } from './quickcapture.js'
-import { openSettingsMenu } from './settings.js'
+import { toggleSettingsMenu } from './settings.js'
 import { openAndCloseSidebar, createModuleMenu } from './sidebar/sidebar.js'
 import { createDailyNote } from './navbar.js';
 
@@ -73,7 +73,7 @@ function handleKeydown(e){
       createQuickCaputeEl()
       break
     case 'm':
-      openSettingsMenu()
+      toggleSettingsMenu()
       break
     case '/':
       openAndCloseSidebar()

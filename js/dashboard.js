@@ -1,7 +1,6 @@
 import { currentTabEl } from './tabs.js';
 import { createNewNote } from './editor.js';
 import { openSearchMenu } from './search.js';
-import { openSettingsMenu } from './settings.js';
 import { LEADER_KEY } from './shortcuts.js';
 
 class DashboardShortcut {

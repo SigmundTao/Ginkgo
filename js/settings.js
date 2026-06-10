@@ -10,12 +10,22 @@ const pomodoroBtn = document.getElementById('pomodoro-btn');
 
 const savedTheme = localStorage.getItem('theme') || 'sakura';
 
-export function openSettingsMenu(){
+function openSettingsMenu(){
     settingEl.showModal()
 }
 
 function closeSettingsMenu(){
     settingEl.close()
+}
+
+export function toggleSettingsMenu(){
+  if(settingEl.classList.contains('.settings-closed')){
+    openSettingsMenu()
+    settingEl.classList.toggle('.settings-closed');
+  } else {
+    closeSettingsMenu()
+    settingEl.classList.toggle('.settings-closed');
+  }
 }
 
 function setTheme(theme){
