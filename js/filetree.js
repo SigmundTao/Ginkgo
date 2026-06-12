@@ -77,7 +77,7 @@ class FileCard {
         card.addEventListener('click', () => { openFile(this.file.id) })
         this.addDragEventListner(card)
         const type = this.file.type
-        const imgSrc = returnImgBasedOnFileType(type, this.lastOfFolder)
+        const imgSrc = returnImgBasedOnFileType(type, this.lastOfFolder, this.id)
         card.classList.add('file-card')
         const fileCardHeader = document.createElement('div')
         fileCardHeader.classList.add('file-card-header')
@@ -174,10 +174,14 @@ function isDescendant(draggedId, targetId){
     return false
 }
 
-function returnImgBasedOnFileType(fileType, lastOfFolder){
-    if(lastOfFolder) return '../assets/filetree-el.svg';
+function returnImgBasedOnFileType(fileType, lastOfFolder, fileId){
+    console.log(openFolderIds.has(fileId))
+    if(lastOfFolder && fileType !== 'folder') return '../assets/filetree-el.svg';
     else if(fileType === 'note') return './assets/filetree-file.svg'
-    else if(fileType === 'folder') return './assets/empty-folder.svg'
+    else if(fileType === 'folder'){
+      if(openFolderIds.has(fileId))return '../assets/folder-open.svg';
+      else return '../assets/folder-closed.svg';
+    } 
 }
 
 export function createFolder(){
