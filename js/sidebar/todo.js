@@ -202,6 +202,7 @@ function createDeleteBtn(posX, posY, listName) {
 }
 
 function deleteList(listName){
+  if(todoData.lists.length <= 1) return;
   todoData.lists.splice(findListIndex(listName), 1)
   updateTodoData()
 }

@@ -10,6 +10,7 @@ const createFolderBtn = document.getElementById('create-folder-btn')
 const pinnedDisplayEl = document.getElementById('pinned')
 
 createNoteBtn.addEventListener('click', () => createNewNote(false))
+createFolderBtn.addEventListener('click', createFolder)
 
 fileTreeContainerEl.addEventListener('dragenter', dragEnter)
 fileTreeContainerEl.addEventListener('dragover', dragOver)
@@ -33,36 +34,41 @@ export function renderFiletree(){
     highlightSelectedFile(selectedFileId)
 }
 
-function renderFolder(folder, depth = 0, container){
-    const folderCard = new FileCard(folder, container)
+function renderFolder(folder, depth = 0, container, lastOfFolder) {
+    const folderCard = new FileCard(folder, container, lastOfFolder)
     folderCard.element.style.paddingLeft = `${depth * 12}px`
     container.appendChild(folderCard.element)
-    
-    if(!openFolderIds.has(folder.id)) return
-    
+
+    if (!openFolderIds.has(folder.id)) return
+
     const folderContents = files.filter(f => f.parentId === folder.id)
-    folderContents.forEach(file => {
-        if(file.type === 'folder'){
-            renderFolder(file, depth + 1, container)
+    const lastIndex = folderContents.length - 1;
+
+    folderContents.forEach((file, index) => {
+        const isLast = index === lastIndex;
+
+        if (file.type === 'folder') {
+            renderFolder(file, depth + 1, container, isLast)
         } else {
-            const card = renderFile(file)
+            const card = renderFile(file, isLast);
             card.style.paddingLeft = `${(depth + 1) * 12}px`
             container.appendChild(card)
         }
     })
 }
 
-function renderFile(file){
-    const fileCard = new FileCard(file)
+function renderFile(file, lastOfFolder){
+    const fileCard = new FileCard(file, fileTreeContainerEl, lastOfFolder)
     return fileCard.element
 }
 
 class FileCard {
-    constructor(file, container = fileTreeContainerEl){
-        this.file = file
-        this.id = file.id
-        this.container = container
-        this.element = this.createElement()
+    constructor(file, container = fileTreeContainerEl, lastOfFolder){
+        this.file = file;
+        this.id = file.id;
+        this.container = container;
+        this.lastOfFolder = lastOfFolder;
+        this.element = this.createElement();
     }
 
     createElement(){
@@ -71,7 +77,7 @@ class FileCard {
         card.addEventListener('click', () => { openFile(this.file.id) })
         this.addDragEventListner(card)
         const type = this.file.type
-        const imgSrc = returnImgBasedOnFileType(type)
+        const imgSrc = returnImgBasedOnFileType(type, this.lastOfFolder)
         card.classList.add('file-card')
         const fileCardHeader = document.createElement('div')
         fileCardHeader.classList.add('file-card-header')
@@ -168,8 +174,9 @@ function isDescendant(draggedId, targetId){
     return false
 }
 
-function returnImgBasedOnFileType(fileType){
-    if(fileType === 'note') return './assets/file.svg'
+function returnImgBasedOnFileType(fileType, lastOfFolder){
+    if(lastOfFolder) return '../assets/filetree-el.svg';
+    else if(fileType === 'note') return './assets/filetree-file.svg'
     else if(fileType === 'folder') return './assets/empty-folder.svg'
 }
 
