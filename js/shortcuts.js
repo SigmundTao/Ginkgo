@@ -6,7 +6,7 @@ import { createFolder, fileTreeEl, toggleFileHolder } from './filetree.js'
 import { createDefaultTab, getCountHolder, openFile, toggleNoteMode, updateCountHolder, switchToNextTab, switchToPrevTab } from './tabs.js'
 import { createQuickCaputeEl } from './quickcapture.js'
 import { toggleSettingsMenu } from './settings.js'
-import { openAndCloseSidebar, createModuleMenu } from './sidebar/sidebar.js'
+import { openAndCloseSidebar, createModuleMenu, modules } from './sidebar/sidebar.js'
 import { createDailyNote } from './navbar.js';
 
 export const LEADER_KEY = 'Alt'; // swap to 'Control' for Electron
@@ -86,6 +86,15 @@ function handleKeydown(e){
       break
     case 'l':
       switchToNextTab()
+      break
+    case '1':
+      modules[0].createModule()
+      break
+    case '2':
+      modules[1].createModule()
+      break
+    case '3':
+      modules[2].createModule()
       break
   }
 }

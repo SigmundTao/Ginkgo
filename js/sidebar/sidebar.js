@@ -54,7 +54,7 @@ class Module {
     }
 }
 
-const modules = [
+export const modules = [
     new Module({id:'todo-module', title: 'todo', image: 'assets/todo.svg', element:createToDoList}),
     new Module({id:'timer-module', title: 'timer', image: 'assets/timer.svg', element:() => createPomodoroModule(true)}), 
     new Module({id:'flashcard-module', title: 'flashcards', image: 'assets/flashcards.svg', element:() => createFlashcardModule(true)}), 
@@ -75,8 +75,8 @@ export function createModuleMenu(){
     sidebarContents.appendChild(moduleMenuEl)
 }
 
-function removeModuleMenu (){
-    document.querySelector('.module-menu').remove()
+export function removeModuleMenu (){
+    document.querySelector('.module-menu')?.remove()
 }
 
 function initAddModuleBtn(){
