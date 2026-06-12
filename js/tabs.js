@@ -250,7 +250,7 @@ function getMarkdownEl(){
     return document.getElementById('markdown-div')
 }
 
-export function toggleEditMode(){
+export function toggleNoteView(){
     const bodyInput = getBodyInput()
     const markdownEl = getMarkdownEl()
 
