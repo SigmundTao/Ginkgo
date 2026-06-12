@@ -1,7 +1,7 @@
 import { currentTabEl } from './tabs.js';
 import { createNewNote } from './editor.js';
 import { openSearchMenu } from './search.js';
-import { LEADER_KEY } from './shortcuts.js';
+import { SUPER } from './shortcuts.js';
 
 class DashboardShortcut {
   constructor(shortcutObj){
@@ -43,32 +43,32 @@ class DashboardShortcut {
 const DASHBOARD_SHORTCUTS = [
   new DashboardShortcut({
     name: 'New File',
-    key: `${LEADER_KEY} + n`,
+    key: `${SUPER} + n`,
     img: '../assets/file.svg',
   }),
   new DashboardShortcut({
     name: 'Find File',
-    key: `${LEADER_KEY} + f`,
+    key: `${SUPER} + f`,
     img: '../assets/file.svg',
   }),
   new DashboardShortcut({
     name: 'Config',
-    key: `${LEADER_KEY} + m`,
+    key: `${SUPER} + m`,
     img: '../assets/settings.svg',
   }),
   new DashboardShortcut({
     name: 'Daily Note',
-    key: `${LEADER_KEY} + d`,
+    key: `${SUPER} + d`,
     img: '../assets/dailynote.svg',
   }),
   new DashboardShortcut({
     name: 'Toggle Filetree',
-    key: `${LEADER_KEY} + i`,
+    key: `${SUPER} + i`,
     img: '../assets/dailynote.svg',
   }),
   new DashboardShortcut({
     name: 'Toggle Toolbar',
-    key: `${LEADER_KEY} + /`,
+    key: `${SUPER} + /`,
     img: '../assets/dailynote.svg',
   }),
 

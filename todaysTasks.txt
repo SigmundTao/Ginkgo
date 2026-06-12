@@ -1,0 +1,1 @@
+[] Create custom keybinds and let users configure them in the settings
