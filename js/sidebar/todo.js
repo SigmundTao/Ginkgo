@@ -125,13 +125,22 @@ function renderSelectOptions(selectEl, selectValue) {
   selectEl.value = selectValue;
 }
 
+function getSelectedListEl(){
+  return document.querySelector('.custom-select-selected');
+}
+
+function updateSelectedListEl(){
+  const element = getSelectedListEl()
+  element.textContent = `用${currentList}`
+}
+
 function createCustomSelect(listsContainer, taskContainer) {
   const wrapper = document.createElement('div');
   wrapper.classList.add('custom-select');
 
   const selected = document.createElement('div');
   selected.classList.add('custom-select-selected');
-  selected.textContent = `用${currentList}`;
+  selected.textContent = `用${currentList}`
 
   const dropdown = document.createElement('div');
   dropdown.classList.add('custom-select-dropdown');
@@ -146,7 +155,7 @@ function createCustomSelect(listsContainer, taskContainer) {
 
       item.addEventListener('click', () => {
         currentList = list.name;
-        selected.textContent = `用${list.name}`;
+        selected.textContent = `用${currentList}`
         dropdown.style.display = 'none';
         renderToDos(taskContainer);
       });
@@ -222,6 +231,7 @@ function createListNameInput(inputContainer, containerEl, renderOptions) {
       input.remove();
       updateTodoData();
       currentList = input.value.trim();
+      updateSelectedListEl()
       renderOptions();
       renderToDos(containerEl);
     }
