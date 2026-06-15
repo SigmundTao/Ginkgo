@@ -4,7 +4,7 @@ import { files, idNum, currentFolderId, incrementIdNum } from "./state.js";
 import { updateFileData, getFormattedDate } from "./storage.js";
 import { currentTabEl } from "./tabs.js";
 
-export function createQuickCaputeEl(){
+export function createQuickCaptureEl(){
     const quickCaptureEl = document.createElement('div')
     quickCaptureEl.classList.add('quick-capture')
     quickCaptureEl.innerHTML = `

@@ -1,5 +1,4 @@
 [] be able to remove lists
-[] remove filetree navbar and add logo with name instead
 [] update all icons to the right colour
 [] shrink all buttons to maximize whitespace
 [] nvim dashboard style default tab

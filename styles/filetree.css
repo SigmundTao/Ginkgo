@@ -101,6 +101,7 @@
 
 .folder-contents.showing-contents {
     display: flex;
+    background-image: url('../assets/folder-open.svg')
 }
 
 .drag-over.file-card {

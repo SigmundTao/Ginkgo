@@ -229,7 +229,7 @@ function createNoteView(file){
     titleInput.addEventListener('keydown', (e) => {
         if(e.key === 'Enter'){
             saveNote(file)
-            toggleNoteMode()
+            toggleEditMode()
             noteContentInput.focus()
         }
     })
@@ -250,7 +250,7 @@ function getMarkdownEl(){
     return document.getElementById('markdown-div')
 }
 
-export function toggleNoteMode(){
+export function toggleNoteView(){
     const bodyInput = getBodyInput()
     const markdownEl = getMarkdownEl()
 
@@ -261,6 +261,8 @@ export function toggleNoteMode(){
             switchToDisplayMode(bodyInput, markdownEl)
         }
     }
+    
+    updateCountHolder(getCountHolder(), files[getFileIndex(selectedFileId)], currentNoteMode)
 }
     
 
