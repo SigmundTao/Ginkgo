@@ -42,17 +42,19 @@ function createTaskCard(taskDataObj) {
     const removeTaskBtn = document.createElement('button');
     removeTaskBtn.textContent = 'x';
 
-    removeTaskBtn.addEventListener('click', () => {
-        todoData.splice(findTaskIndex(title.textContent), 1);
+    removeTaskBtn.addEventListener('click', () => removeTask(title.textContent));
 
-        updateTodoData()
-        renderToDos(document.querySelector('.task-container'))
-    })
     card.appendChild(checkbox);
     card.appendChild(title);
     card.appendChild(removeTaskBtn);
 
     return card;
+}
+
+function removeTask(taskName){
+  todoDAta.lists[findListIndex(currentList)].tasks.splice(findTaskIndex(taskName), 1);
+  updateTodoData()
+  renderToDos(document.querySelector('.task-container'))
 }
 
 function findTaskIndex(taskTitle) {

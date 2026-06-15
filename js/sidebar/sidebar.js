@@ -48,7 +48,12 @@ class Module {
             <p>${this.title}</p>
         `
         menuItem.addEventListener('click', this.createModule.bind(this));
-        menuItem.addEventListener('click', removeModuleMenu);
+        menuItem.addEventListener('click', () => {
+          removeModuleMenu()
+          if(toolbar.classList.contains('closed-sidebar')){
+            openAndCloseSidebar()
+          }
+        });
 
         return menuItem;
     }
