@@ -1,5 +1,5 @@
 import { USER, updateUserData } from "./user.js"
-import { openTabs, getFileIndex, idNum, currentFolderId, incrementIdNum, setSelectedFileId, setAppState, getTabIndexFromFileId } from "./state.js"
+import { getFileIndex, idNum, currentFolderId, incrementIdNum, setSelectedFileId, setAppState, getTabIndexFromFileId } from "./state.js"
 import { getFormattedDate, checkForDuplicateTitles } from "./storage.js"
 import { renderTabs, checkForDefaultTabs, createTab, overwriteDefaultTab, loadTab } from "./tabs.js"
 import { renderFiletree } from "./filetree.js"
@@ -58,7 +58,7 @@ export function createNewNote(isDailyNote){
     })
     if(checkForDefaultTabs() !== -1){
         overwriteDefaultTab(id)
-        loadTab(openTabs[getTabIndexFromFileId(id)].id)
+        loadTab(USER.tabs[getTabIndexFromFileId(id)].id)
         renderTabs()
     } else {
         createTab(id)

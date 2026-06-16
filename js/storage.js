@@ -1,5 +1,4 @@
 import { USER } from './user.js'
-import { openTabs } from './state.js'
 
 export function getFileIndex(id){
     const index = USER.files.findIndex(i => i.id === Number(id))
@@ -13,12 +12,4 @@ export function checkForDuplicateTitles(title, id){
 
 export function getFormattedDate(dateObj){
     return `${dateObj.getDate()}-${dateObj.getMonth() + 1}-${dateObj.getFullYear()}`
-}
-
-export function updateOpenTabs(){
-    localStorage.setItem('tabs', JSON.stringify(openTabs))
-}
-
-export function updateTodoData(){
-    localStorage.setItem('todoData', JSON.stringify(todoData))
 }

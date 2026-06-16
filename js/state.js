@@ -25,19 +25,18 @@ export function setCurrentNoteMode(mode){
 }
 
 /// Tabs
-export const openTabs = JSON.parse(localStorage.getItem('tabs')) || []
-export let tabId = openTabs.length > 0 ? Math.max(...openTabs.map(n => n.id)) + 1 : 1
+export let tabId = USER.tabs.length > 0 ? Math.max(...USER.tabs.map(n => n.id)) + 1 : 1
 
 export function incrementTabId(){
     tabId++
 }
 
 export function getTabIndex(id){
-    return openTabs.findIndex(t => t.id === id)
+    return USER.tabs.findIndex(t => t.id === id)
 }
 
 export function getTabIndexFromFileId(fileId){
-    return openTabs.findIndex(tab => tab.file === fileId)
+    return USER.tabs.findIndex(tab => tab.file === fileId)
 }
 
 export function setCurrentTabId(id){

@@ -1,6 +1,6 @@
-import { USER } from "./user.js"
-import { openTabs, setCurrentTabId, tabId, currentTabId, getTabIndex, getTabIndexFromFileId, incrementTabId, setSelectedFileId, currentNoteMode, setCurrentNoteMode } from "./state.js"
-import { checkForDuplicateTitles, getFileIndex, updateOpenTabs } from "./storage.js"
+import { USER, updateUserData } from "./user.js"
+import { setCurrentTabId, tabId, currentTabId, getTabIndex, getTabIndexFromFileId, incrementTabId, setSelectedFileId, currentNoteMode, setCurrentNoteMode } from "./state.js"
+import { checkForDuplicateTitles, getFileIndex } from "./storage.js"
 import { highlightSelectedFile, getTitleInput, getBodyInput, saveNote } from "./editor.js"
 import { deleteFile } from "./filetree.js"
 import { marked } from './markdown.js'
@@ -15,19 +15,19 @@ let noteDebounce
 visualizerBtn.addEventListener('click', () => {
     const visualizerIndex = checkForVisualizerTab()
     if(visualizerIndex !== -1){
-        switchToTab(openTabs[visualizerIndex].id)
+        switchToTab(USER.tabs[visualizerIndex].id)
     } else {
         createTab('visualizer')
     }
 });
 
 export function createTab(fileId){
-    openTabs.push({file: fileId, id: tabId})
+    USER.tabs.push({file: fileId, id: tabId})
     setCurrentTabId(tabId)
     incrementTabId()
     loadTab(currentTabId)
     renderTabs()
-    updateOpenTabs()
+    updateUserData()
 }
 
 function createVisualizerView(){
@@ -39,7 +39,7 @@ export function loadTab(id){
     const tabIndex = getTabIndex(id)
     if(tabIndex === -1) return
 
-    const fileId = openTabs[tabIndex].file
+    const fileId = USER.tabs[tabIndex].file
 
     if(fileId === null){
         createDefaultView()
@@ -58,12 +58,12 @@ export function loadTab(id){
 }
 
 function checkForVisualizerTab(){
-    return openTabs.findIndex(t => t.file === 'visualizer')
+    return USER.tabs.findIndex(t => t.file === 'visualizer')
 }
 
 export function createDefaultTab(){
     if(checkForDefaultTabs() !== -1){
-        switchToTab(openTabs[openTabs.findIndex(t => t.file === null)].id)
+        switchToTab(USER.tabs[USER.tabs.findIndex(t => t.file === null)].id)
         return
     }
     createTab(null)
@@ -77,20 +77,20 @@ export function switchToTab(id){
 
 export function switchToNextTab(){
   const currentIndex = getTabIndex(currentTabId)
-  if(currentIndex + 1 > openTabs.length - 1) return;
-  switchToTab(openTabs[currentIndex + 1].id)
+  if(currentIndex + 1 > USER.tabs.length - 1) return;
+  switchToTab(USER.tabs[currentIndex + 1].id)
 }
 
 export function switchToPrevTab(){
   const currentIndex = getTabIndex(currentTabId)
   if(currentIndex - 1 < 0) return;
-  switchToTab(openTabs[currentIndex - 1].id)
+  switchToTab(USER.tabs[currentIndex - 1].id)
 }
 
 export function deleteTab(id){
     const tabIndex = getTabIndex(id)
-    openTabs.splice(tabIndex, 1)
-    if(openTabs.length < 1){
+    USER.tabs.splice(tabIndex, 1)
+    if(USER.tabs.length < 1){
         currentTabEl.innerHTML = ''
         createDefaultTab()
         highlightSelectedFile(null)
@@ -98,7 +98,7 @@ export function deleteTab(id){
     }
 
     if(currentTabId === id){
-        const nextTab = openTabs[tabIndex] || openTabs[tabIndex - 1]
+        const nextTab = USER.tabs[tabIndex] || USER.tabs[tabIndex - 1]
         switchToTab(nextTab.id)
     } else {
         renderTabs()
@@ -107,7 +107,7 @@ export function deleteTab(id){
 
 export function renderTabs(){
     tabBar.innerHTML = ''
-    openTabs.forEach(tab => {
+    USER.tabs.forEach(tab => {
         const tabCard = createTabCard(tab)
         if(tab.id === currentTabId) tabCard.classList.add('current-tab')
         tabBar.appendChild(tabCard)
@@ -132,7 +132,7 @@ function createTabCard(tab){
     closeTabBtn.addEventListener('click', (e) => {
         e.stopPropagation()
         deleteTab(tab.id)
-        updateOpenTabs()
+        updateUserData()
     })
 
     tabCard.addEventListener('click', () => switchToTab(tab.id))
@@ -145,13 +145,13 @@ export function openFile(fileId){
     if(USER.files[getFileIndex(fileId)].type === 'folder') return
     if(checkIfTabExists(fileId)){
         const tabIndex = getTabIndexFromFileId(fileId)
-        switchToTab(openTabs[tabIndex].id)
+        switchToTab(USER.tabs[tabIndex].id)
     } else {
         if(checkForDefaultTabs() !== -1){
             overwriteDefaultTab(fileId)
-            loadTab(openTabs[getTabIndexFromFileId(fileId)].id)
-            const defaultTabIndex = openTabs.findIndex(t => t.file === fileId)
-            switchToTab(openTabs[defaultTabIndex].id)
+            loadTab(USER.tabs[getTabIndexFromFileId(fileId)].id)
+            const defaultTabIndex = USER.tabs.findIndex(t => t.file === fileId)
+            switchToTab(USER.tabs[defaultTabIndex].id)
         } else {
             createTab(fileId)
         }
@@ -159,11 +159,11 @@ export function openFile(fileId){
 }
 
 export function checkForDefaultTabs(){
-    return openTabs.findIndex(t => t.file === null)
+    return USER.tabs.findIndex(t => t.file === null)
 }
 
 export function checkIfTabExists(fileId){
-    return openTabs.findIndex(t => t.file === fileId) !== -1
+    return USER.tabs.findIndex(t => t.file === fileId) !== -1
 }
 
 function createDefaultView(){
@@ -312,8 +312,8 @@ function getCharacterCount(file){
 export function overwriteDefaultTab(fileId){
     const defaultTabIndex = getTabIndexFromFileId(null)
 
-    openTabs[defaultTabIndex].file = fileId
+    USER.tabs[defaultTabIndex].file = fileId
 
-    updateOpenTabs()
+    updateUserData()
 }
 

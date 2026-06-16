@@ -1,6 +1,6 @@
 import { USER, updateUserData } from "./user.js"
 import { createNewNote, highlightSelectedFile } from './editor.js';
-import { currentFolderId, isFileHolderOpen, toggleFileHolderState, incrementIdNum, idNum, getSelectedFileId, setSelectedFileId, setAppState, setDraggedElid, getDraggedElId, selectedFileId, openTabs, getTabIndexFromFileId, openFolderIds } from './state.js'
+import { currentFolderId, isFileHolderOpen, toggleFileHolderState, incrementIdNum, idNum, getSelectedFileId, setSelectedFileId, setAppState, setDraggedElid, getDraggedElId, selectedFileId, getTabIndexFromFileId, openFolderIds } from './state.js'
 import { getFileIndex, getFormattedDate } from './storage.js'
 import { openFile, checkIfTabExists, deleteTab } from './tabs.js';
 
@@ -176,7 +176,6 @@ function isDescendant(draggedId, targetId){
 }
 
 function returnImgBasedOnFileType(fileType, lastOfFolder, fileId){
-    console.log(openFolderIds.has(fileId))
     if(lastOfFolder && fileType !== 'folder') return '../assets/filetree-el.svg';
     else if(fileType === 'note') return './assets/filetree-file.svg'
     else if(fileType === 'folder'){
@@ -294,7 +293,7 @@ export function deleteFile(id){
         setAppState('Idle')
     }
     if(checkIfTabExists(id)){
-        deleteTab(openTabs[getTabIndexFromFileId(id)].id)
+        deleteTab(USER.tabs[getTabIndexFromFileId(id)].id)
     }
 }
 
@@ -347,7 +346,6 @@ function createRenameBtn(file, menu){
 }
 
 function changeTitleToInput(element, file){
-    console.log(element)
     element.innerHTML = ``;
     const input = document.createElement('input');
     input.classList.add('temp-card-input');
