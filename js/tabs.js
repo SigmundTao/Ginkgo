@@ -229,8 +229,9 @@ function createNoteView(file){
 
     titleInput.addEventListener('keydown', (e) => {
         if(e.key === 'Enter'){
+            console.log(e.key)
             saveNote(file)
-            toggleEditMode()
+            switchToEditMode(noteContentInput, markdownDisplay)
             noteContentInput.focus()
         }
     })

@@ -11,6 +11,7 @@ export let isFileHolderOpen = true
 export const openFolderIds = new Set()
 export let currentNoteMode = 'display'
 export const openModules = [];
+const idleScreenEl = document.getElementById('idle-screen');
 
 export function addOpenModule(moduleTitle){
     openModules.push(moduleTitle)
@@ -42,9 +43,6 @@ export function getTabIndexFromFileId(fileId){
 export function setCurrentTabId(id){
     currentTabId = id
 }
-
-
-const idleScreenEl = document.getElementById('idle-screen');
 
 export function setAppState(state){
     if(!APP_STATES.includes(state)){
