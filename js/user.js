@@ -6,6 +6,11 @@ export const USER = JSON.parse(localStorage.getItem('user')) || {
       {name: 'todo', tasks: []}
     ],
   },
+  settings: {
+    appearance: {
+      dashboardLogo: 'assets/kangae-logo.svg'
+    }
+  }
 }
 
 export function updateUserData(){

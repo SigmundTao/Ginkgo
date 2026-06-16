@@ -1,8 +1,10 @@
-import { createFlashcardModule } from "./sidebar/flashcards.js";
-import { createPomodoroModule } from "./sidebar/pomodoro.js";
-import { createKeybindMenu } from "./settings/keybindMenu.js";
+import { createAppearanceMenu } from "./appearance.js"
+import { createFlashcardModule } from "../sidebar/flashcards.js";
+import { createPomodoroModule } from "../sidebar/pomodoro.js";
+import { createKeybindMenu } from "./keybindMenu.js";
 
 const settingEl = document.getElementById('settings');
+const appearanceBtn = document.getElementById('appearance-btn');
 const closeSettingsBtn = document.getElementById('close-settings-btn');
 const openSettingsBtn = document.getElementById('settings-btn');
 const settingsOutputEl = document.getElementById('settings-output');
@@ -45,6 +47,8 @@ export function initSettings(){
   pomodoroBtn.addEventListener('click', () => render(createPomodoroModule(false)))
 
   keybindBtn.addEventListener('click', () => render(createKeybindMenu()))
+
+  appearanceBtn.addEventListener('click', () => render(createAppearanceMenu()))
 }
 
 function render(element){

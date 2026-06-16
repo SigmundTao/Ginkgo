@@ -1,7 +1,8 @@
-import { currentTabEl } from './tabs.js';
-import { createNewNote } from './editor.js';
-import { openSearchMenu } from './search.js';
-import { SUPER } from './shortcuts.js';
+import { USER } from './user.js'
+import { currentTabEl } from './tabs.js'
+import { createNewNote } from './editor.js'
+import { openSearchMenu } from './search.js'
+import { SUPER } from './shortcuts.js'
 
 class DashboardShortcut {
   constructor(shortcutObj){
@@ -83,7 +84,7 @@ export function createDashboard(){
   currentTabEl.appendChild(dashboard);
 
   const logo = document.createElement('img');
-  logo.src = `assets/kangae-logo.svg`;
+  logo.src = USER.settings.appearance.dashboardLogo;
   logo.classList.add('dashboard-logo');
   dashboard.appendChild(logo);
 
