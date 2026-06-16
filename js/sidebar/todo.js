@@ -1,26 +1,22 @@
-import { updateTodoData } from "../storage.js";
+import { USER, updateUserData } from "../user.js";
 
 const toDoBtn = document.getElementById('to-do-btn');
 let currentList = 'todo';
 
-export const todoData = JSON.parse(localStorage.getItem('todoData')) || {lists: [
-  {name: 'todo', tasks: [/*{taskName: 'name', completed: false}*/]}
-]}
- 
 function renderToDos(container) {
     container.innerHTML = ``
 
-    if(!todoData.lists[findListIndex(currentList)].tasks.length){
+    if(!USER.todo.lists[findListIndex(currentList)].tasks.length){
         container.textContent = 'Press + to create a task';
     } else {
-        todoData.lists[findListIndex(currentList)].tasks.forEach(task => {
+        USER.todo.lists[findListIndex(currentList)].tasks.forEach(task => {
            container.appendChild(createTaskCard(task)); 
         });
     }
 }
 
 function createTaskCard(taskDataObj) {
-    const task = todoData.lists[findListIndex(currentList)].tasks[findTaskIndex(taskDataObj.taskName)];
+    const task = USER.todo.lists[findListIndex(currentList)].tasks[findTaskIndex(taskDataObj.taskName)];
     const card = document.createElement('li');
     card.classList.add('task-card');
 
@@ -29,7 +25,7 @@ function createTaskCard(taskDataObj) {
     if(taskDataObj.completed) checkbox.checked = true;
     checkbox.addEventListener('change', () => {
       task.completed = !task.completed;
-      updateTodoData();
+      updateUserData();
     })
 
     const title = document.createElement('p');
@@ -53,12 +49,12 @@ function createTaskCard(taskDataObj) {
 
 function removeTask(taskName){
   todoDAta.lists[findListIndex(currentList)].tasks.splice(findTaskIndex(taskName), 1);
-  updateTodoData()
+  updateUserData()
   renderToDos(document.querySelector('.task-container'))
 }
 
 function findTaskIndex(taskTitle) {
-    return todoData.lists[findListIndex(currentList)].tasks.findIndex(task => task.taskName === taskTitle)
+    return USER.todo.lists[findListIndex(currentList)].tasks.findIndex(task => task.taskName === taskTitle)
 }
 
 function createTask(container) {
@@ -68,8 +64,8 @@ function createTask(container) {
 
     taskInput.addEventListener('keydown', (e) => {
         if(e.key === 'Enter'){
-            todoData.lists[findListIndex(currentList)].tasks.push({taskName: taskInput.value, completed: false});
-            updateTodoData()
+            USER.todo.lists[findListIndex(currentList)].tasks.push({taskName: taskInput.value, completed: false});
+            updateUserData()
             renderToDos(container)
         }
     })
@@ -118,7 +114,7 @@ export function createToDoList() {
 function renderSelectOptions(selectEl, selectValue) {
   selectEl.innerHTML = ``
 
-  todoData.lists.forEach(list => {
+  USER.todo.lists.forEach(list => {
       selectEl.appendChild(createSelectOption(list.name))
   })
 
@@ -148,7 +144,7 @@ function createCustomSelect(listsContainer, taskContainer) {
 
   const renderOptions = () => {
     dropdown.innerHTML = '';
-    todoData.lists.forEach(list => {
+    USER.todo.lists.forEach(list => {
       const item = document.createElement('div');
       item.classList.add('custom-select-item');
       item.textContent = list.name;
@@ -199,8 +195,8 @@ function createDeleteBtn(posX, posY, listName) {
 
   deleteBtn.addEventListener('click', () => {
     deleteList(listName);
-    currentList = todoData.lists[0].name;
-    renderSelectOptions(document.querySelector('.list-select'), todoData.lists[0].name);
+    currentList = USER.todo.lists[0].name;
+    renderSelectOptions(document.querySelector('.list-select'), USER.todo.lists[0].name);
     renderToDos(document.querySelector('.task-container'));
     deleteBtn.remove();
   });
@@ -213,13 +209,13 @@ function createDeleteBtn(posX, posY, listName) {
 }
 
 function deleteList(listName){
-  if(todoData.lists.length <= 1) return;
-  todoData.lists.splice(findListIndex(listName), 1)
-  updateTodoData()
+  if(USER.todo.lists.length <= 1) return;
+  USER.todo.lists.splice(findListIndex(listName), 1)
+  updateUserData()
 }
 
 function findListIndex(listName) {
-  return todoData.lists.findIndex(target => target.name === listName)
+  return USER.todo.lists.findIndex(target => target.name === listName)
 }
 
 function createListNameInput(inputContainer, containerEl, renderOptions) {
@@ -227,9 +223,9 @@ function createListNameInput(inputContainer, containerEl, renderOptions) {
 
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
-      todoData.lists.push({ name: input.value.trim(), tasks: [] });
+      USER.todo.lists.push({ name: input.value.trim(), tasks: [] });
       input.remove();
-      updateTodoData();
+      updateUserData();
       currentList = input.value.trim();
       updateSelectedListEl()
       renderOptions();
