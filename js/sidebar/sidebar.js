@@ -1,5 +1,6 @@
-import { createPomodoroModule, countDown as timerIntervalID } from "./timer.js"
-import { createToDoList, todoData } from "./todo.js"
+import { USER, updateUserData } from "../user.js"
+import { createPomodoroModule, countDown as timerIntervalID } from "./pomodoro.js"
+import { createToDoList } from "./todo.js"
 import { openModules, removeOpenModule, addOpenModule } from "../state.js"
 import { createFlashcardModule } from "./flashcards.js"
 

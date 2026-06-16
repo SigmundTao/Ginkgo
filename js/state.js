@@ -1,10 +1,11 @@
-export const files = JSON.parse(localStorage.getItem('files'))|| []
+import { USER } from "./user.js"
+
 export let selectedFileId = null
 export let currentFolderId = null
 export let currentAppState = 'Idle'
 export let currentTabId = null
 export let draggedElId = null
-export let idNum = files.length > 0 ? Math.max(...files.map(n => n.id)) + 1 : 1
+export let idNum = USER.files.length > 0 ? Math.max(...USER.files.map(n => n.id)) + 1 : 1
 export const APP_STATES = ['Idle', 'Editing', 'Creating']
 export let isFileHolderOpen = true
 export const openFolderIds = new Set()
@@ -55,11 +56,11 @@ export function setAppState(state){
 }
 
 export function getFileIndex(id){
-    return files.findIndex(file => file.id === Number(id))
+    return USER.files.findIndex(file => file.id === Number(id))
 }
 
 export function getCurrentFolderContents(){
-    return files.filter(f => f.parentId === currentFolderId)
+    return USER.files.filter(f => f.parentId === currentFolderId)
 }
 
 export function setCurrentFolderId(id){

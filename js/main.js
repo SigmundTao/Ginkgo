@@ -4,7 +4,7 @@ import { initShortcuts } from './shortcuts.js'
 import { initNavBar } from './navbar.js'
 import { createDefaultTab, renderTabs, switchToTab } from './tabs.js'
 import { initSettings } from './settings.js'
-import { openTabs, files } from './state.js'
+import { openTabs} from './state.js'
 import { initRightSidebar } from './sidebar/sidebar.js'
 
 initSearch()
@@ -23,4 +23,3 @@ if(!openTabs.length >= 1){
 
 renderTabs()
 renderPinnedFiles()
-files.forEach(file => console.log(file.type))

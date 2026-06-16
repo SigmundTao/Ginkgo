@@ -1,4 +1,4 @@
-import { files } from './state.js';
+import { USER } from './user.js';
 import { openFile } from './tabs.js';
 
 const currentTabEl = document.getElementById('current-tab');
@@ -20,7 +20,7 @@ function renderVisualizerPanel() {
   // Build clean file list
   const allFiles = [
     { id: 'root', name: 'Ginkgo', parentId: null, type: 'root' },
-    ...files.map(f => ({ ...f, name: f.title, parentId: f.parentId ?? 'root' }))
+    ...USER.files.map(f => ({ ...f, name: f.title, parentId: f.parentId ?? 'root' }))
   ];
 
   let cleanFiles = allFiles;

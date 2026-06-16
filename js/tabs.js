@@ -1,4 +1,5 @@
-import { openTabs, setCurrentTabId, tabId, currentTabId, getTabIndex, getTabIndexFromFileId, incrementTabId, files, setSelectedFileId, currentNoteMode, setCurrentNoteMode } from "./state.js"
+import { USER } from "./user.js"
+import { openTabs, setCurrentTabId, tabId, currentTabId, getTabIndex, getTabIndexFromFileId, incrementTabId, setSelectedFileId, currentNoteMode, setCurrentNoteMode } from "./state.js"
 import { checkForDuplicateTitles, getFileIndex, updateOpenTabs } from "./storage.js"
 import { highlightSelectedFile, getTitleInput, getBodyInput, saveNote } from "./editor.js"
 import { deleteFile } from "./filetree.js"
@@ -49,7 +50,7 @@ export function loadTab(id){
         highlightSelectedFile()
         createVisualizerView()
     }else {
-        const file = files[getFileIndex(fileId)]
+        const file = USER.files[getFileIndex(fileId)]
         setSelectedFileId(file.id)
         highlightSelectedFile(file.id)
         createNoteView(file)
@@ -122,7 +123,7 @@ function createTabCard(tab){
     if(tab.file === 'visualizer') {
         tabTitle.textContent = 'Visualizer'
     } else {
-        tabTitle.textContent = tab.file ? files[getFileIndex(tab.file)].title : 'Dashboard'
+        tabTitle.textContent = tab.file ? USER.files[getFileIndex(tab.file)].title : 'Dashboard'
     }
 
     const closeTabBtn = document.createElement('button')
@@ -141,7 +142,7 @@ function createTabCard(tab){
 }
 
 export function openFile(fileId){
-    if(files[getFileIndex(fileId)].type === 'folder') return
+    if(USER.files[getFileIndex(fileId)].type === 'folder') return
     if(checkIfTabExists(fileId)){
         const tabIndex = getTabIndexFromFileId(fileId)
         switchToTab(openTabs[tabIndex].id)
@@ -262,7 +263,7 @@ export function toggleNoteView(){
         }
     }
     
-    updateCountHolder(getCountHolder(), files[getFileIndex(selectedFileId)], currentNoteMode)
+    updateCountHolder(getCountHolder(), USER.files[getFileIndex(selectedFileId)], currentNoteMode)
 }
     
 

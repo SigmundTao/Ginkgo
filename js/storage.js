@@ -1,18 +1,14 @@
-import { files, openTabs } from './state.js'
-import { todoData } from './sidebar/todo.js'
-
-export function updateFileData(){
-    localStorage.setItem('files', JSON.stringify(files))
-}
+import { USER } from './user.js'
+import { openTabs } from './state.js'
 
 export function getFileIndex(id){
-    const index = files.findIndex(i => i.id === Number(id))
+    const index = USER.files.findIndex(i => i.id === Number(id))
     if(index === -1) console.warn('file not found for id: ', id)
     return index
 }
 
 export function checkForDuplicateTitles(title, id){
-    return files.some(file => file.id !== id && file.title === title)
+    return USER.files.some(file => file.id !== id && file.title === title)
 }
 
 export function getFormattedDate(dateObj){

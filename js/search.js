@@ -1,14 +1,15 @@
-import { files, idNum, incrementIdNum, currentFolderId } from './state.js'
+import { USER, updateUserData } from './user.js'
+import { idNum, incrementIdNum, currentFolderId } from './state.js'
 import { openFile, renderTabs } from './tabs.js'
 import { createNewNote } from './editor.js'
-import { updateFileData, getFormattedDate } from './storage.js'
+import { getFormattedDate } from './storage.js'
 import { renderFiletree } from './filetree.js'
 
 const searchMenu = document.getElementById('search-menu')
 const searchBarEl = document.getElementById('search-bar')
 const searchResultsEl = document.getElementById('search-results')
 
-let searchResults = [...files]
+let searchResults = [...USER.files]
 let searchDebounce
 
 export function initSearch(){
@@ -21,7 +22,7 @@ export function initSearch(){
 export function openSearchMenu(){
     searchBarEl.value = ''
     searchResultsEl.innerHTML = ''
-    displaySearchResults(files, searchResultsEl)
+    displaySearchResults(USER.files, searchResultsEl)
     searchMenu.showModal()
     searchBarEl.focus()
     window.addEventListener('click', () => closeSearchMenu(), { once: true })
@@ -34,7 +35,7 @@ export function closeSearchMenu(){
 function handleSearchInput(e){
     clearTimeout(searchDebounce)
     searchDebounce = setTimeout(() => {
-        searchResults = files.filter(item =>
+        searchResults = USER.files.filter(item =>
             item.title.toLowerCase().includes(e.target.value.toLowerCase()) ||
             item.body && item.body.toLowerCase().includes(e.target.value.toLowerCase())
         )
@@ -76,7 +77,7 @@ function createNoteFromMenu(){
     const date = getFormattedDate(new Date())
     const id = idNum
     const title = searchBarEl.value.trim('')
-    files.push({
+    USER.files.push({
         title: title,
         body: '',
         id,
@@ -87,7 +88,7 @@ function createNoteFromMenu(){
         tags: []
     })
 
-    updateFileData()
+    updateUserData()
     incrementIdNum()
     openFile(id)
     renderFiletree()

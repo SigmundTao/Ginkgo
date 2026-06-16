@@ -1,8 +1,9 @@
-import { getUntitledTitle } from "./editor.js";
-import { renderFiletree } from "./filetree.js";
-import { files, idNum, currentFolderId, incrementIdNum } from "./state.js";
-import { updateFileData, getFormattedDate } from "./storage.js";
-import { currentTabEl } from "./tabs.js";
+import { USER, updateUserData } from "./user.js"
+import { getUntitledTitle } from "./editor.js"
+import { renderFiletree } from "./filetree.js"
+import { idNum, currentFolderId, incrementIdNum } from "./state.js"
+import { getFormattedDate } from "./storage.js"
+import { currentTabEl } from "./tabs.js"
 
 export function createQuickCaptureEl(){
     const quickCaptureEl = document.createElement('div')
@@ -41,7 +42,7 @@ function quickCapture(content){
     const date = getFormattedDate(new Date())
     const id = idNum
     const title = getUntitledTitle()
-    files.push({
+    USER.files.push({
         title: title,
         body: content,
         id,
@@ -53,7 +54,7 @@ function quickCapture(content){
     })
 
     incrementIdNum()
-    updateFileData()
+    updateUserData()
     renderFiletree()
 }
 

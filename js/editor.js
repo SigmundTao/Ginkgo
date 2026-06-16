@@ -1,5 +1,6 @@
-import { openTabs, files, getFileIndex, idNum, currentFolderId, incrementIdNum, setSelectedFileId, setAppState, getTabIndexFromFileId } from "./state.js"
-import { getFormattedDate, updateFileData, checkForDuplicateTitles } from "./storage.js"
+import { USER, updateUserData } from "./user.js"
+import { openTabs, getFileIndex, idNum, currentFolderId, incrementIdNum, setSelectedFileId, setAppState, getTabIndexFromFileId } from "./state.js"
+import { getFormattedDate, checkForDuplicateTitles } from "./storage.js"
 import { renderTabs, checkForDefaultTabs, createTab, overwriteDefaultTab, loadTab } from "./tabs.js"
 import { renderFiletree } from "./filetree.js"
 
@@ -33,7 +34,7 @@ export function saveNote(file){
     file.lastEdited = getFormattedDate(new Date())
     setSelectedFileId(file.id)
     setAppState('Editing')
-    updateFileData()
+    updateUserData()
     renderFiletree()
     renderTabs()
 }
@@ -45,7 +46,7 @@ export function createNewNote(isDailyNote){
     if(isDailyNote){
         title = date
     }
-    files.push({
+    USER.files.push({
         title: title,
         body: '',
         id,
@@ -63,7 +64,7 @@ export function createNewNote(isDailyNote){
         createTab(id)
     }
     incrementIdNum()
-    updateFileData()
+    updateUserData()
     setSelectedFileId(id)
     setAppState('Editing')
     renderFiletree()
@@ -72,7 +73,7 @@ export function createNewNote(isDailyNote){
 }
 
 export function getUntitledTitle(){
-    const untitledTitles = new Set(files.filter(f => f.title.startsWith('Untitled')).map(f => f.title))
+    const untitledTitles = new Set(USER.files.filter(f => f.title.startsWith('Untitled')).map(f => f.title))
     if(!untitledTitles.has('Untitled')) return 'Untitled'
     let i = 1
     while(untitledTitles.has(`Untitled ${i}`)){

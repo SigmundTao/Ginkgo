@@ -1,5 +1,5 @@
 import { createFlashcardModule } from "./sidebar/flashcards.js";
-import { createPomodoroModule } from "./sidebar/timer.js";
+import { createPomodoroModule } from "./sidebar/pomodoro.js";
 import { createKeybindMenu } from "./settings/keybindMenu.js";
 
 const settingEl = document.getElementById('settings');

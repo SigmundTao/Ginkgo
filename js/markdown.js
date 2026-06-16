@@ -1,8 +1,9 @@
+import { USER } from "./user.js"
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked/+esm'
 import { getFormattedDate } from './storage.js'
 import { getBodyInput } from './editor.js'
 import { getWordCount } from './tabs.js'
-import { getFileIndex, selectedFileId, files } from './state.js'
+import { getFileIndex, selectedFileId } from './state.js'
 
 const highlightExtension = {
     name: 'highlight',
@@ -185,7 +186,7 @@ const wordCount = {
     tokenizer(src){
         const match = src.match(/^{{wordcount}}/)
         if(match){
-            const count = getWordCount(files[getFileIndex(selectedFileId)])
+            const count = getWordCount(USER.files[getFileIndex(selectedFileId)])
             return {
                 type: 'wordCount',
                 raw: match[0],

@@ -1,6 +1,7 @@
+import { USER, updateUserData } from "./user.js"
 import { createNewNote, highlightSelectedFile } from './editor.js';
-import { files, currentFolderId, isFileHolderOpen, toggleFileHolderState, incrementIdNum, idNum, getSelectedFileId, setSelectedFileId, setAppState, setDraggedElid, getDraggedElId, selectedFileId, openTabs, getTabIndexFromFileId, openFolderIds } from './state.js'
-import { getFileIndex, getFormattedDate, updateFileData } from './storage.js'
+import { currentFolderId, isFileHolderOpen, toggleFileHolderState, incrementIdNum, idNum, getSelectedFileId, setSelectedFileId, setAppState, setDraggedElid, getDraggedElId, selectedFileId, openTabs, getTabIndexFromFileId, openFolderIds } from './state.js'
+import { getFileIndex, getFormattedDate } from './storage.js'
 import { openFile, checkIfTabExists, deleteTab } from './tabs.js';
 
 export const fileTreeEl = document.getElementById('filetree');
@@ -23,7 +24,7 @@ pinnedDisplayEl.addEventListener('drop', drop)
 
 export function renderFiletree(){
     fileTreeContainerEl.innerHTML = ''
-    files.forEach(file => {
+    USER.files.forEach(file => {
         if(file.parentId) return
         if(file.type === 'folder'){
             renderFolder(file, 0, fileTreeContainerEl)
@@ -41,7 +42,7 @@ function renderFolder(folder, depth = 0, container, lastOfFolder) {
 
     if (!openFolderIds.has(folder.id)) return
 
-    const folderContents = files.filter(f => f.parentId === folder.id)
+    const folderContents = USER.files.filter(f => f.parentId === folder.id)
     const lastIndex = folderContents.length - 1;
 
     folderContents.forEach((file, index) => {
@@ -142,7 +143,7 @@ function drop(e){
     if(draggedId === targetId) return
     if(isDescendant(draggedId, targetId)) return
 
-    const draggedFile = files[getFileIndex(draggedId)]
+    const draggedFile = USER.files[getFileIndex(draggedId)]
     if(!draggedFile) return
     
     if(e.currentTarget.id === 'files-container'){
@@ -160,16 +161,16 @@ function drop(e){
         draggedFile.pinned = false
     }
     setDraggedElid(null)
-    updateFileData()
+    updateUserData()
     renderFiletree()
     renderPinnedFiles()
 }
 
 function isDescendant(draggedId, targetId){
-    let current = files[getFileIndex(targetId)]
+    let current = USER.files[getFileIndex(targetId)]
     while(current && current.parentId !== null){
         if(current.parentId === draggedId) return true
-        current = files[getFileIndex(current.parentId)]
+        current = USER.files[getFileIndex(current.parentId)]
     }
     return false
 }
@@ -217,7 +218,7 @@ function saveFolder(){
     const folderName = document.querySelector('.temp-card-input').value
     const id = idNum
     const date = getFormattedDate(new Date())
-    files.push({
+    USER.files.push({
         title: folderName,
         body: '',
         id,
@@ -228,7 +229,7 @@ function saveFolder(){
         tags: []
     })
     incrementIdNum()
-    updateFileData()
+    updateUserData()
 }
 
 export function openFileHolder(){
@@ -249,7 +250,7 @@ function createRightClickMenu(posX, posY, file){
     menu.classList.add('right-click-menu')
     menu.appendChild(createDeleteBtn(file.id, menu))
     if(file.parentId){
-        if(files[getFileIndex(file.parentId)].pinned){
+        if(USER.files[getFileIndex(file.parentId)].pinned){
 
         }
     } else {
@@ -280,12 +281,12 @@ function createRightClickMenu(posX, posY, file){
 }
 
 export function deleteFile(id){
-    const file = files[getFileIndex(id)]
+    const file = USER.files[getFileIndex(id)]
     if(file.pinned){
         unpinFile(file)
     }
-    files.splice(getFileIndex(id), 1)
-    updateFileData()
+    USER.files.splice(getFileIndex(id), 1)
+    updateUserData()
     renderFiletree()
     renderPinnedFiles()
     if(id === getSelectedFileId()){
@@ -355,7 +356,7 @@ function changeTitleToInput(element, file){
     input.addEventListener('keydown', (e) => {
         if(e.key === 'Enter'){
             file.title = input.value;
-            updateFileData()
+            updateUserData()
             renderFiletree()
         }
     })
@@ -374,7 +375,7 @@ fileTreeContainerEl.addEventListener('contextmenu', (event) => {
     const file = event.target.closest('.file-card')
     if(!file) return
     document.querySelector('.right-click-menu')?.remove()
-    const menu = createRightClickMenu(event.clientX, event.clientY, files[getFileIndex(Number(file.id))])
+    const menu = createRightClickMenu(event.clientX, event.clientY, USER.files[getFileIndex(Number(file.id))])
     fileTreeEl.appendChild(menu)
     menu.addEventListener('click', (e) => e.stopPropagation())
     window.addEventListener('click', () => menu.remove(), { once: true })
@@ -385,7 +386,7 @@ pinnedDisplayEl.addEventListener('contextmenu', (event) => {
     const file = event.target.closest('.file-card')
     if(!file) return
     document.querySelector('.right-click-menu')?.remove()
-    const menu = createRightClickMenu(event.clientX, event.clientY, files[getFileIndex(Number(file.id))])
+    const menu = createRightClickMenu(event.clientX, event.clientY, USER.files[getFileIndex(Number(file.id))])
     fileTreeEl.appendChild(menu)
     menu.addEventListener('click', (e) => e.stopPropagation())
     window.addEventListener('click', () => menu.remove(), { once: true })
@@ -393,19 +394,19 @@ pinnedDisplayEl.addEventListener('contextmenu', (event) => {
 
 function unpinFile(file){
     file.pinned = false
-    updateFileData()
+    updateUserData()
     renderPinnedFiles()
 }
 
 function pinFile(file){
     file.pinned = true
-    updateFileData()
+    updateUserData()
     renderPinnedFiles()
 }
 
 export function renderPinnedFiles(){
     pinnedDisplayEl.innerHTML = ''
-    const pinnedFiles = files.filter(f => f.pinned === true)
+    const pinnedFiles = USER.files.filter(f => f.pinned === true)
 
     if(pinnedFiles.length < 1){
         pinnedDisplayEl.style.display = 'none'
