@@ -1,5 +1,5 @@
 import { USER, updateUserData } from "./user.js"
-import { setCurrentTabId, tabId, currentTabId, getTabIndex, getTabIndexFromFileId, incrementTabId, setSelectedFileId, currentNoteMode, setCurrentNoteMode } from "./state.js"
+import { openFolderIds, setCurrentTabId, tabId, currentTabId, getTabIndex, getTabIndexFromFileId, incrementTabId, setSelectedFileId, currentNoteMode, setCurrentNoteMode } from "./state.js"
 import { checkForDuplicateTitles, getFileIndex } from "./storage.js"
 import { highlightSelectedFile, getTitleInput, getBodyInput, saveNote } from "./editor.js"
 import { deleteFile } from "./filetree.js"
@@ -109,7 +109,20 @@ export function renderTabs(){
     tabBar.innerHTML = ''
     USER.tabs.forEach(tab => {
         const tabCard = createTabCard(tab)
-        if(tab.id === currentTabId) tabCard.classList.add('current-tab')
+
+        if(tab.id === currentTabId){
+          tabCard.classList.add('current-tab')
+          const currentFile = USER.files[getFileIndex(tab.file)];
+
+          if(currentFile){
+            let parentId = currentFile.parentId;
+            while(parentId){
+                openFolderIds.add(parentId);
+                const parentFolder = USER.files.find(f => f.id === parentId && f.type === 'folder');
+                parentId = parentFolder ? parentFolder.parentId : null;
+            }
+          }
+        }
         tabBar.appendChild(tabCard)
     })
 }

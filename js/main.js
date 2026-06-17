@@ -7,6 +7,7 @@ import { createDefaultTab, renderTabs, switchToTab } from './tabs.js'
 import { initSettings } from './settings/settings.js'
 import { initRightSidebar } from './sidebar/sidebar.js'
 
+renderTabs()
 initSearch()
 initShortcuts()
 initNavBar()
@@ -19,7 +20,5 @@ if(!USER.tabs.length >= 1){
 } else {
    switchToTab(USER.tabs[USER.tabs.length - 1].id) 
 }
-
-renderTabs()
 renderPinnedFiles()
-console.log(USER.files)
+console.log(USER.tabs[0])
