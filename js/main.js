@@ -22,3 +22,4 @@ if(!USER.tabs.length >= 1){
 
 renderTabs()
 renderPinnedFiles()
+console.log(USER.files)

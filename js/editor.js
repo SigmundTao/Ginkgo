@@ -1,5 +1,5 @@
 import { USER, updateUserData } from "./user.js"
-import { getFileIndex, idNum, currentFolderId, incrementIdNum, setSelectedFileId, setAppState, getTabIndexFromFileId } from "./state.js"
+import { openFolderIds, getFileIndex, idNum, currentFolderId, incrementIdNum, setSelectedFileId, setAppState, getTabIndexFromFileId } from "./state.js"
 import { getFormattedDate, checkForDuplicateTitles } from "./storage.js"
 import { renderTabs, checkForDefaultTabs, createTab, overwriteDefaultTab, loadTab } from "./tabs.js"
 import { renderFiletree } from "./filetree.js"
@@ -44,20 +44,30 @@ export function createNewNote(isDailyNote){
     const id = idNum;
     let title = getUntitledTitle()
     let body = '';
+    let parent = null;
     if(isDailyNote){
         title = date;
         body = USER.settings.dailyNote.preset;
+        parent = USER.settings.dailyNote.folder;
     }
+
     USER.files.push({
         title: title,
         body: body,
         id,
         type: 'note',
-        parentId: currentFolderId,
+        parentId: parent,
         date,
         lastEdited: date,
         tags: []
     })
+
+    if(parent !== null){
+      if(!openFolderIds.has(parent)){
+      openFolderIds.add(parent)
+      }
+    }
+
     if(checkForDefaultTabs() !== -1){
         overwriteDefaultTab(id)
         loadTab(USER.tabs[getTabIndexFromFileId(id)].id)

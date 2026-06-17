@@ -3,19 +3,66 @@ import { USER, updateUserData } from '../user.js'
 export function createDailyNoteSettings(){
   const container = document.createElement('div');
 
-  const title = document.createElement('h3');
-  title.textContent = 'Daily note preset';
+  const folderTitle = document.createElement('h3');
+  folderTitle.textContent = 'Daily Note folder';
 
-  const input = document.createElement('textarea');
-  input.value = USER.settings.dailyNote.preset
+  const folderSelect = createFolderSelect()
 
-  input.addEventListener('change', () => {
-    USER.settings.dailyNote.preset = input.value;
+  const presetTitle = document.createElement('h3');
+  presetTitle.textContent = 'Daily note preset';
+
+  const presetInput = document.createElement('textarea');
+  presetInput.value = USER.settings.dailyNote.preset
+
+  presetInput.addEventListener('change', () => {
+    USER.settings.dailyNote.preset = presetInput.value;
     updateUserData()
   })
 
-  container.appendChild(title);
-  container.appendChild(input);
+  container.appendChild(folderTitle);
+  container.appendChild(folderSelect);
+  container.appendChild(presetInput);
+  container.appendChild(presetInput);
 
   return container;
+}
+
+function createFolderSelect(){
+  const select = document.createElement('select');
+
+  const defaultOption = document.createElement('option');
+  defaultOption.value = '';
+  defaultOption.textContent = 'None';
+  select.appendChild(defaultOption);
+
+  const folders = USER.files.filter(file => file.type === 'folder');
+  console.log(folders)
+  if(folders.length){
+    folders.forEach(folder => {
+      select.appendChild(createOptionForFolder(folder))
+    })
+  }
+
+  select.value = USER.settings.dailyNote.folder ?? '';
+
+  select.addEventListener('change', () => {
+    if(select.textContent === defaultOption.textContent) USER.settings.dailyNote.folder = null;
+    else {
+        const index = select.selectedIndex;
+        const optionElements = select.options;
+
+        USER.settings.dailyNote.folder = Number(optionElements[index].id);
+    }
+    updateUserData()
+  }) 
+
+  return select;
+}
+
+function createOptionForFolder(folder){
+  const option = document.createElement('option');
+  option.id = folder.id;
+  option.textContent = folder.title;
+
+  return option;
 }

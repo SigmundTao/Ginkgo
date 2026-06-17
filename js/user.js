@@ -12,6 +12,7 @@ export const USER = JSON.parse(localStorage.getItem('user')) || {
     },
     dailyNote: {
       preset: '',
+      folder: null,
     },
   }
 }
