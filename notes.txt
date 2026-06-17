@@ -1,0 +1,15 @@
+Expand sidebar modules into tabs
+
+expand button on module
+
+capture current state of module
+
+create new tab type that accepts modules
+
+automatically update tab name to show whats happening in module
+
+--------------------------------
+
+create an add tab btn that sits at the end of the tab bar
+
+on press a menu pops up asking what type of tab you want to make

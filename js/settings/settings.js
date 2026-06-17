@@ -18,6 +18,7 @@ const savedTheme = localStorage.getItem('theme') || 'sakura';
 
 function openSettingsMenu(){
     settingEl.showModal()
+    settingsOutputEl.innerHTML = '';
 }
 
 function closeSettingsMenu(){
