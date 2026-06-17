@@ -1,3 +1,4 @@
+import { USER, updateUserData } from '../user.js'
 let timer = 25;
 let timerIsGoing = false;
 export let countDown = null;
@@ -110,6 +111,8 @@ function startTimer(displayEl, state, label){
     updateUI(displayEl, timer)
     if(timer <= 0){
       stopTimer()
+      timerSound.play()
+      window.alert(`${currentTimerType} has ended`)
       handleTimerEnd(displayEl, state, label)
     } 
   }, 1000);
@@ -119,8 +122,6 @@ function stopTimer(){
   clearInterval(countDown);
   timerIsGoing = false;
   countDown = null;
-  timerSound.play()
-  window.alert(`${currentTimerType} has ended`)
 }
 
 function handleTimerEnd(displayEl, state, label){
