@@ -41,14 +41,16 @@ export function saveNote(file){
 
 export function createNewNote(isDailyNote){
     const date = getFormattedDate(new Date())
-    const id = idNum
+    const id = idNum;
     let title = getUntitledTitle()
+    let body = '';
     if(isDailyNote){
-        title = date
+        title = date;
+        body = USER.settings.dailyNote.preset;
     }
     USER.files.push({
         title: title,
-        body: '',
+        body: body,
         id,
         type: 'note',
         parentId: currentFolderId,

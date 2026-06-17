@@ -14,7 +14,7 @@ export function createDailyNote(){
     if(fileIndex !== -1){
         openFile(USER.files[fileIndex].id)
     } else {
-        createNewNote(true)   
+        createNewNote(true)
     }
 }
 
