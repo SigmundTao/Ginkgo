@@ -8,6 +8,7 @@ import { createDailyNote } from './navbar.js'
 import { createNewNote } from './editor.js'
 
 export const SUPER = 'Alt';
+const saved = JSON.parse(localStorage.getItem('keybinds')) || [];
 
 const FUNCTION_MAP = {
   'Create note': createNewNote,
@@ -46,8 +47,6 @@ const DEFAULTS = [
   { title: 'Open pomodoro timer',keyValue: '2' },
   { title: 'Open flashcards',    keyValue: '3' },
 ]
-
-const saved = JSON.parse(localStorage.getItem('keybinds')) || [];
 
 export const KEY_BINDS = (saved.length ? saved : DEFAULTS)
   .map(bind => ({ ...bind, function: FUNCTION_MAP[bind.title] }))
