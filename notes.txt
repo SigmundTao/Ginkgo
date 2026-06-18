@@ -13,6 +13,6 @@ v0.1 scope
 [] User data export
 [] fix todo lists dropdown
 [] Auto save indicator
-[] duplicate notes
+[x] duplicate notes
 [] make all code uniform (swap all old 4 tab into 2 tab)
 [] import JSON

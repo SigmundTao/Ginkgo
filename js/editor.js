@@ -1,8 +1,9 @@
 import { USER, updateUserData } from "./user.js"
 import { openFolderIds, getFileIndex, idNum, currentFolderId, incrementIdNum, setSelectedFileId, setAppState, getTabIndexFromFileId } from "./state.js"
 import { getFormattedDate, checkForDuplicateTitles } from "./storage.js"
-import { renderTabs, checkForDefaultTabs, createTab, overwriteDefaultTab, loadTab } from "./tabs.js"
+import { currentTabEl, renderTabs, checkForDefaultTabs, createTab, overwriteDefaultTab, loadTab } from "./tabs.js"
 import { renderFiletree } from "./filetree.js"
+import { rotateElement, removeTextRightToLeft } from "./animations.js"
 
 export function highlightSelectedFile(id){
     document.querySelectorAll('.file-card').forEach(card => card.classList.remove('selected-file'))
@@ -37,6 +38,45 @@ export function saveNote(file){
     updateUserData()
     renderFiletree()
     renderTabs()
+    indicateAutoSave()
+}
+
+function indicateAutoSave() {
+  const saveElement = document.createElement('div');
+  saveElement.classList.add('auto-save-indicator');
+  const saveText = document.createElement('p');
+  saveText.textContent = 'Saving...';
+  const icon = document.createElement('div');
+  icon.classList.add('save-icon');
+  icon.style.backgroundImage = `url('../assets/save-icon.svg')`;
+  saveElement.appendChild(icon);
+  saveElement.appendChild(saveText);
+  currentTabEl.appendChild(saveElement);
+
+  let rotation = 0;
+  const rotating = setInterval(() => {
+    rotation = rotateElement(icon, rotation);
+  }, 100);
+
+  setTimeout(() => {
+    clearInterval(rotating);
+    icon.style.rotate = '0deg';
+    saveText.textContent = 'Saved';
+    icon.style.backgroundImage = `url('../assets/saved.svg')`;
+
+    setTimeout(() => {
+      const removingText = setInterval(() => {
+        saveText.textContent = removeTextRightToLeft(saveText.textContent);
+        if (saveText.textContent === '') {
+          clearInterval(removingText);
+          setTimeout(() => {
+            saveElement.remove();
+          }, 500);
+        }
+      }, 35);
+    }, 200);
+
+  }, 800);
 }
 
 export function createNewNote(isDailyNote){
