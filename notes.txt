@@ -5,7 +5,7 @@ v0.1 scope
 [] Custom keybinds fully working
 [] No major bugs
 [] Two themes added
-[] Visualizer removed
+[x] Visualizer removed
 [] All icons updated
 [] Clean README.md
 [] Create a homepage and move all HTML/CSS and JS into a subfolder

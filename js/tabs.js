@@ -226,7 +226,7 @@ function createNoteView(file){
         noteDebounce = setTimeout(() => {
             saveNote(file)
             updateCountHolder(countHolder, file)
-        }, 500);
+        }, 1500);
     })
 
     titleInput.focus()
