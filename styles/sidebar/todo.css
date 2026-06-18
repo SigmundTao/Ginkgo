@@ -1,6 +1,11 @@
+:root {
+  --br:5px;
+}
 .todo-module {
   height: 300px;
   padding: 5px;
+  border-radius: var(--br);
+  background-color: white;
 }
 
 .list-select {
