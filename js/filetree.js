@@ -266,6 +266,9 @@ function createRightClickMenu(posX, posY, file){
             menu.remove()
         })
         menu.appendChild(menuEditBtn)
+
+        const duplicateBtn = createDuplicateBtn(file.id, menu)
+        menu.appendChild(duplicateBtn)
     }
 
     if(file.type === 'folder'){
@@ -277,6 +280,43 @@ function createRightClickMenu(posX, posY, file){
     menu.style.top = posY + 'px'
     menu.style.position = 'fixed'
     return menu
+}
+
+function createDuplicateBtn(fileID, menu){
+
+  const btn = document.createElement('div');
+
+  btn.classList.add('rc-menu-item');
+  btn.classList.add('rc-duplicate-btn');
+  btn.textContent = 'duplicate';
+
+  btn.addEventListener('click', () => {
+      duplicateFile(fileID)
+      menu.remove()
+  })
+
+  return btn;
+}
+
+function duplicateFile(fileID){
+  const file = USER.files[getFileIndex(fileID)];
+  const id = idNum
+  const date = getFormattedDate(new Date())
+
+  USER.files.push({
+        title: `${file.title}(duplicate)`,
+        body: file.body,
+        id,
+        type: 'note',
+        parentId: file.parentId,
+        date,
+        lastEdited: date,
+    })
+
+  updateUserData()
+  incrementIdNum()
+  renderFiletree()
+  openFile(id)
 }
 
 export function deleteFile(id){

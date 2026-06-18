@@ -1,15 +1,18 @@
-Expand sidebar modules into tabs
+v0.1 scope
 
-expand button on module
-
-capture current state of module
-
-create new tab type that accepts modules
-
-automatically update tab name to show whats happening in module
-
---------------------------------
-
-create an add tab btn that sits at the end of the tab bar
-
-on press a menu pops up asking what type of tab you want to make
+[] CSS polished
+[] Module tabs
+[] Custom keybinds fully working
+[] No major bugs
+[] Two themes added
+[] Visualizer removed
+[] All icons updated
+[] Clean README.md
+[] Create a homepage and move all HTML/CSS and JS into a subfolder
+[] Create logo and favicon for kangae
+[] User data export
+[] fix todo lists dropdown
+[] Auto save indicator
+[] duplicate notes
+[] make all code uniform (swap all old 4 tab into 2 tab)
+[] import JSON
