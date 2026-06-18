@@ -14,6 +14,12 @@ export const USER = JSON.parse(localStorage.getItem('user')) || {
       preset: '',
       folder: null,
     },
+    pomodoroTimer: {
+      pomodoro: 25,
+      shortBreak: 5,
+      longBreak: 15,
+      pomodorosBeforeLongBreak: 4,
+    }
   }
 }
 

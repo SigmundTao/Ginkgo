@@ -1,5 +1,5 @@
 import { USER, updateUserData } from "../user.js"
-import { createPomodoroModule, countDown as timerIntervalID } from "./pomodoro.js"
+import { createPomodoroModule, countDown } from "./pomodoro.js"
 import { createToDoList } from "./todo.js"
 import { openModules, removeOpenModule, addOpenModule } from "../state.js"
 import { createFlashcardModule } from "./flashcards.js"
@@ -30,7 +30,7 @@ class Module {
         const deleteModuleBtn = document.createElement('button');
         deleteModuleBtn.classList.add('delete-module-btn');
         deleteModuleBtn.addEventListener('click', () => {
-            if(this.id === 'timer-module') clearInterval(timerIntervalID);
+            if(this.id === 'timer-module') clearInterval(countDown);
             module.remove()
             removeOpenModule(this.title)
         })

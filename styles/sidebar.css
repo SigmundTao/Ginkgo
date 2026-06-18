@@ -7,8 +7,9 @@
 #right-sidebar {
     height: 100vh;
     width: 300px;
+    max-width: 300px;
     transition: width 0.3s ease;
-    background-color: var(--bg-secondary);
+    background-color: var(--bg-primary);
     display: flex;
     flex-direction: column;
     padding: 0;
@@ -66,8 +67,10 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    align-items: center;
     flex: 1;
     min-height: 0;
+    padding: 15px;
 }
 
 /* module styling */
@@ -108,9 +111,13 @@
 }
 
 .module {
-    width: 300px;
+    width: 250px;
     flex: 1;
+    border-radius: 10px;
     position: relative;
+    border: 1px solid grey;
+    max-height: 400px;
+    background-color: var(--pannel)
 }
 
 .module-img {
