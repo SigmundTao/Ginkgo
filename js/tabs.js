@@ -4,22 +4,11 @@ import { checkForDuplicateTitles, getFileIndex } from "./storage.js"
 import { highlightSelectedFile, getTitleInput, getBodyInput, saveNote } from "./editor.js"
 import { deleteFile } from "./filetree.js"
 import { marked } from './markdown.js'
-import { openVisualizerTab } from "./visualizer.js"
 import { createDashboard } from "./dashboard.js"
 
 export const currentTabEl = document.getElementById('current-tab')
 const tabBar = document.getElementById('tab-bar')
-const visualizerBtn = document.getElementById('visualizer-btn')
 let noteDebounce
-
-visualizerBtn.addEventListener('click', () => {
-    const visualizerIndex = checkForVisualizerTab()
-    if(visualizerIndex !== -1){
-        switchToTab(USER.tabs[visualizerIndex].id)
-    } else {
-        createTab('visualizer')
-    }
-});
 
 export function createTab(fileId){
     USER.tabs.push({file: fileId, id: tabId})
@@ -28,11 +17,6 @@ export function createTab(fileId){
     loadTab(currentTabId)
     renderTabs()
     updateUserData()
-}
-
-function createVisualizerView(){
-    currentTabEl.innerHTML = ``;
-    openVisualizerTab()
 }
 
 export function loadTab(id){
@@ -45,20 +29,12 @@ export function loadTab(id){
         createDefaultView()
         setSelectedFileId(null)
         highlightSelectedFile()
-    } else if(fileId === 'visualizer'){
-        setSelectedFileId(null)
-        highlightSelectedFile()
-        createVisualizerView()
     }else {
         const file = USER.files[getFileIndex(fileId)]
         setSelectedFileId(file.id)
         highlightSelectedFile(file.id)
         createNoteView(file)
     }
-}
-
-function checkForVisualizerTab(){
-    return USER.tabs.findIndex(t => t.file === 'visualizer')
 }
 
 export function createDefaultTab(){
@@ -133,11 +109,7 @@ function createTabCard(tab){
     tabCard.id = tab.id
 
     const tabTitle = document.createElement('p')
-    if(tab.file === 'visualizer') {
-        tabTitle.textContent = 'Visualizer'
-    } else {
-        tabTitle.textContent = tab.file ? USER.files[getFileIndex(tab.file)].title : 'Dashboard'
-    }
+    tabTitle.textContent = tab.file ? USER.files[getFileIndex(tab.file)].title : 'Dashboard'
 
     const closeTabBtn = document.createElement('button')
     closeTabBtn.classList.add('close-tab-btn')

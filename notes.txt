@@ -12,7 +12,7 @@ v0.1 scope
 [] Create logo and favicon for kangae
 [] User data export
 [] fix todo lists dropdown
-[] Auto save indicator
+[x] Auto save indicator
 [x] duplicate notes
 [] make all code uniform (swap all old 4 tab into 2 tab)
 [] import JSON
