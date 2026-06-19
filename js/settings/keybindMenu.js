@@ -49,5 +49,3 @@ function throwKeybindError(){
 function saveKeyBinds(){
   localStorage.setItem('keybinds', JSON.stringify(KEY_BINDS))
 }
-
-//title, keyValue, Function

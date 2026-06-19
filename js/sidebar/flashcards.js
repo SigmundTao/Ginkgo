@@ -33,6 +33,7 @@ function createState() {
     view: 'packList',
     activePack: null,
     currentCard: null,
+    openInTab: false,
   };
 }
 

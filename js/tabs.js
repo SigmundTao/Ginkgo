@@ -10,11 +10,11 @@ export const currentTabEl = document.getElementById('current-tab')
 const tabBar = document.getElementById('tab-bar')
 let noteDebounce
 
-export function createTab(fileId){
-    USER.tabs.push({file: fileId, id: tabId})
+export function createTab(fileId, moduleType = null){
+    USER.tabs.push({file: fileId, id: tabId, moduleType})
     setCurrentTabId(tabId)
     incrementTabId()
-    loadTab(currentTabId)
+    loadTab(currentTabId, moduleType)
     renderTabs()
     updateUserData()
 }
@@ -22,19 +22,49 @@ export function createTab(fileId){
 export function loadTab(id){
     const tabIndex = getTabIndex(id)
     if(tabIndex === -1) return
+    const tab = USER.tabs[tabIndex]
+    setCurrentTabId(id)
 
-    const fileId = USER.tabs[tabIndex].file
-
-    if(fileId === null){
+    if(tab.moduleType){
+        createModuleView(tab.moduleType)
+        setSelectedFileId(null)
+        highlightSelectedFile()
+    } else if(tab.file === null){
         createDefaultView()
         setSelectedFileId(null)
         highlightSelectedFile()
-    }else {
-        const file = USER.files[getFileIndex(fileId)]
+    } else {
+        const file = USER.files[getFileIndex(tab.file)]
         setSelectedFileId(file.id)
         highlightSelectedFile(file.id)
         createNoteView(file)
     }
+}
+
+export function expandModule(moduleType){
+    const existingTab = USER.tabs.find(tab => tab.moduleType === moduleType)
+    if(existingTab){
+        loadTab(existingTab.id)
+        renderTabs()
+    } else {
+        createTab(null, moduleType)
+    }
+}
+
+function createModuleView(type){
+  currentTabEl.innerHTML = '';
+  currentTabEl.innerHTML = getModuleContent(type);
+}
+
+function getModuleContent(type){
+  switch(type){
+    case 'pomodoro':
+    break;
+    case 'todo':
+    break;
+    case 'flashcards':
+    break;
+  }
 }
 
 export function createDefaultTab(){

@@ -19,6 +19,9 @@ export const USER = JSON.parse(localStorage.getItem('user')) || {
       shortBreak: 5,
       longBreak: 15,
       pomodorosBeforeLongBreak: 4,
+    },
+    flashcards: {
+      packs: []
     }
   }
 }
