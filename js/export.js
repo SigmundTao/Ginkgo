@@ -5,7 +5,7 @@ function createTextFile(file, parentFolder){
   parentFolder.file(`${note.title}.txt`, note.body)
 }
 
-function createFolder(file, rootFolder, files, parentFolder = null){
+function createFolder(file, rootFolder, filesArr, parentFolder = null){
   let parent = parentFolder
   if(parentFolder == null) {
     parent = rootFolder
@@ -13,28 +13,26 @@ function createFolder(file, rootFolder, files, parentFolder = null){
 
   const folder = parent.folder(`${file.title}`)
 
-  const folderContents = USER.files.filter(note => note.parentId === file.id)
+  const folderContents = filesArr.filter(note => note.parentId === file.id)
 
   folderContents.forEach(item => {
-    if(item.type === 'folder') createFolder(item, rootFolder, files, folder.id)
+    if(item.type === 'folder') createFolder(item, rootFolder, filesArr, folder.id)
     else {
       createTextFile(item, folder)
     }
   })
 }
 
-async function exportFiles(files){
+async function exportFiles(filesArr){
   const zip = new JSZip()
 
-  const notes = files
-
-  if(!notes.length) {
+  if(!filesArr.length) {
     window.alert('No notes to export')
     return
   }
 
-  notes.forEach(note => {
-    if(note.type === 'folder') createFolder(note, zip, notes)
+  filesArr.forEach(note => {
+    if(note.type === 'folder') createFolder(note, zip, filesArr)
     else createTextFile(note, zip)
   })
 
