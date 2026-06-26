@@ -5,7 +5,7 @@ function createTextFile(file, parentFolder){
   parentFolder.file(`${note.title}.txt`, note.body)
 }
 
-function createFolder(file, rootFolder, parentFolder = null){
+function createFolder(file, rootFolder, files, parentFolder = null){
   let parent = parentFolder
   if(parentFolder == null) {
     parent = rootFolder
@@ -16,17 +16,17 @@ function createFolder(file, rootFolder, parentFolder = null){
   const folderContents = USER.files.filter(note => note.parentId === file.id)
 
   folderContents.forEach(item => {
-    if(item.type === 'folder') createFolder(item, rootFolder, folder.id)
+    if(item.type === 'folder') createFolder(item, rootFolder, files, folder.id)
     else {
       createTextFile(item, folder)
     }
   })
 }
 
-async function exportFiles(){
+async function exportFiles(files){
   const zip = new JSZip()
 
-  const notes = USER.files
+  const notes = files
 
   if(!notes.length) {
     window.alert('No notes to export')
@@ -34,7 +34,7 @@ async function exportFiles(){
   }
 
   notes.forEach(note => {
-    if(note.type === 'folder') createFolder(note, zip)
+    if(note.type === 'folder') createFolder(note, zip, notes)
     else createTextFile(note, zip)
   })
 
@@ -66,7 +66,7 @@ export function createExportSettings(){
   const downloadBtn = document.createElement('button')
   downloadBtn.textContent = 'Download'
   containerEl.appendChild(downloadBtn)
-  downloadBtn.addEventListener('click', exportFiles)
+  downloadBtn.addEventListener('click', () => exportFiles(USER.files))
 
   return containerEl
 }
