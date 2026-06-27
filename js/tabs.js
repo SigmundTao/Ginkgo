@@ -54,6 +54,7 @@ function createModuleView(type){
 function getModuleContent(type){
   switch(type){
     case 'pomodoro':
+      createPomodoroModule(true)
     break;
     case 'todo':
       return createToDoList()
