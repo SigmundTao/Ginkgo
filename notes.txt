@@ -11,7 +11,7 @@ v0.1 scope
 [] Create a homepage and move all HTML/CSS and JS into a subfolder
 [] Create logo and favicon for kangae
 [x] User data export
-[] fix todo lists dropdown
+[x] fix todo lists dropdown
 [x] Auto save indicator
 [x] duplicate notes
 [] make all code uniform (swap all old 4 tab into 2 tab)

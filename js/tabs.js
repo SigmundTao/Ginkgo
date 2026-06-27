@@ -1,14 +1,19 @@
-import { USER, updateUserData } from "./user.js"
-import { openFolderIds, setCurrentTabId, tabId, currentTabId, getTabIndex, getTabIndexFromFileId, incrementTabId, setSelectedFileId, currentNoteMode, setCurrentNoteMode } from "./state.js"
-import { checkForDuplicateTitles, getFileIndex } from "./storage.js"
-import { highlightSelectedFile, getTitleInput, getBodyInput, saveNote } from "./editor.js"
-import { deleteFile } from "./filetree.js"
-import { marked } from './markdown.js'
-import { createDashboard } from "./dashboard.js"
+import { USER, updateUserData } from "./user.js";
+import { openFolderIds, setCurrentTabId, tabId, currentTabId, getTabIndex, getTabIndexFromFileId, incrementTabId, setSelectedFileId, currentNoteMode, setCurrentNoteMode } from "./state.js";
+import { checkForDuplicateTitles, getFileIndex } from "./storage.js";
+import { highlightSelectedFile, getTitleInput, getBodyInput, saveNote } from "./editor.js";
+import { deleteFile } from "./filetree.js";
+import { marked } from './markdown.js';
+import { createDashboard } from "./dashboard.js";
+import { createFlashcardModule } from './sidebar/flashcards.js';
+import { createPomodoroModule } from './sidebar/pomodoro.js';
+import { createToDoList } from './sidebar/todo.js';
+import { createTabMenu } from './tabs/tabMenu.js';
 
-export const currentTabEl = document.getElementById('current-tab')
-const tabBar = document.getElementById('tab-bar')
-let noteDebounce
+const page = document.getElementById('page');
+export const currentTabEl = document.getElementById('current-tab');
+const tabBar = document.getElementById('tab-bar');
+let noteDebounce;
 
 export function createTab(fileId, moduleType = null){
     USER.tabs.push({file: fileId, id: tabId, moduleType})
@@ -41,16 +46,6 @@ export function loadTab(id){
     }
 }
 
-export function expandModule(moduleType){
-    const existingTab = USER.tabs.find(tab => tab.moduleType === moduleType)
-    if(existingTab){
-        loadTab(existingTab.id)
-        renderTabs()
-    } else {
-        createTab(null, moduleType)
-    }
-}
-
 function createModuleView(type){
   currentTabEl.innerHTML = '';
   currentTabEl.innerHTML = getModuleContent(type);
@@ -61,8 +56,10 @@ function getModuleContent(type){
     case 'pomodoro':
     break;
     case 'todo':
+      return createToDoList()
     break;
     case 'flashcards':
+      return createFlashcardModule()
     break;
   }
 }
@@ -131,6 +128,14 @@ export function renderTabs(){
         }
         tabBar.appendChild(tabCard)
     })
+    
+  const addTabBtn = document.createElement('button');
+  addTabBtn.textContent = '+';
+  addTabBtn.addEventListener('click', () => {
+     page.appendChild(createTabMenu())
+  })
+
+  tabBar.appendChild(addTabBtn);
 }
 
 function createTabCard(tab){
