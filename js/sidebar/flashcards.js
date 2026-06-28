@@ -1,3 +1,5 @@
+import { USER, updateUserData } from '../user.js';
+
 const ROOT_STATES = {
   packlist: 'packList',
   cardlist: 'cardList',
@@ -29,16 +31,12 @@ const FLASHCARD_COLOURS = [
 
 function createState() {
   return {
-    packs: JSON.parse(localStorage.getItem('flashcards')) || [],
+    packs: USER.settings.flashcards.packs,
     view: 'packList',
     activePack: null,
     currentCard: null,
     openInTab: false,
   };
-}
-
-function save(state) {
-  localStorage.setItem('flashcards', JSON.stringify(state.packs));
 }
 
 export function createFlashcardModule() {
@@ -51,6 +49,7 @@ export function createFlashcardModule() {
 }
 
 function render(root, state) {
+  console.log('rendering')
   root.innerHTML = '';
   if (state.view === ROOT_STATES.packlist) renderPackList(root, state);
   if (state.view === ROOT_STATES.cardlist) renderCardList(root, state);
@@ -62,7 +61,7 @@ function renderPackList(root, state) {
   title.textContent = 'My Packs';
   root.appendChild(title);
 
-  state.packs.forEach((pack, index) => {
+  USER.settings.flashcards.packs.forEach((pack, index) => {
     const packEl = document.createElement('div');
     packEl.classList.add('flashcard-pack-element');
     packEl.textContent = pack.title;
@@ -81,7 +80,7 @@ function renderPackList(root, state) {
 }
 
 function renderCardList(root, state) {
-  const pack = state.packs[state.activePack];
+  const pack = USER.settings.flashcards.packs[state.activePack];
 
   const backBtn = document.createElement('button');
   backBtn.textContent = '← Back';
@@ -117,8 +116,7 @@ function renderCardList(root, state) {
 }
 
 function renderStudyView(root, state) {
-  state.currentCard = 0;
-  const pack = state.packs[state.activePack];
+  const pack = USER.settings.flashcards.packs[state.activePack];
   
   const packTitle = document.createElement('h3');
   packTitle.classList.add('pack-title');
@@ -197,8 +195,8 @@ function promptNewPack(root, state) {
   input.placeholder = 'Pack name...';
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && input.value.trim()) {
-      state.packs.push({ title: input.value.trim(), cards: [] });
-      save(state);
+      USER.settings.flashcards.packs.push({ title: input.value.trim(), cards: [] });
+      updateUserData();
       render(root, state);
     }
     if (e.key === 'Escape') render(root, state);
@@ -210,23 +208,37 @@ function promptNewPack(root, state) {
 function promptNewCard(root, state, pack) {
   const frontInput = document.createElement('input');
   frontInput.placeholder = 'Front...';
+
   const backInput = document.createElement('input');
   backInput.placeholder = 'Back...';
+
+  frontInput.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter') {
+      backInput.focus()
+    }
+  })
+
+  backInput.addEventListener('keydown', (e) => {
+    if(e.key !== 'Enter') return;
+    saveCard(root, state, frontInput.value.trim(), backInput.value.trim(), pack)
+  });
 
   const confirmBtn = document.createElement('button');
   confirmBtn.textContent = 'Add';
   confirmBtn.addEventListener('click', () => {
-    const front = frontInput.value.trim();
-    const back = backInput.value.trim();
-    if (front && back) {
-      pack.cards.push({ front, back });
-      save(state);
-      render(root, state);
-    }
-  });
+    saveCard(root, state, frontInput.value.trim(), backInput.value.trim(), pack);
+  })
 
   root.append(frontInput, backInput, confirmBtn);
   frontInput.focus();
+}
+
+function saveCard(root, state, front, back, pack) {
+  if(front && back) {
+    pack.cards.push({ front, back })
+    updateUserData()
+    render(root, state)
+  }
 }
 
 function colourFlashcard(cardEl){
