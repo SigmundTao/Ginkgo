@@ -10,10 +10,8 @@ const TIMER_TYPES = {
 }
 
 function createState(){
-  return {
-    view: 'timer', // 'timer' || 'settings'
-    settings: USER.settings.pomodoroTimer,
-  }
+  return USER.settings.pomodoroTimer
+
 }
 
 function ensurePomodoroState(){
@@ -28,44 +26,18 @@ function ensurePomodoroState(){
   return USER.pomodoroState;
 }
 
-export function createPomodoroModule(isOnSidebar = false){
+export function createPomodoroModule(){
   const state = createState();
   const root = document.createElement('div');
   root.classList.add('timer-module')
   root.id = 'timer-root';
-  render(root, isOnSidebar, state)
+  render(root, state)
   return root;
 }
 
-function render(root, isOnSidebar, state){
+function render(root, state){
   root.innerHTML = ``;
-  if(!isOnSidebar) renderSettingsList(root, state);
-  else createPomodoroTimer(root, state);
-}
-
-function renderSettingsList(root, state){
-  const title = document.createElement('h3');
-  title.textContent = 'Pomodoro Timer:';
-  root.appendChild(title);
-  root.appendChild(createSettingElement('Pomodoro:', 'pomodoro', state));
-  root.appendChild(createSettingElement('Short Break:', 'shortBreak', state));
-  root.appendChild(createSettingElement('Long Break:', 'longBreak', state));
-  root.appendChild(createSettingElement('Pomodoros before long break:', 'pomodorosBeforeLongBreak', state));
-}
-
-function createSettingElement(label, stateKey, state){
-  const setting = document.createElement('div');
-  const title = document.createElement('p');
-  title.textContent = label;
-  setting.appendChild(title);
-  const input = document.createElement('input');
-  input.value = state.settings[stateKey];
-  setting.appendChild(input);
-  input.addEventListener('change', () => {
-    state.settings[stateKey] = input.value;
-    updateUserData()
-  })
-  return setting;
+  createPomodoroTimer(root, state);
 }
 
 function createPomodoroTimer(root, state){
@@ -83,9 +55,18 @@ function createPomodoroTimer(root, state){
   timerEl.textContent = formatTime(pomodoroState.secondsLeft);
   root.appendChild(timerEl)
 
-  root.addEventListener('click', () => {
-    if(!pomodoroState.isGoing) startTimer(timerEl, state, timerLabel);
-    else stopTimer();
+  const startStopBtn = document.createElement('button');
+  startStopBtn.textContent = 'Start';
+  root.appendChild(startStopBtn);
+
+  startStopBtn.addEventListener('click', () => {
+    if(!pomodoroState.isGoing) {
+      startTimer(timerEl, state, timerLabel);
+      startStopBtn.textContent = 'Stop';
+    } else {
+      stopTimer();
+      startStopBtn.textContent = 'Start';
+    }
   })
 }
 
@@ -126,16 +107,16 @@ function handleTimerEnd(displayEl, state, label){
   const pomodoroState = USER.pomodoroState;
   if(pomodoroState.currentType === TIMER_TYPES.pomodoro){
     pomodoroState.pomodoroCounter++;
-    if(pomodoroState.pomodoroCounter % state.settings.pomodorosBeforeLongBreak === 0){
+    if(pomodoroState.pomodoroCounter % state.pomodorosBeforeLongBreak === 0){
       setTimerType(TIMER_TYPES.longbreak);
-      setTimer(state.settings.longBreak);
+      setTimer(state.longBreak);
     } else {
       setTimerType(TIMER_TYPES.shortbreak)
-      setTimer(state.settings.shortBreak);
+      setTimer(state.shortBreak);
     }
   } else {
     setTimerType(TIMER_TYPES.pomodoro);
-    setTimer(state.settings.pomodoro);
+    setTimer(state.pomodoro);
   }
   updateUserData();
   startTimer(displayEl, state, label);

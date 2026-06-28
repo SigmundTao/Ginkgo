@@ -24,7 +24,7 @@ export function createTab(fileId, moduleType = null){
     updateUserData()
 }
 
-export function loadTab(id){
+export function loadTab(id, moduleType){
     const tabIndex = getTabIndex(id)
     if(tabIndex === -1) return
     const tab = USER.tabs[tabIndex]
@@ -48,19 +48,20 @@ export function loadTab(id){
 
 function createModuleView(type){
   currentTabEl.innerHTML = '';
-  currentTabEl.innerHTML = getModuleContent(type);
+  currentTabEl.appendChild(getModuleContent(type))
+  renderTabs()
 }
 
 function getModuleContent(type){
   switch(type){
     case 'pomodoro':
-      createPomodoroModule(true)
+      return createPomodoroModule();
     break;
     case 'todo':
-      return createToDoList()
+      return createToDoList();
     break;
     case 'flashcards':
-      return createFlashcardModule()
+      return createFlashcardModule();
     break;
   }
 }
@@ -145,7 +146,13 @@ function createTabCard(tab){
     tabCard.id = tab.id
 
     const tabTitle = document.createElement('p')
-    tabTitle.textContent = tab.file ? USER.files[getFileIndex(tab.file)].title : 'Dashboard'
+    if(tab.moduleType){
+      tabTitle.textContent = tab.moduleType.charAt(0).toUpperCase() + tab.moduleType.slice(1)
+    } else if(!tab.file) {
+      tabTitle.textContent = 'Dashboard';
+    } else {
+      tabTitle.textContent = USER.files[getFileIndex(tab.file)].title;
+    }
 
     const closeTabBtn = document.createElement('button')
     closeTabBtn.classList.add('close-tab-btn')

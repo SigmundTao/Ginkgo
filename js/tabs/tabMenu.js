@@ -11,9 +11,6 @@ class MenuItem {
   createElement() {
     const menuItemEl = document.createElement('div');
     menuItemEl.classList.add('tab-menu-item');
-    menuItemEl.addEventListener('click', () => {
-
-    })
 
     const title = document.createElement('h3');
     title.textContent = this.title;
@@ -43,8 +40,10 @@ export function createTabMenu(){
 
   menuItems.forEach(item => {
     const element = item.createElement()
-    element.addEventListener('click', () => createTab(null, item.type));
-
+    element.addEventListener('click', () => {
+      createTab(null, item.type);
+      menuEl.remove()
+    })
     menuEl.appendChild(element);
   })
 
