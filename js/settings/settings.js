@@ -1,9 +1,10 @@
-import { createAppearanceMenu } from "./appearance.js"
-import { createFlashcardModule } from "../sidebar/flashcards.js"
-import { createPomodoroModule } from "../sidebar/pomodoro.js"
-import { createKeybindMenu } from "./keybindMenu.js"
-import { createDailyNoteSettings } from "./daily-note.js"
-import { createExportSettings } from '../export.js'
+import { createAppearanceMenu } from './appearance.js';
+import { createFlashcardModule } from '../sidebar/flashcards.js';
+import { createPomodoroModule } from "../sidebar/pomodoro.js";
+import { createKeybindMenu } from "./keybindMenu.js";
+import { createDailyNoteSettings } from "./daily-note.js";
+import { createExportSettings } from '../export.js';
+import { createPomodoroSettings } from './pomodoroSettings.js';
 
 const settingEl = document.getElementById('settings')
 const appearanceBtn = document.getElementById('appearance-btn')
@@ -49,7 +50,7 @@ export function initSettings(){
 
   flashcardBtn.addEventListener('click', () => render(createFlashcardModule(false)))
 
-  pomodoroBtn.addEventListener('click', () => render(createPomodoroModule(false)))
+  pomodoroBtn.addEventListener('click', () => render(createPomodoroSettings()))
 
   keybindBtn.addEventListener('click', () => render(createKeybindMenu()))
 

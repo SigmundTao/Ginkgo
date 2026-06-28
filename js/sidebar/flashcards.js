@@ -41,23 +41,23 @@ function save(state) {
   localStorage.setItem('flashcards', JSON.stringify(state.packs));
 }
 
-export function createFlashcardModule(isInSidebar = false) {
+export function createFlashcardModule() {
   const state = createState();
   const root = document.createElement('div');
   root.classList.add('flashcard-module')
   root.id = 'flashcard-root';
-  render(root, state, isInSidebar);
+  render(root, state);
   return root;
 }
 
-function render(root, state, isInSidebar = false) {
+function render(root, state) {
   root.innerHTML = '';
-  if (state.view === ROOT_STATES.packlist) renderPackList(root, state, isInSidebar);
-  if (state.view === ROOT_STATES.cardlist) renderCardList(root, state, isInSidebar);
-  if (state.view === ROOT_STATES.study) renderStudyView(root, state, isInSidebar);
+  if (state.view === ROOT_STATES.packlist) renderPackList(root, state);
+  if (state.view === ROOT_STATES.cardlist) renderCardList(root, state);
+  if (state.view === ROOT_STATES.study) renderStudyView(root, state);
 }
 
-function renderPackList(root, state, isInSidebar) {
+function renderPackList(root, state) {
   const title = document.createElement('h3');
   title.textContent = 'My Packs';
   root.appendChild(title);
@@ -68,28 +68,36 @@ function renderPackList(root, state, isInSidebar) {
     packEl.textContent = pack.title;
     packEl.addEventListener('click', () => {
       state.activePack = index;
-      state.view = isInSidebar ? ROOT_STATES.study : ROOT_STATES.cardlist;
-      render(root, state, isInSidebar);
+      state.view = ROOT_STATES.cardlist;
+      render(root, state);
     });
     root.appendChild(packEl);
   });
 
   const addBtn = document.createElement('button');
   addBtn.textContent = '+';
-  addBtn.addEventListener('click', () => promptNewPack(root, state, isInSidebar));
+  addBtn.addEventListener('click', () => promptNewPack(root, state));
   root.appendChild(addBtn);
 }
 
-function renderCardList(root, state, isInSidebar) {
+function renderCardList(root, state) {
   const pack = state.packs[state.activePack];
 
   const backBtn = document.createElement('button');
   backBtn.textContent = '← Back';
   backBtn.addEventListener('click', () => {
     state.view = ROOT_STATES.packlist;
-    render(root, state, isInSidebar);
+    render(root, state);
   });
   root.appendChild(backBtn);
+
+  const studyBtn = document.createElement('button');
+  studyBtn.textContent = 'Study';
+  studyBtn.addEventListener('click', () => {
+    state.view = ROOT_STATES.study
+    render(root, state)
+  })
+  root.appendChild(studyBtn);
 
   const title = document.createElement('h3');
   title.textContent = pack.title;
@@ -104,11 +112,11 @@ function renderCardList(root, state, isInSidebar) {
 
   const addCardBtn = document.createElement('button');
   addCardBtn.textContent = '+ Add Card';
-  addCardBtn.addEventListener('click', () => promptNewCard(root, state, pack, isInSidebar));
+  addCardBtn.addEventListener('click', () => promptNewCard(root, state, pack));
   root.appendChild(addCardBtn);
 }
 
-function renderStudyView(root, state, isInSidebar) {
+function renderStudyView(root, state) {
   state.currentCard = 0;
   const pack = state.packs[state.activePack];
   
@@ -151,7 +159,7 @@ function renderStudyView(root, state, isInSidebar) {
   returnBtn.textContent = '← Back';
   returnBtn.addEventListener('click', () => {
     state.view = ROOT_STATES.packlist;
-    render(root, state, isInSidebar);
+    render(root, state);
   });
 
   root.appendChild(returnBtn);
@@ -184,22 +192,22 @@ function createFlashcard(card, element) {
   };
 }
 
-function promptNewPack(root, state, isInSidebar) {
+function promptNewPack(root, state) {
   const input = document.createElement('input');
   input.placeholder = 'Pack name...';
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && input.value.trim()) {
       state.packs.push({ title: input.value.trim(), cards: [] });
       save(state);
-      render(root, state, isInSidebar);
+      render(root, state);
     }
-    if (e.key === 'Escape') render(root, state, isInSidebar);
+    if (e.key === 'Escape') render(root, state);
   });
   root.appendChild(input);
   input.focus();
 }
 
-function promptNewCard(root, state, pack, isInSidebar) {
+function promptNewCard(root, state, pack) {
   const frontInput = document.createElement('input');
   frontInput.placeholder = 'Front...';
   const backInput = document.createElement('input');
@@ -213,7 +221,7 @@ function promptNewCard(root, state, pack, isInSidebar) {
     if (front && back) {
       pack.cards.push({ front, back });
       save(state);
-      render(root, state, isInSidebar);
+      render(root, state);
     }
   });
 
