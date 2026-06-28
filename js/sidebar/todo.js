@@ -1,5 +1,5 @@
 import { USER, updateUserData } from '../user.js';
-import { createSelect } from './todo/customSelect.js';
+import { createSelect, updateTodoTitle } from './todo/customSelect.js';
 
 const toDoBtn = document.getElementById('to-do-btn');
 export let currentList = 'todo';
@@ -123,6 +123,7 @@ function createListInput(){
       USER.todo.lists.push({name: listName, tasks: []})
       updateUserData()
       setCurrentList(listName)
+      updateTodoTitle(currentList)
       input.remove()
     }
   })

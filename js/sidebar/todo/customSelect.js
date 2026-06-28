@@ -28,7 +28,9 @@ export function createSelect(lists) {
   selectEl.addEventListener('click', () => {
     const dropdown = getDropdownEl()
     if(dropdown) dropdown.remove();
-    selectEl.appendChild(createDropdown(selectEl, lists));
+
+    const newDropdown = createDropdown(selectEl, lists, displayingList);
+    if(newDropdown) selectEl.appendChild(newDropdown);
   })
 
   selectEl.appendChild(displayingList);
@@ -36,7 +38,9 @@ export function createSelect(lists) {
   return selectEl;
 }
 
-function createDropdown(selectEl, lists) {
+function createDropdown(selectEl, lists, displayingListEl) {
+  if(lists.length <= 1) return;
+
   const dropdown = document.createElement('div');
   dropdown.classList.add('custom-dropdown');
 
@@ -48,6 +52,7 @@ function createDropdown(selectEl, lists) {
       option.addEventListener('click', (e) => {
         e.stopPropagation();
         setCurrentList(listName);
+          updateTodoTitle(currentList)
         updateSelectedListText();
         renderToDos(getContainerEl());
         dropdown.remove();
@@ -57,7 +62,12 @@ function createDropdown(selectEl, lists) {
     }
   })
 
-  return dropdown;
+  selectEl.appendChild(dropdown);
+}
+
+export function updateTodoTitle(currentList) {
+  const element = document.querySelector('.displaying-list-option');
+  element.textContent = `用${currentList}`;
 }
 
 function createOption(listName) {
