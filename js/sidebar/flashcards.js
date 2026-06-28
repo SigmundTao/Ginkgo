@@ -105,7 +105,17 @@ function renderCardList(root, state) {
   pack.cards.forEach(card => {
     const cardEl = document.createElement('div');
     cardEl.classList.add('flashcard-card-element');
-    cardEl.textContent = `${card.front} → ${card.back}`;
+
+    const cardText = document.createElement('p');
+    cardText.textContent = `${card.front} → ${card.back}`;
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'x';
+    deleteBtn.addEventListener('click', () => {
+      deleteCard(card.front, state, root);
+    })
+
+    cardEl.append(cardText, deleteBtn);
     root.appendChild(cardEl);
   });
 
@@ -113,6 +123,14 @@ function renderCardList(root, state) {
   addCardBtn.textContent = '+ Add Card';
   addCardBtn.addEventListener('click', () => promptNewCard(root, state, pack));
   root.appendChild(addCardBtn);
+}
+
+function deleteCard(cardFront, state, root){
+  const cards = USER.settings.flashcards.packs[state.activePack].cards;
+  const index = cards.findIndex(card => card.front === cardFront);
+  USER.settings.flashcards.packs[state.activePack].cards.splice(index, 1);
+  updateUserData()
+  render(root, state)
 }
 
 function renderStudyView(root, state) {
