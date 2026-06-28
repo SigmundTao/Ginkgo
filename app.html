@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kangae</title>
+    <link rel="stylesheet" href="./src/styles/base.css">
+    <link rel="stylesheet" href="./src/styles/dashboard.css">
+    <link rel="stylesheet" href="./src/styles/sidebar/pomodorotimer.css">
+    <link rel="stylesheet" href="./src/styles/sidebar/todo.css">
+    <link rel="stylesheet" href="./src/styles/sidebar/flashcards.css">
+    <link rel="stylesheet" href="./src/styles/settings.css">
+    <link rel="stylesheet" href="./src/styles/markdown.css">
+    <link rel="stylesheet" href="./src/styles/filetree.css">
+    <link rel="stylesheet" href="./src/styles/sidebar.css">
+    <link rel="icon" type="image/x-icon" href="./src/assets/ginkgo-tree.svg">
+</head>
+<body>
+    <main id="page">
+        <ul id="nav-bar">
+            <li id="open-files-btn" class="nav-item"></li>
+            <li id="settings-btn" class="nav-item"></li>
+            <li id="daily-note-btn" class="nav-item"></li>
+        </ul>
+        <div id="filetree">
+            <div id="filetree-nav">
+                <div id="create-note-btn" class="filetree-nav-item"></div>
+                <div id="create-folder-btn" class="filetree-nav-item"></div>
+            </div>
+            <div id="pinned"></div>
+            <div id="files-container"></div>
+        </div>
+        <div id="file-display">
+            <div id="tab-bar"></div>
+            <div id="current-tab"></div>
+        </div>
+        <div id="right-sidebar">
+            <div id="right-sidebar-btn" class="closed-sidebar"></div>
+            <div id="right-sidebar-nav">
+                <button id="add-module-btn">+</button>
+            </div>
+            <div id="sidebar-contents">
+            </div>
+        </div>
+    </main>
+    <dialog id="search-menu">
+        <div>
+            <input type="text" id="search-bar">
+            <div id="search-results"></div>
+        </div>
+    </dialog>
+    <dialog id="settings" class="settings-closed">
+        <div id="settings-nav">
+            <div class="settings-nav-item" id="appearance-btn">Appearance</div>
+            <div class="settings-nav-item" id="daily-note-settings-btn">Daily Note</div>
+            <div class="settings-nav-item" id="keybinds-btn">Keybinds</div>
+            <div class="settings-nav-item" id="flashcard-btn">Flashcards</div>
+            <div class="settings-nav-item" id="pomodoro-btn">Pomodoro Timer</div>
+            <div class="settings-nav-item" id="export-settings-btn">Export</div>
+        </div>
+        <div id="settings-output"></div>
+        <button id="close-settings-btn">X</button> 
+    </dialog>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script type="module" src="./src/js/main.js" ></script>
+</body>
+</html>

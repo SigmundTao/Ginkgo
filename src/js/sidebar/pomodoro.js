@@ -1,7 +1,7 @@
 import { USER, updateUserData } from '../user.js'
 
 export let countDown = null; 
-let timerSound = new Audio('../../assets/timer.mp3')
+let timerSound = new Audio('/src/assets/timer.mp3')
 
 const TIMER_TYPES = {
   pomodoro: 'pomodoro',
