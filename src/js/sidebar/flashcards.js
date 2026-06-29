@@ -92,6 +92,7 @@ function renderCardList(root, state) {
   const studyBtn = document.createElement('button');
   studyBtn.textContent = 'Study';
   studyBtn.addEventListener('click', () => {
+    state.currentCard = 0;
     state.view = ROOT_STATES.study
     render(root, state)
   })
