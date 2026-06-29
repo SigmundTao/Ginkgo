@@ -1,0 +1,113 @@
+:root {
+
+}
+
+* {
+   box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: none;
+}
+
+section {
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+}
+
+#hero-section {
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#floating-text {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  font-size: 2rem;
+}
+
+#go-to-app-btn {
+  height: 50px;
+  border: 1px solid white;
+  background-color: blue;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+#go-to-app-btn.hover {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+#features-section {
+  background-color: blue;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.feature {
+  border: 1px solid black;
+  height: 200px;
+  width: 500px;
+  padding: 15px;
+  background-color: grey;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+}
+
+.feature * {
+  margin: 0;
+}
+
+.feature-info-container {
+  width: 50%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.feature-img {
+  border: 1px solid black;
+  height: 100%;
+  width: 40%;
+}
+
+#info-section {
+  background-color: green;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/*//// links ///////////*/
+.link {
+  height: 50px;
+  aspect-ratio: 1;
+}
+
+.link-img {
+  height: 100%;
+}
