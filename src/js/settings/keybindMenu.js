@@ -1,5 +1,18 @@
 import { KEY_BINDS } from '../shortcuts.js';
 
+const bindsInUse = new Set();
+
+export function initKeybinds() {
+  bindsInUse.clear()
+  KEY_BINDS.forEach(bind => {
+    bindsInUse.add(bind.keyValue);
+  })
+}
+
+function isBindInUse(key) {
+  return bindsInUse.has(key) ? true : false;
+}
+
 const validKeys = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3','4', '5', '6', '7', '8', '9', '0', '/',','];
 
@@ -23,7 +36,7 @@ export function createKeybindMenu(){
   return menu
 }
 
-function createKeybindOption(keybindDataObj){
+function createKeybindOption(keybindDataObj) {
   const optionEl = document.createElement('div');
   optionEl.classList.add('keybind-option');
 
@@ -35,8 +48,16 @@ function createKeybindOption(keybindDataObj){
   bindInput.value = keybindDataObj.keyValue;
   optionEl.appendChild(bindInput);
 
-  bindInput.addEventListener('input', (e) => {
-    keybindDataObj.keyValue = e.target.value;
+  bindInput.addEventListener('keydown', (e) => {
+    const keyInput = bindInput.value;
+    if(e.key !== 'Enter' || keyInput.length !== 1) return
+    if(!isBindInUse(keyInput)){
+      keybindDataObj.keyValue = keyInput;
+      saveKeyBinds()
+      initKeybinds()
+    } else {
+      window.alert('Bind in use');
+    }
   })
 
   return optionEl;

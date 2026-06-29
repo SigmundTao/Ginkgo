@@ -28,5 +28,4 @@ export const USER = JSON.parse(localStorage.getItem('user')) || {
 
 export function updateUserData(){
   localStorage.setItem('user', JSON.stringify(USER))
-  console.log('user data updated')
 }
