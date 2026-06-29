@@ -176,11 +176,11 @@ function isDescendant(draggedId, targetId){
 }
 
 function returnImgBasedOnFileType(fileType, lastOfFolder, fileId){
-    if(lastOfFolder && fileType !== 'folder') return '../assets/filetree-el.svg';
-    else if(fileType === 'note') return './assets/filetree-file.svg'
+    if(lastOfFolder && fileType !== 'folder') return '/src/assets/filetree-el.svg';
+    else if(fileType === 'note') return 'src/assets/filetree-file.svg'
     else if(fileType === 'folder'){
-      if(openFolderIds.has(fileId))return '../assets/folder-open.svg';
-      else return '../assets/folder-closed.svg';
+      if(openFolderIds.has(fileId))return 'src/assets/folder-open.svg';
+      else return 'src/assets/folder-closed.svg';
     } 
 }
 
