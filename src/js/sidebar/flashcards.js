@@ -49,7 +49,6 @@ export function createFlashcardModule() {
 }
 
 function render(root, state) {
-  console.log('rendering')
   root.innerHTML = '';
   if (state.view === ROOT_STATES.packlist) renderPackList(root, state);
   if (state.view === ROOT_STATES.cardlist) renderCardList(root, state);
@@ -153,7 +152,7 @@ function renderStudyView(root, state) {
 
   const backBtn = document.createElement('div');
   backBtn.classList.add('flashcard-nav-btn');
-  backBtn.style.backgroundImage = `url('../../assets/leftarrow.svg')`;
+  backBtn.style.backgroundImage = `url('src/assets/leftarrow.svg')`;
   flashcardBtnHolder.appendChild(backBtn);
   backBtn.addEventListener('click', () => {
     if (state.currentCard <= 0) return;
@@ -163,7 +162,7 @@ function renderStudyView(root, state) {
 
   const forwardBtn = document.createElement('div');
   forwardBtn.classList.add('flashcard-nav-btn');
-  forwardBtn.style.backgroundImage = `url('../../assets/rightarrow.svg')`;
+  forwardBtn.style.backgroundImage = `url('src/assets/rightarrow.svg')`;
   flashcardBtnHolder.appendChild(forwardBtn);
   forwardBtn.addEventListener('click', () => {
     if (state.currentCard >= pack.cards.length - 1) return;

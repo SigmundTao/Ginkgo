@@ -1,6 +1,6 @@
 import { openSearchMenu } from './search.js'
 import { createFolder, toggleFileHolder } from './filetree.js'
-import { createDefaultTab, toggleNoteView, switchToNextTab, switchToPrevTab } from './tabs.js'
+import { createDefaultTab, toggleNoteView, switchToNextTab, switchToPrevTab, createTab } from './tabs.js'
 import { createQuickCaptureEl } from './quickcapture.js'
 import { toggleConfigMenu } from './settings/settings.js'
 import { openAndCloseSidebar, createModuleMenu, modules } from './sidebar/sidebar.js'
@@ -25,8 +25,11 @@ const FUNCTION_MAP = {
   'Next tab': switchToNextTab,
   'Previous tab': switchToPrevTab,
   'Open todo list': () => modules[0].createModule(),
+  'Open todo list tab': () => createTab(null, 'todo'),
   'Open pomodoro timer': () => modules[1].createModule(),
+  'Open pomodoro timer tab': () => createTab(null, 'pomodoro'),
   'Open flashcards': () => modules[2].createModule(),
+  'Open flashcard tab': () => createTab(null, 'flashcards'),
 }
 
 const DEFAULTS = [
@@ -44,8 +47,11 @@ const DEFAULTS = [
   { title: 'Next tab',           keyValue: 'l' },
   { title: 'Previous tab',       keyValue: 'h' },
   { title: 'Open todo list',     keyValue: '1' },
+  { title: 'Open todo list tab',     keyValue: '4' },
   { title: 'Open pomodoro timer',keyValue: '2' },
+  { title: 'Open pomodoro timer tab',keyValue: '5' },
   { title: 'Open flashcards',    keyValue: '3' },
+  { title: 'Open flashcard tab',    keyValue: '6' },
 ]
 
 export const KEY_BINDS = (saved.length ? saved : DEFAULTS)
