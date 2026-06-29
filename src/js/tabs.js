@@ -140,8 +140,8 @@ export function renderTabs(isFirstRender){
     
   const addTabBtn = document.createElement('button');
   addTabBtn.textContent = '+';
-  addTabBtn.addEventListener('click', () => {
-     page.appendChild(createTabMenu())
+  addTabBtn.addEventListener('click', (e) => {
+     page.appendChild(createTabMenu(e.clientX, e.clientY))
   })
 
   tabBar.appendChild(addTabBtn);

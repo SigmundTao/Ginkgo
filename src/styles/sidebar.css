@@ -89,25 +89,26 @@
 }
 
 .module-menu {
-   min-height: 200px;
-   width: 300px; 
+   height: auto;
+   width: 100px; 
    display:flex;
    margin: 0px;
-   padding: 15px;
-   position: fixed;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
+   padding: 5px;
+   border: 1px solid black;
+   gap: 5px;
 }
 
 .module-menu-item {
-   width: 100px;
+   width: 50px;
    aspect-ratio: 1;
    border: 1px solid black;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
+   padding: 5px;
+   border-radius: 5px;
+}
+
+.module-menu-item:hover {
+  cursor: pointer;
+  background-color: darkgrey;
 }
 
 .module {
@@ -118,19 +119,6 @@
     border: 1px solid grey;
     max-height: 400px;
     background-color: var(--pannel)
-}
-
-.module-img {
-    width: 100%;
-    aspect-ratio: 1;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    border: 1px solid black;
-}
-
-.module-title {
-    color: var(--font-secondary);
 }
 
 .delete-module-btn {

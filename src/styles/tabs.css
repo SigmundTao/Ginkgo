@@ -1,0 +1,24 @@
+.tab-menu {
+  border: 1px solid black;
+  background-color: darkgrey;
+  border-radius: 5px;
+}
+
+.tab-menu-item {
+  width: 200px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+
+.tab-menu-item:hover {
+  cursor: pointer;
+  background-color: grey;
+}
+
+.tab-menu-img {
+  height: 100%;
+  aspect-ratio: 1;
+}

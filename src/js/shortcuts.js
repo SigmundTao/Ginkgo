@@ -3,7 +3,7 @@ import { createFolder, toggleFileHolder } from './filetree.js'
 import { createDefaultTab, toggleNoteView, switchToNextTab, switchToPrevTab, createTab } from './tabs.js'
 import { createQuickCaptureEl } from './quickcapture.js'
 import { toggleConfigMenu } from './settings/settings.js'
-import { openAndCloseSidebar, createModuleMenu, modules } from './sidebar/sidebar.js'
+import { openAndCloseSidebar, modules } from './sidebar/sidebar.js'
 import { createDailyNote } from './navbar.js'
 import { createNewNote } from './editor.js'
 
@@ -21,7 +21,6 @@ const FUNCTION_MAP = {
   'Quick capture': createQuickCaptureEl,
   'Open config': toggleConfigMenu,
   'Open toolbar': openAndCloseSidebar,
-  'Open module menu': createModuleMenu,
   'Next tab': switchToNextTab,
   'Previous tab': switchToPrevTab,
   'Open todo list': () => modules[0].createModule(),
@@ -43,7 +42,6 @@ const DEFAULTS = [
   { title: 'Quick capture',      keyValue: 'q' },
   { title: 'Open config',        keyValue: 'm' },
   { title: 'Open toolbar',       keyValue: '/' },
-  { title: 'Open module menu',   keyValue: 'u' },
   { title: 'Next tab',           keyValue: 'l' },
   { title: 'Previous tab',       keyValue: 'h' },
   { title: 'Open todo list',     keyValue: '1' },

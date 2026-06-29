@@ -10,7 +10,6 @@ const addModuleBtn = document.getElementById('add-module-btn');
 export const sidebarContents = document.getElementById('sidebar-contents');
 
 class Module {
-    /// Expecting {id, title, imageURL, element}
     constructor(moduleObj){
         this.id = moduleObj.id;
         this.title = moduleObj.title;
@@ -44,10 +43,11 @@ class Module {
         const menuItem = document.createElement('div');
         menuItem.classList.add('module-menu-item');
 
-        menuItem.innerHTML = `
-            <div class="module-img" style="background-image:url('${this.image}')">
-            <p>${this.title}</p>
-        `
+        menuItem.style.backgroundImage = `url(${this.image})`;
+        menuItem.style.backgroundPosition = 'center';
+        menuItem.style.backgroundRepeat = 'no-repeat';
+        menuItem.style.backgroundSize = 'contain';
+        
         menuItem.addEventListener('click', this.createModule.bind(this));
         menuItem.addEventListener('click', () => {
           removeModuleMenu()
@@ -61,18 +61,22 @@ class Module {
 }
 
 export const modules = [
-    new Module({id:'todo-module', title: 'todo', image: 'assets/todo.svg', element:createToDoList}),
-    new Module({id:'timer-module', title: 'timer', image: 'assets/timer.svg', element:() => createPomodoroModule(true)}), 
-    new Module({id:'flashcard-module', title: 'flashcards', image: 'assets/flashcards.svg', element:() => createFlashcardModule(true)}), 
+    new Module({id:'todo-module', title: 'todo', image: 'src/assets/todo.svg', element:createToDoList}),
+    new Module({id:'timer-module', title: 'timer', image: 'src/assets/timer.svg', element:() => createPomodoroModule(true)}), 
+    new Module({id:'flashcard-module', title: 'flashcards', image: 'src/assets/flashcards.svg', element:() => createFlashcardModule(true)}), 
 ]
 
 export function openAndCloseSidebar(){
     toolbar.classList.toggle('closed-sidebar')
 }
 
-export function createModuleMenu(){
+function createModuleMenu(posX, posY){
     const moduleMenuEl = document.createElement('div');
     moduleMenuEl.classList.add('module-menu');
+
+    moduleMenuEl.style.position = 'fixed';
+    moduleMenuEl.style.top = `${posY + 15}px`
+    moduleMenuEl.style.left = `${posX + 10}px`
 
     modules.forEach(module => {
         moduleMenuEl.appendChild(module.createMenuItem())
@@ -86,7 +90,7 @@ export function removeModuleMenu (){
 }
 
 function initAddModuleBtn(){
-  addModuleBtn.addEventListener('click', createModuleMenu)
+  addModuleBtn.addEventListener('click', (e) => createModuleMenu(e.clientX, e.clientY))
 }
 
 export function initRightSidebar(){

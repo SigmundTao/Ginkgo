@@ -12,12 +12,12 @@ class MenuItem {
     const menuItemEl = document.createElement('div');
     menuItemEl.classList.add('tab-menu-item');
 
-    const title = document.createElement('h3');
+    const title = document.createElement('p');
     title.textContent = this.title;
 
     const img = document.createElement('div');
     img.classList.add('tab-menu-img');
-    img.style.backgroundImg = this.img;
+    img.style.backgroundImage = `url(${this.img})`;
     img.style.backgroundSize = 'contain';
     img.style.backgroundRepeat = 'no-repeat';
     img.style.backgroundPosition = 'center';
@@ -29,12 +29,12 @@ class MenuItem {
 }
 
 const menuItems = [
-  new MenuItem({id: 'pomodoro', title:'Pomodoro', type: 'pomodoro', img: '../../assets/timer.svg'}),
-  new MenuItem({id: 'flashcards', title:'Flashcards', type: 'flashcards', img: '../../assets/flashcards.svg'}),
-  new MenuItem({id: 'todo', title:'Todo', type: 'todo', img: '../../assets/flashcards.svg'}),
+  new MenuItem({id: 'pomodoro', title:'Pomodoro', type: 'pomodoro', img: 'src/assets/timer.svg'}),
+  new MenuItem({id: 'flashcards', title:'Flashcards', type: 'flashcards', img: 'src/assets/flashcards.svg'}),
+  new MenuItem({id: 'todo', title:'Todo', type: 'todo', img: 'src/assets/todo.svg'}),
 ]
 
-export function createTabMenu(){
+export function createTabMenu(posX, posY){
   const menuEl = document.createElement('div');
   menuEl.classList.add('tab-menu');
 
@@ -46,6 +46,10 @@ export function createTabMenu(){
     })
     menuEl.appendChild(element);
   })
+
+  menuEl.style.position = 'fixed';
+  menuEl.style.top = `${posY + 15}px`;
+  menuEl.style.left = `${posX + 5}px`;
 
   return menuEl;
 }
