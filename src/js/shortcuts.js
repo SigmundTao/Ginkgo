@@ -1,11 +1,12 @@
 import { openSearchMenu } from './search.js'
 import { createFolder, toggleFileHolder } from './filetree.js'
-import { createDefaultTab, toggleNoteView, switchToNextTab, switchToPrevTab, createTab } from './tabs.js'
+import { createDefaultTab, toggleNoteView, switchToNextTab, switchToPrevTab, createTab, deleteTab } from './tabs.js'
 import { createQuickCaptureEl } from './quickcapture.js'
 import { toggleConfigMenu } from './settings/settings.js'
 import { openAndCloseSidebar, modules } from './sidebar/sidebar.js'
 import { createDailyNote } from './navbar.js'
 import { createNewNote } from './editor.js'
+import { currentTabId } from './state.js'
 
 export const SUPER = 'Alt';
 const saved = JSON.parse(localStorage.getItem('keybinds')) || [];
@@ -29,6 +30,7 @@ const FUNCTION_MAP = {
   'Open pomodoro timer tab': () => createTab(null, 'pomodoro'),
   'Open flashcards': () => modules[2].createModule(),
   'Open flashcard tab': () => createTab(null, 'flashcards'),
+  'Close current tab' : () => deleteTab(currentTabId),
 }
 
 const DEFAULTS = [
@@ -37,6 +39,7 @@ const DEFAULTS = [
   { title: 'Search',             keyValue: 'f' },
   { title: 'Open filetree',      keyValue: 'i' },
   { title: 'Create folder',      keyValue: 'c' },
+  { title: 'Close current tab',  keyValue: 'w' },
   { title: 'Open dashboard',     keyValue: 't' },
   { title: 'Toggle note view',   keyValue: 'p' },
   { title: 'Quick capture',      keyValue: 'q' },
