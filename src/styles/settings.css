@@ -44,3 +44,9 @@
     border: 1px solid black;
     height: 200px;
 }
+
+/*// Daily Notes settings menu ////////////*/
+.daily-preset-input {
+  width: 100%;
+  height: 500px;
+}

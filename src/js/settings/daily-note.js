@@ -6,23 +6,21 @@ export function createDailyNoteSettings(){
   const folderTitle = document.createElement('h3');
   folderTitle.textContent = 'Daily Note folder';
 
-  const folderSelect = createFolderSelect()
+  const folderSelect = createFolderSelect();
 
   const presetTitle = document.createElement('h3');
   presetTitle.textContent = 'Daily note preset';
 
   const presetInput = document.createElement('textarea');
-  presetInput.value = USER.settings.dailyNote.preset
+  presetInput.value = USER.settings.dailyNote.preset;
+  presetInput.classList.add('daily-preset-input');
 
   presetInput.addEventListener('change', () => {
     USER.settings.dailyNote.preset = presetInput.value;
     updateUserData()
   })
 
-  container.appendChild(folderTitle);
-  container.appendChild(folderSelect);
-  container.appendChild(presetInput);
-  container.appendChild(presetInput);
+  container.append(folderTitle, folderSelect, presetTitle, presetInput);
 
   return container;
 }
