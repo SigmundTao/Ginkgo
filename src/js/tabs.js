@@ -1,5 +1,5 @@
 import { USER, updateUserData } from "./user.js";
-import { openFolderIds, setCurrentTabId, tabId, currentTabId, getTabIndex, getTabIndexFromFileId, incrementTabId, setSelectedFileId, currentNoteMode, setCurrentNoteMode } from "./state.js";
+import { selectedFileId, openFolderIds, setCurrentTabId, tabId, currentTabId, getTabIndex, getTabIndexFromFileId, incrementTabId, setSelectedFileId, currentNoteMode, setCurrentNoteMode } from "./state.js";
 import { checkForDuplicateTitles, getFileIndex } from "./storage.js";
 import { highlightSelectedFile, getTitleInput, getBodyInput, saveNote } from "./editor.js";
 import { deleteFile } from "./filetree.js";
@@ -229,25 +229,23 @@ function createNoteView(file){
     markdownDisplay.classList.add('markdown-display')
     markdownDisplay.id = 'markdown-div'
     markdownDisplay.addEventListener('click', (e) => {
-        if (e.target.matches('input[type="checkbox"]')) {
-            const checkboxes = [...markdownDisplay.querySelectorAll('input[type="checkbox"]')];
-            const index = checkboxes.indexOf(e.target);
-
-            let count = -1;
-            state.activeNote.content = state.activeNote.content.replace(/- \[(x| )\]/gi, (match) => {
-            count++;
-            if (count === index) {
-                return match.includes('x') ? '- [ ]' : '- [x]';
-            }
-            return match;
-            createNoteView(file)
-            });
-
-            saveNote();
-            switchToDisplayMode(bodyInput, markdownDisplay)
-            return;
-        }
-        switchToEditMode(noteContentInput, markdownDisplay);
+      if (e.target.matches('input[type="checkbox"]')) {
+          const checkboxes = [...markdownDisplay.querySelectorAll('input[type="checkbox"]')];
+          const index = checkboxes.indexOf(e.target);
+          let count = -1;
+          file.body = file.body.replace(/- \[(x| )\]/gi, (match) => {
+              count++;
+              if (count === index) {
+                  return match.includes('x') ? '- [ ]' : '- [x]';
+              }
+              return match;
+          });
+          noteContentInput.value = file.body;
+          saveNote(file);
+          switchToDisplayMode(noteContentInput, markdownDisplay);
+          return;
+      }
+      switchToEditMode(noteContentInput, markdownDisplay);
     });
 
     const countHolder = document.createElement('div')
@@ -304,16 +302,20 @@ export function toggleNoteView(){
 
 function switchToDisplayMode(bodyInput, markdownDiv){
     markdownDiv.innerHTML = marked.parse(bodyInput.value)
+    markdownDiv.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        cb.disabled = false
+    })
     bodyInput.style.display = 'none'
     markdownDiv.style.display = 'flex'
     setCurrentNoteMode('display')
     setTimeout(() => {
-    const bars = document.querySelectorAll('.progress-bar-fill')
-    bars.forEach(bar => {
-        bar.style.width = bar.dataset.value + '%'
-    })
-}, 0)
+        const bars = document.querySelectorAll('.progress-bar-fill')
+        bars.forEach(bar => {
+            bar.style.width = bar.dataset.value + '%'
+        })
+    }, 0)
 }
+
 function switchToEditMode(bodyInput, markdownDiv){
     markdownDiv.style.display = 'none'
     bodyInput.style.display = 'flex'
