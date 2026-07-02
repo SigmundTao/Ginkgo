@@ -25,12 +25,17 @@ export function getBodyInput(){
     return document.querySelector('.note-body')
 }
 
+function throwDuplicateTitleError(title) {
+  window.alert('Cannote save title, ${title} already exists!')
+}
+
 export function saveNote(file){
     const fileIndex = getFileIndex(file.id)
     if(fileIndex === -1) return
-    if(checkForDuplicateTitles(file.title, file.id)) return
+    if(checkForDuplicateTitles(file.title, file.id)) {
+      throwDuplicateTitleError(file.title)
+    } 
     file.title = getTitleInput().value
-    console.log(getTitleInput().value)
     file.body = getBodyInput().value
     file.lastEdited = getFormattedDate(new Date())
     setSelectedFileId(file.id)
@@ -56,7 +61,7 @@ function indicateAutoSave() {
   let rotation = 0;
   const rotating = setInterval(() => {
     rotation = rotateElement(icon, rotation);
-  }, 100);
+  }, 100); // rotaion interval
 
   setTimeout(() => {
     clearInterval(rotating);
@@ -71,12 +76,12 @@ function indicateAutoSave() {
           clearInterval(removingText);
           setTimeout(() => {
             saveElement.remove();
-          }, 500);
+          }, 500); // End of animation, remove element
         }
-      }, 35);
-    }, 200);
+      }, 35); // text removal speed
+    }, 200); // pause before removing text
 
-  }, 800);
+  }, 800); // hold on "Saved"
 }
 
 export function createNewNote(isDailyNote){
@@ -130,7 +135,6 @@ export function getUntitledTitle(){
     let i = 1
     while(untitledTitles.has(`Untitled ${i}`)){
         i++
-        if(i > 1000) break
     }
     return `Untitled ${i}`
 }
