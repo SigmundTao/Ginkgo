@@ -1,5 +1,5 @@
 import { USER, updateUserData } from "./user.js";
-import { selectedFileId, openFolderIds, setCurrentTabId, tabId, currentTabId, getTabIndex, getTabIndexFromFileId, incrementTabId, setSelectedFileId, currentNoteMode, setCurrentNoteMode } from "./state.js";
+import { MODULE_TYPES, NOTE_MODES,selectedFileId, openFolderIds, setCurrentTabId, tabId, currentTabId, getTabIndex, getTabIndexFromFileId, incrementTabId, setSelectedFileId, currentNoteMode, setCurrentNoteMode } from "./state.js";
 import { checkForDuplicateTitles, getFileIndex } from "./storage.js";
 import { highlightSelectedFile, getTitleInput, getBodyInput, saveNote } from "./editor.js";
 import { deleteFile } from "./filetree.js";
@@ -14,17 +14,22 @@ const page = document.getElementById('page');
 export const currentTabEl = document.getElementById('current-tab');
 const tabBar = document.getElementById('tab-bar');
 let noteDebounce;
+const MODULE_CREATORS = {
+  pomodoro: createPomodoroModule,
+  todo: createToDoList,
+  flashcards: createFlashcardModule,
+}
 
 export function createTab(fileId, moduleType = null){
     USER.tabs.push({file: fileId, id: tabId, moduleType})
     setCurrentTabId(tabId)
     incrementTabId()
-    loadTab(currentTabId, moduleType)
+    loadTab(currentTabId)
     renderTabs()
     updateUserData()
 }
 
-export function loadTab(id, moduleType){
+export function loadTab(id){
     const tabIndex = getTabIndex(id)
     if(tabIndex === -1) return
     const tab = USER.tabs[tabIndex]
@@ -53,17 +58,7 @@ function createModuleView(type){
 }
 
 function getModuleContent(type){
-  switch(type){
-    case 'pomodoro':
-      return createPomodoroModule();
-    break;
-    case 'todo':
-      return createToDoList();
-    break;
-    case 'flashcards':
-      return createFlashcardModule();
-    break;
-  }
+  return MODULE_CREATORS[type]?.();
 }
 
 export function createDefaultTab(){
@@ -114,7 +109,7 @@ export function renderTabs(isFirstRender){
     if(isFirstRender) {
       for(let i = 0; i < USER.tabs.length; i++) {
         if(USER.tabs[i].moduleType) {
-          USER.tabs.splice(i, 1);
+          USER.tabs = USER.tabs.filter(t => !t.moduleType);
         }
       }
     }
@@ -230,24 +225,11 @@ function createNoteView(file){
     markdownDisplay.id = 'markdown-div'
     markdownDisplay.addEventListener('click', (e) => {
       if (e.target.matches('input[type="checkbox"]')) {
-          const checkboxes = [...markdownDisplay.querySelectorAll('input[type="checkbox"]')];
-          const index = checkboxes.indexOf(e.target);
-          let count = -1;
-          file.body = file.body.replace(/- \[(x| )\]/gi, (match) => {
-              count++;
-              if (count === index) {
-                  return match.includes('x') ? '- [ ]' : '- [x]';
-              }
-              return match;
-          });
-          noteContentInput.value = file.body;
-          saveNote(file);
-          switchToDisplayMode(noteContentInput, markdownDisplay);
-          return;
+        toggleCheckboxInBody(file, e.target, markdownDisplay, noteContentInput);
+      } else {
+        switchToEditMode(noteContentInput, markdownDisplay);
       }
-      switchToEditMode(noteContentInput, markdownDisplay);
     });
-
     const countHolder = document.createElement('div')
     countHolder.classList.add('count-holder')
 
@@ -278,6 +260,19 @@ function createNoteView(file){
     })
 
     titleInput.focus()
+}
+
+function toggleCheckboxInBody(file, target, markdownElement, noteBody){
+  const checkboxes = [...markdownElement.querySelectorAll('input[type="checkbox"]')];
+  const index = checkboxes.indexOf(target);
+  let count = -1;
+  file.body = file.body.replace(/- \[(x| )\]/gi, (match) => {
+    count++;
+    return count === index ? (match.includes('x') ? '- [ ]' : '- [x]') : match;
+  });
+  noteBody.value = file.body;
+  saveNote(file);
+  switchToDisplayMode(noteBody, markdownElement);
 }
 
 function getMarkdownEl(){
@@ -322,10 +317,10 @@ function switchToEditMode(bodyInput, markdownDiv){
     setCurrentNoteMode('edit')
 }
 
-export function updateCountHolder(holder, file, currentNoteMode){
+export function updateCountHolder(holder, file, mode){
     let imgClass;
 
-    if(currentNoteMode === 'display') imgClass = 'display-mode'
+    if(mode === 'display') imgClass = 'display-mode'
     else imgClass = 'edit-mode'
 
     holder.innerHTML = `
@@ -339,11 +334,11 @@ export function getCountHolder(){
 }
 
 export function getWordCount(file){
-    return file.body.split(' ').length
+    return file.body.split(' ').length;
 }
 
 function getCharacterCount(file){
-    return file.body.split('').length
+    return file.body.length;
 }
 
 export function overwriteDefaultTab(fileId){

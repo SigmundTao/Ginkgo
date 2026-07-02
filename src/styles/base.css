@@ -376,7 +376,7 @@ a {
 }
 
 .note-body {
-    height: calc(100% - 100px);
+    height: 100%;
     background-color: var(--bg-primary);
     border: none;
     color: var(--font-primary);
@@ -394,11 +394,12 @@ a {
     outline: none;
 }
 
+
 /* =====================
    Count Holder
    ===================== */
 .count-holder {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     right: 0;
     border: 1px solid var(--border-secondary);
