@@ -48,7 +48,7 @@ function indicateAutoSave() {
   saveText.textContent = 'Saving...';
   const icon = document.createElement('div');
   icon.classList.add('save-icon');
-  icon.style.backgroundImage = `url('../assets/save-icon.svg')`;
+  icon.style.backgroundImage = `url('src/assets/save-icon.svg')`;
   saveElement.appendChild(icon);
   saveElement.appendChild(saveText);
   currentTabEl.appendChild(saveElement);
@@ -62,7 +62,7 @@ function indicateAutoSave() {
     clearInterval(rotating);
     icon.style.rotate = '0deg';
     saveText.textContent = 'Saved';
-    icon.style.backgroundImage = `url('../assets/saved.svg')`;
+    icon.style.backgroundImage = `url('src/assets/saved.svg')`;
 
     setTimeout(() => {
       const removingText = setInterval(() => {
