@@ -29,7 +29,7 @@ function closeSettingsMenu(){
 }
 
 export function toggleConfigMenu(){
-  if(settingEl.classList.contains('.settings-closed')){
+  if(settingEl.classList.contains('settings-closed')){
     openSettingsMenu()
     settingEl.classList.toggle('.settings-closed');
   } else {

@@ -3,6 +3,7 @@
 #settings {
     display: flex;
     position: relative;
+    z-index: 98;
 }
 
 #close-settings-btn {

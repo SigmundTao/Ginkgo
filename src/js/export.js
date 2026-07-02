@@ -1,4 +1,5 @@
-import { USER } from './user.js'
+import { USER } from './user.js';
+import { showToast, TOAST_TYPES } from './toast.js';
 
 function createTextFile(file, parentFolder){
   const note = file
@@ -27,7 +28,7 @@ async function exportFiles(filesArr){
   const zip = new JSZip()
 
   if(!filesArr.length) {
-    window.alert('No notes to export')
+    showToast('No notes to export', TOAST_TYPES.ALERT);
     return
   }
 

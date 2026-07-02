@@ -1,9 +1,15 @@
 import { currentTabEl } from './tabs.js';
 
+export const TOAST_TYPES = {
+  ERROR: 'Error',
+  ALERT: 'Alert',
+  WARN: 'Warning',
+}
+
 export function showToast(message, type) {
   const element = createToastElement(message, type);
 
-  currentTabEl.appendChild(element)
+  document.body.appendChild(element);
 
   setTimeout(() => {
     element.remove()

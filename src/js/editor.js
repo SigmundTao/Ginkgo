@@ -1,9 +1,10 @@
-import { USER, updateUserData } from "./user.js"
-import { openFolderIds, getFileIndex, idNum, currentFolderId, incrementIdNum, setSelectedFileId, setAppState, getTabIndexFromFileId } from "./state.js"
-import { getFormattedDate, checkForDuplicateTitles } from "./storage.js"
-import { currentTabEl, renderTabs, checkForDefaultTabs, createTab, overwriteDefaultTab, loadTab } from "./tabs.js"
-import { renderFiletree } from "./filetree.js"
-import { rotateElement, removeTextRightToLeft } from "./animations.js"
+import { USER, updateUserData } from "./user.js";
+import { openFolderIds, getFileIndex, idNum, currentFolderId, incrementIdNum, setSelectedFileId, setAppState, getTabIndexFromFileId } from "./state.js";
+import { getFormattedDate, checkForDuplicateTitles } from "./storage.js";
+import { currentTabEl, renderTabs, checkForDefaultTabs, createTab, overwriteDefaultTab, loadTab } from "./tabs.js";
+import { renderFiletree } from "./filetree.js";
+import { rotateElement, removeTextRightToLeft } from "./animations.js";
+import { showToast, TOAST_TYPES } from './toast.js';
 
 export function highlightSelectedFile(id){
     document.querySelectorAll('.file-card').forEach(card => card.classList.remove('selected-file'))
@@ -26,7 +27,7 @@ export function getBodyInput(){
 }
 
 function throwDuplicateTitleError(title) {
-  window.alert(`Cannot save title, ${title} already exists!`);
+  showToast(`Cannot save title, ${title} already exists!`, TOAST_TYPES.ALERT);
 }
 
 export function saveNote(file){
@@ -38,9 +39,13 @@ export function saveNote(file){
 }
 
 export function saveTitle(file){
-    const newTitle = getTitleInput().value
-    if(newTitle === file.title) return   // nothing changed, skip the check entirely
+    const newTitle = getTitleInput().value;
+    const bodyInput = getBodyInput()
 
+    if(newTitle === file.title){
+      bodyInput.focus();
+      return;
+    }
     if(checkForDuplicateTitles(newTitle, file.id)) {
       throwDuplicateTitleError(newTitle)
       return
@@ -51,6 +56,7 @@ export function saveTitle(file){
     renderFiletree()
     renderTabs()
     indicateAutoSave()
+    bodyInput.focus()
 }
 
 export function saveBody(file){
