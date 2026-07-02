@@ -113,6 +113,7 @@ export function renderTabs(isFirstRender){
         }
       }
     }
+
     tabBar.innerHTML = ''
     USER.tabs.forEach(tab => {
         const tabCard = createTabCard(tab)
@@ -134,6 +135,7 @@ export function renderTabs(isFirstRender){
     })
     
   const addTabBtn = document.createElement('button');
+  addTabBtn.classList.add('add-tab-btn');
   addTabBtn.textContent = '+';
   addTabBtn.addEventListener('click', (e) => {
      page.appendChild(createTabMenu(e.clientX, e.clientY))
@@ -216,11 +218,11 @@ function createNoteView(file){
     persistentTitle.classList.add('persistent-title')
 
     const noteContentInput = document.createElement('textarea')
-    noteContentInput.classList.add('note-body')
+    noteContentInput.classList.add('note-body-input')
     noteContentInput.value = file.body
 
     const markdownDisplay = document.createElement('div');
-    markdownDisplay.classList.add('note-body')
+    markdownDisplay.classList.add('note-body-markdown')
     markdownDisplay.classList.add('markdown-display')
     markdownDisplay.id = 'markdown-div'
     markdownDisplay.addEventListener('click', (e) => {

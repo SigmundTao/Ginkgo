@@ -375,10 +375,11 @@ a {
     width: 900px;
 }
 
-.note-body {
+.note-body-input, .note-body-markdown {
     height: 100%;
     background-color: var(--bg-primary);
     border: none;
+    outline: none;
     color: var(--font-primary);
     font-size: 1rem;
     padding: 0 50px 50px 50px;

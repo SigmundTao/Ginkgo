@@ -22,7 +22,7 @@ export function highlightSelectedFile(id){
 }
 
 export function getBodyInput(){
-    return document.querySelector('.note-body')
+    return document.querySelector('.note-body-input')
 }
 
 function throwDuplicateTitleError(title) {
@@ -33,21 +33,8 @@ export function saveNote(file){
     const fileIndex = getFileIndex(file.id)
     if(fileIndex === -1) return
 
-    const newTitle = getTitleInput().value
-
-    if(checkForDuplicateTitles(newTitle, file.id)) {
-      throwDuplicateTitleError(newTitle);
-      return;
-    }
-    file.title = newTitle;
-    file.body = getBodyInput().value
-    file.lastEdited = getFormattedDate(new Date())
-    setSelectedFileId(file.id)
-    setAppState('Editing')
-    updateUserData()
-    renderFiletree()
-    renderTabs()
-    indicateAutoSave()
+    saveTitle(file)
+    saveBody(file)
 }
 
 export function saveTitle(file){
@@ -88,7 +75,7 @@ function indicateAutoSave() {
   let rotation = 0;
   const rotating = setInterval(() => {
     rotation = rotateElement(icon, rotation);
-  }, 100); // rotaion interval
+  }, 100); // rotation interval
 
   setTimeout(() => {
     clearInterval(rotating);
@@ -161,7 +148,8 @@ export function getUntitledTitle(){
     if(!untitledTitles.has('Untitled')) return 'Untitled'
     let i = 1
     while(untitledTitles.has(`Untitled ${i}`)){
-        i++
+      if(i > 1000) break;
+      i++;
     }
     return `Untitled ${i}`
 }

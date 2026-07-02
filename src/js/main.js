@@ -7,6 +7,7 @@ import { createDefaultTab, renderTabs, switchToTab } from './tabs.js';
 import { initSettings } from './settings/settings.js';
 import { initRightSidebar } from './sidebar/sidebar.js';
 import { initKeybinds } from './settings/keybindMenu.js';
+import { showToast } from './toast.js';
 
 renderTabs(true)
 initSearch()
@@ -23,3 +24,4 @@ if(!USER.tabs.length >= 1){
    switchToTab(USER.tabs[USER.tabs.length - 1].id) 
 }
 renderPinnedFiles()
+showToast('This is a test', 'test')

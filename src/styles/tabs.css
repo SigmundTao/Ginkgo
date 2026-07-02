@@ -22,3 +22,9 @@
   height: 100%;
   aspect-ratio: 1;
 }
+
+.add-tab-btn {
+  border: none;
+  background-color: '#ffffff';
+  height: 100%;
+}
