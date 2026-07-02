@@ -26,16 +26,20 @@ export function getBodyInput(){
 }
 
 function throwDuplicateTitleError(title) {
-  window.alert('Cannote save title, ${title} already exists!')
+  window.alert(`Cannot save title, ${title} already exists!`);
 }
 
 export function saveNote(file){
     const fileIndex = getFileIndex(file.id)
     if(fileIndex === -1) return
-    if(checkForDuplicateTitles(file.title, file.id)) {
-      throwDuplicateTitleError(file.title)
-    } 
-    file.title = getTitleInput().value
+
+    const newTitle = getTitleInput().value
+
+    if(checkForDuplicateTitles(newTitle, file.id)) {
+      throwDuplicateTitleError(newTitle);
+      return;
+    }
+    file.title = newTitle;
     file.body = getBodyInput().value
     file.lastEdited = getFormattedDate(new Date())
     setSelectedFileId(file.id)
@@ -43,6 +47,29 @@ export function saveNote(file){
     updateUserData()
     renderFiletree()
     renderTabs()
+    indicateAutoSave()
+}
+
+export function saveTitle(file){
+    const newTitle = getTitleInput().value
+    if(newTitle === file.title) return   // nothing changed, skip the check entirely
+
+    if(checkForDuplicateTitles(newTitle, file.id)) {
+      throwDuplicateTitleError(newTitle)
+      return
+    }
+    file.title = newTitle
+    file.lastEdited = getFormattedDate(new Date())
+    updateUserData()
+    renderFiletree()
+    renderTabs()
+    indicateAutoSave()
+}
+
+export function saveBody(file){
+    file.body = getBodyInput().value
+    file.lastEdited = getFormattedDate(new Date())
+    updateUserData()
     indicateAutoSave()
 }
 

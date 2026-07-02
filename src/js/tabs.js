@@ -1,7 +1,7 @@
 import { USER, updateUserData } from "./user.js";
 import { MODULE_TYPES, NOTE_MODES,selectedFileId, openFolderIds, setCurrentTabId, tabId, currentTabId, getTabIndex, getTabIndexFromFileId, incrementTabId, setSelectedFileId, currentNoteMode, setCurrentNoteMode } from "./state.js";
 import { checkForDuplicateTitles, getFileIndex } from "./storage.js";
-import { highlightSelectedFile, getTitleInput, getBodyInput, saveNote } from "./editor.js";
+import { highlightSelectedFile, getTitleInput, getBodyInput, saveNote, saveTitle, saveBody } from "./editor.js";
 import { deleteFile } from "./filetree.js";
 import { marked } from './markdown.js';
 import { createDashboard } from "./dashboard.js";
@@ -244,7 +244,7 @@ function createNoteView(file){
 
     titleInput.addEventListener('keydown', (e) => {
         if(e.key === 'Enter'){
-            saveNote(file)
+            saveTitle(file)
             switchToEditMode(noteContentInput, markdownDisplay)
             noteContentInput.focus()
         }
@@ -254,7 +254,7 @@ function createNoteView(file){
         clearTimeout(noteDebounce)
 
         noteDebounce = setTimeout(() => {
-            saveNote(file)
+            saveBody(file)
             updateCountHolder(countHolder, file)
         }, 1500);
     })
