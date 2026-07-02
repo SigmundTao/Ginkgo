@@ -50,7 +50,7 @@ const DASHBOARD_SHORTCUTS = [
   new DashboardShortcut({
     name: 'Find File',
     key: `${SUPER} + f`,
-    img: '/src/assets/file.svg',
+    img: '/src/assets/search.svg',
   }),
   new DashboardShortcut({
     name: 'Config',
@@ -65,12 +65,12 @@ const DASHBOARD_SHORTCUTS = [
   new DashboardShortcut({
     name: 'Toggle Filetree',
     key: `${SUPER} + i`,
-    img: '/src/assets/dailynote.svg',
+    img: '/src/assets/ginkgo-tree.svg',
   }),
   new DashboardShortcut({
     name: 'Toggle Toolbar',
     key: `${SUPER} + /`,
-    img: '/src/assets/dailynote.svg',
+    img: '/src/assets/sidebar.svg',
   }),
 
 ]
