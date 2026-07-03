@@ -5,11 +5,26 @@ import { createQuickCaptureEl } from './quickcapture.js'
 import { toggleConfigMenu } from './settings/settings.js'
 import { openAndCloseSidebar, modules } from './sidebar/sidebar.js'
 import { createDailyNote } from './navbar.js'
-import { createNewNote } from './editor.js'
-import { currentTabId } from './state.js'
+import { createNewNote, getBodyInput, getTitleInput } from './editor.js'
+import { currentTabId, currentNoteMode } from './state.js'
 
 export const SUPER = 'Alt';
 const saved = JSON.parse(localStorage.getItem('keybinds')) || [];
+
+function focusOnInput(type) {
+  if (currentNoteMode !== 'edit') {
+    const preToggleInput = type === 'title' ? getTitleInput() : getBodyInput();
+    if (preToggleInput?.classList.contains('note-title')) {
+      preToggleInput.focus();
+      return;
+    }
+    toggleNoteView();
+  }
+
+  const input = type === 'title' ? getTitleInput() : getBodyInput(); // fresh reference, post-toggle
+  if (!input) return;
+  input.focus();
+}
 
 const FUNCTION_MAP = {
   'Create note': createNewNote,
@@ -17,6 +32,8 @@ const FUNCTION_MAP = {
   'Search': openSearchMenu,
   'Open filetree': toggleFileHolder,
   'Create folder': createFolder,
+  'Focus on note body' : () => focusOnInput('body'),
+  'Focus on note title' : () => focusOnInput('title'),
   'Open dashboard': createDefaultTab,
   'Toggle note view': toggleNoteView,
   'Quick capture': createQuickCaptureEl,
@@ -38,6 +55,8 @@ const DEFAULTS = [
   { title: 'Create daily note',  keyValue: 'd' },
   { title: 'Search',             keyValue: 'f' },
   { title: 'Open filetree',      keyValue: 'i' },
+  { title: 'Focus on note body',    keyValue: '7' },
+  { title: 'Focus on note title',    keyValue: '8' },
   { title: 'Create folder',      keyValue: 'c' },
   { title: 'Close current tab',  keyValue: 'w' },
   { title: 'Open dashboard',     keyValue: 't' },
