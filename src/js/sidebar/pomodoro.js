@@ -1,147 +1,158 @@
 import { USER, updateUserData } from '../user.js'
 
-const ongoingTimers = [];
-export let timerId =  ongoingTimers.length > 0 ? Math.max(...USER.files.map(n => n.id)) + 1 : 1;
-
-export let countDown = null; 
-let timerSound = new Audio('/src/assets/timer.mp3')
-
 const TIMER_TYPES = {
   pomodoro: 'pomodoro',
   shortbreak: 'shortbreak',
   longbreak: 'longbreak'
 }
 
-function createState(){
-  const state = USER.settings.pomodoroTimer;
-  state.id = timerId;
-  return state;
-}
+const timerSound = new Audio('/src/assets/timer.mp3')
 
-function ensurePomodoroState(){
-  if(!USER.pomodoroState){
-    USER.pomodoroState = {
-      secondsLeft: USER.settings.pomodoroTimer.pomodoro * 60,
-      isGoing: false,
-      currentType: TIMER_TYPES.pomodoro,
-      pomodoroCounter: 0,
-    }
+const tabTimers = new Map();      // tabId -> engine, one per open pomodoro tab
+let sidebarTimer = null;          // single persistent engine for the sidebar widget
+
+function createTimerState(settings){
+  return {
+    settings,
+    secondsLeft: settings.pomodoro * 60,
+    isGoing: false,
+    currentType: TIMER_TYPES.pomodoro,
+    pomodoroCounter: 0,
+    intervalId: null,
+    listeners: new Set(),
   }
-  return USER.pomodoroState;
 }
 
-export function createPomodoroModule(){
-  const state = createState();
-  const root = document.createElement('div');
-  root.classList.add('timer-module')
-  root.id = 'timer-root';
-  render(root, state)
+function notify(timer){
+  timer.listeners.forEach(fn => fn());
+}
 
-  ongoingTimers.push({id: state.id, timerState: state})
+//Tab pomodoro
+export function createPomodoroModule(tabId){
+  const settings = USER.settings.pomodoroTimer;
+
+  let timer = tabTimers.get(tabId);
+  if(!timer){
+    timer = createTimerState(settings);
+    tabTimers.set(tabId, timer);
+  }
+
+  return mount(timer, tabId, 'tab');
+}
+
+export function destroyPomodoroTimer(tabId){
+  const timer = tabTimers.get(tabId);
+  if(!timer) return;
+  clearInterval(timer.intervalId);
+  tabTimers.delete(tabId);
+}
+
+//Sidebar pomodoro
+export function createSidebarPomodoroModule(){
+  if(!sidebarTimer){
+    sidebarTimer = createTimerState(USER.settings.pomodoroTimer);
+  }
+  return mount(sidebarTimer, 'sidebar', 'sidebar');
+}
+
+export function destroySidebarPomodoroTimer(){
+  if(!sidebarTimer) return;
+  clearInterval(sidebarTimer.intervalId);
+  sidebarTimer = null;
+}
+
+//engine logic
+function mount(timer, key, kind){
+  const root = document.createElement('div');
+  root.classList.add('timer-module', `timer-module--${kind}`);
+  if(kind === 'tab') root.id = 'timer-root';
+  const paint = renderView(root, timer, key);
+  timer.listeners.add(paint);
+  paint();
+
+  root._onDestroy = () => timer.listeners.delete(paint);
 
   return root;
 }
 
-function render(root, state){
-  root.innerHTML = ``;
-  createPomodoroTimer(root, state);
-}
-
-function createPomodoroTimer(root, state){
-  ensurePomodoroState();
-  const pomodoroState = USER.pomodoroState;
-
+function renderView(root, timer, key){
   const timerLabel = document.createElement('p');
   timerLabel.classList.add('timer-label');
   timerLabel.style.fontWeight = 'bold';
-  updateTimerLabel(timerLabel)
   root.appendChild(timerLabel);
 
   const timerEl = document.createElement('div');
-  timerEl.classList.add('timer')
-  timerEl.textContent = formatTime(pomodoroState.secondsLeft);
-  root.appendChild(timerEl)
+  timerEl.classList.add('timer');
+  root.appendChild(timerEl);
 
   const startStopBtn = document.createElement('button');
-  startStopBtn.textContent = 'Start';
   root.appendChild(startStopBtn);
 
+  function paint(){
+    timerLabel.textContent = labelFor(timer.currentType);
+    timerEl.textContent = formatTime(timer.secondsLeft);
+    startStopBtn.textContent = timer.isGoing ? 'Stop' : 'Start';
+  }
+
   startStopBtn.addEventListener('click', () => {
-    if(!pomodoroState.isGoing) {
-      startTimer(timerEl, state, timerLabel);
-      startStopBtn.textContent = 'Stop';
-    } else {
-      stopTimer();
-      startStopBtn.textContent = 'Start';
+    timer.isGoing ? stopTimer(timer) : startTimer(timer);
+  });
+
+  return paint;
+}
+
+function startTimer(timer){
+  if(timer.isGoing) return;
+  timer.isGoing = true;
+  timer.intervalId = setInterval(() => {
+    timer.secondsLeft--;
+    if(timer.secondsLeft <= 0){
+      stopTimer(timer);
+      timerSound.play();
+      window.alert(`${timer.currentType} has ended`);
+      advancePhase(timer);
+      startTimer(timer);
+      return;
     }
-  })
-}
-
-function setTimer(timeInMinutes){
-  USER.pomodoroState.secondsLeft = timeInMinutes * 60;
-}
-
-function setTimerType(type){
-  USER.pomodoroState.currentType = type;
-}
-
-function decrementTimer(){
-  USER.pomodoroState.secondsLeft--;
-}
-
-function startTimer(displayEl, state, label){
-  updateTimerLabel(label)
-  USER.pomodoroState.isGoing = true;
-  countDown = setInterval(() => {
-    decrementTimer()
-    updateUI(displayEl, USER.pomodoroState.secondsLeft)
-    if(USER.pomodoroState.secondsLeft <= 0){
-      stopTimer()
-      timerSound.play()
-      window.alert(`${USER.pomodoroState.currentType} has ended`)
-      handleTimerEnd(displayEl, state, label)
-    }
+    notify(timer);
   }, 1000);
+  notify(timer);
 }
 
-function stopTimer(){
-  clearInterval(countDown);
-  USER.pomodoroState.isGoing = false;
-  countDown = null;
+function stopTimer(timer){
+  clearInterval(timer.intervalId);
+  timer.intervalId = null;
+  timer.isGoing = false;
+  notify(timer);
 }
 
-function handleTimerEnd(displayEl, state, label){
-  const pomodoroState = USER.pomodoroState;
-  if(pomodoroState.currentType === TIMER_TYPES.pomodoro){
-    pomodoroState.pomodoroCounter++;
-    if(pomodoroState.pomodoroCounter % state.pomodorosBeforeLongBreak === 0){
-      setTimerType(TIMER_TYPES.longbreak);
-      setTimer(state.longBreak);
+function advancePhase(timer){
+  const s = timer.settings;
+  if(timer.currentType === TIMER_TYPES.pomodoro){
+    timer.pomodoroCounter++;
+    if(timer.pomodoroCounter % s.pomodorosBeforeLongBreak === 0){
+      timer.currentType = TIMER_TYPES.longbreak;
+      timer.secondsLeft = s.longBreak * 60;
     } else {
-      setTimerType(TIMER_TYPES.shortbreak)
-      setTimer(state.shortBreak);
+      timer.currentType = TIMER_TYPES.shortbreak;
+      timer.secondsLeft = s.shortBreak * 60;
     }
   } else {
-    setTimerType(TIMER_TYPES.pomodoro);
-    setTimer(state.pomodoro);
+    timer.currentType = TIMER_TYPES.pomodoro;
+    timer.secondsLeft = s.pomodoro * 60;
   }
   updateUserData();
-  startTimer(displayEl, state, label);
+  notify(timer);
 }
 
-function updateUI(timerEl, time){
-  timerEl.textContent = formatTime(time);
+function formatTime(t){
+  const m = Math.floor(t / 60);
+  const sec = t % 60;
+  return `${m}:${String(sec).padStart(2, '0')}`;
 }
 
-function formatTime(timeInSeconds){
-  const minutes = Math.floor(timeInSeconds / 60);
-  const seconds = timeInSeconds % 60;
-  return `${minutes}:${String(seconds).padStart(2, '0')}`
-}
-
-function updateTimerLabel(labelEl){
-  const type = USER.pomodoroState.currentType;
-  if(type === TIMER_TYPES.pomodoro) labelEl.textContent = '集Focus';
-  else if(type === TIMER_TYPES.shortbreak) labelEl.textContent = '息Short Break';
-  else if(type === TIMER_TYPES.longbreak) labelEl.textContent = '暇Long Break';
+function labelFor(type){
+  if(type === TIMER_TYPES.pomodoro) return '集Focus';
+  if(type === TIMER_TYPES.shortbreak) return '息Short Break';
+  return '暇Long Break';
 }

@@ -1,5 +1,5 @@
 import { USER, updateUserData } from "../user.js"
-import { createPomodoroModule, countDown } from "./pomodoro.js"
+import { createSidebarPomodoroModule, destroySidebarPomodoroTimer } from "./pomodoro.js"
 import { createToDoList } from "./todo.js"
 import { openModules, removeOpenModule, addOpenModule } from "../state.js"
 import { createFlashcardModule } from "./flashcards.js"
@@ -16,7 +16,6 @@ class Module {
         this.image = moduleObj.image;
         this.element = moduleObj.element; 
     }
-
     createModule(){
         if(openModules.includes(this.title)) return;
         if(openModules.length >= 4) return;
@@ -24,12 +23,14 @@ class Module {
         addOpenModule(this.title)
         const module = document.createElement('div');
         module.classList.add('module');
-        module.appendChild(this.element());
+
+        const root = this.element();
+        module.appendChild(root);
 
         const deleteModuleBtn = document.createElement('button');
         deleteModuleBtn.classList.add('delete-module-btn');
         deleteModuleBtn.addEventListener('click', () => {
-            if(this.id === 'timer-module') clearInterval(countDown);
+            if(this.id === 'timer-module') destroySidebarPomodoroTimer();
             module.remove()
             removeOpenModule(this.title)
         })
@@ -38,11 +39,9 @@ class Module {
         module.appendChild(deleteModuleBtn)
         sidebarContents.appendChild(module);
     }
-
     createMenuItem(){
         const menuItem = document.createElement('div');
         menuItem.classList.add('module-menu-item');
-
         menuItem.style.backgroundImage = `url(${this.image})`;
         menuItem.style.backgroundPosition = 'center';
         menuItem.style.backgroundRepeat = 'no-repeat';
@@ -55,15 +54,14 @@ class Module {
             openAndCloseSidebar()
           }
         });
-
         return menuItem;
     }
 }
 
 export const modules = [
-    new Module({id:'todo-module', title: 'todo', image: 'src/assets/todo.svg', element:createToDoList}),
-    new Module({id:'timer-module', title: 'timer', image: 'src/assets/timer.svg', element:() => createPomodoroModule(true)}), 
-    new Module({id:'flashcard-module', title: 'flashcards', image: 'src/assets/flashcards.svg', element:() => createFlashcardModule(true)}), 
+    new Module({id:'todo-module', title: 'todo', image: 'src/assets/todo.svg', element: createToDoList}),
+    new Module({id:'timer-module', title: 'timer', image: 'src/assets/timer.svg', element: createSidebarPomodoroModule}), 
+    new Module({id:'flashcard-module', title: 'flashcards', image: 'src/assets/flashcards.svg', element: () => createFlashcardModule(true)}), 
 ]
 
 export function openAndCloseSidebar(){

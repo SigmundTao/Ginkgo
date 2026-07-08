@@ -89,7 +89,11 @@ export function switchToPrevTab(){
 
 export function deleteTab(id){
     const tabIndex = getTabIndex(id)
-    USER.tabs.splice(tabIndex, 1)
+    const tab = USER.tabs[tabIndex]
+    if(tab?.moduleType === 'pomodoro'){
+        destroyPomodoroTimer(id)
+    }
+    USER.tabs.splice(tabIndex, 1) 
     if(USER.tabs.length < 1){
         currentTabEl.innerHTML = ''
         createDefaultTab()
