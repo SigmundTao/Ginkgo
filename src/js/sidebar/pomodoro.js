@@ -1,5 +1,8 @@
 import { USER, updateUserData } from '../user.js'
 
+const ongoingTimers = [];
+export let timerId =  ongoingTimers.length > 0 ? Math.max(...USER.files.map(n => n.id)) + 1 : 1;
+
 export let countDown = null; 
 let timerSound = new Audio('/src/assets/timer.mp3')
 
@@ -10,8 +13,9 @@ const TIMER_TYPES = {
 }
 
 function createState(){
-  return USER.settings.pomodoroTimer
-
+  const state = USER.settings.pomodoroTimer;
+  state.id = timerId;
+  return state;
 }
 
 function ensurePomodoroState(){
@@ -32,6 +36,9 @@ export function createPomodoroModule(){
   root.classList.add('timer-module')
   root.id = 'timer-root';
   render(root, state)
+
+  ongoingTimers.push({id: state.id, timerState: state})
+
   return root;
 }
 

@@ -3,7 +3,7 @@ v0.1 scope
 [] CSS polished
 [x] Module tabs
 [] Keep pomodoro state when changing tabs
-[] Custom keybinds fully working
+[x] Custom keybinds fully working
 [] No major bugs
 [] Two themes added
 [x] Visualizer removed
