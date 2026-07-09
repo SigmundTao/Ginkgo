@@ -29,7 +29,7 @@ class DeletedFile {
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'x';
     deleteBtn.onclick = () => {
-      deleteFile(this.id)
+      deleteFile(this.file.id)
       updateUserData()
       updateSettingEl(createNoteRecoverySettings(USER.recentlyDeleted))
     }
@@ -61,11 +61,14 @@ export function createNoteRecoverySettings(files) {
   const title = document.createElement('h3');
   title.textContent = 'Recently Deleted:';
 
+  const text = document.createElement('p');
+  text.textContent = 'all deleted files will be permanently removed after 7 days';
+
   const fileContainer = document.createElement('div');
   fileContainer.classList.add('delted-files-container');
   if(!files.length) fileContainer.textContent = 'No recently deleted files.'
 
-  const deletedFiles = convertFilesIntoDeletedFileClassObjects(files);
+  const deletedFiles = convertFilesIntoDeletedFileClassObjects(files).reverse();
   if(deletedFiles.length){
     deletedFiles.forEach(file => {
       if(!removePermanently(file)){
@@ -74,13 +77,13 @@ export function createNoteRecoverySettings(files) {
     })
   }
 
-  containerEl.append(title, fileContainer);
+  containerEl.append(title, text, fileContainer);
   return containerEl;
 }
 
 function removePermanently(file) {
   const today = new Date();
-  const endDate = addDays(file.dateOfDeletion, 30);
+  const endDate = addDays(file.dateOfDeletion, 7);
   let hasBeenDeleted = false;
 
   if(today.getTime >= endDate.getTime()) {

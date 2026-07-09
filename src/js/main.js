@@ -25,3 +25,5 @@ if(!USER.tabs.length >= 1){
    switchToTab(USER.tabs[USER.tabs.length - 1].id) 
 }
 renderPinnedFiles()
+
+console.log(USER.recentlyDeleted)

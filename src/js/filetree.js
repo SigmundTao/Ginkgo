@@ -330,6 +330,7 @@ export function deleteFile(id){
     }
     file.dateOfDeletion = new Date();
     USER.recentlyDeleted.push(file)
+    if(USER.recentlyDeleted.length > 50) USER.recentlyDeleted.shift()
     USER.files.splice(getFileIndex(id), 1)
     updateUserData()
     renderFiletree()
