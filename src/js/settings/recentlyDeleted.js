@@ -27,6 +27,11 @@ class DeletedFile {
 
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'x';
+    deleteBtn.onclick = () => {
+      USER.recentlyDeleted.splice(getIndexById(this.file.id), 1);
+      updateUserData()
+      updateSettingEl(createNoteRecoverySettings(USER.recentlyDeleted))
+    }
 
     card.append(title, recoverBtn, deleteBtn);
     return card;
