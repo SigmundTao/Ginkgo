@@ -45,7 +45,7 @@ function renderFolder(folder, depth = 0, container, lastOfFolder) {
 
     const folderContents = USER.files
     .filter(f => f.parentId === folder.id)
-    .toSorted((a, b) => a.title.localeCompare(b.title))
+    .toSorted((a, b) => a.title.localeCompare(b.title));
 
     const lastIndex = folderContents.length - 1;
 
@@ -349,6 +349,13 @@ function createDeleteBtn(toBeDeleted, menu){
     deleteBtn.id = 'rc-delete-btn'
     deleteBtn.textContent = 'Delete'
     deleteBtn.addEventListener('click', () => {
+        const file = USER.files[getFileIndex(toBeDeleted)]
+        if(file.type === 'folder'){
+          const folderContents = USER.files.filter(f => f.parentId === toBeDeleted);
+          folderContents.forEach(item => {
+            item.parentId = null;
+          })
+        }
         deleteFile(toBeDeleted)
         menu.remove()
     })

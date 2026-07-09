@@ -20,3 +20,4 @@ v0.1 scope
 [x] create new note with add tab btn
 [x] Sort notes alphabetically
 [] fix folder deleting
+[] fix todo deletion
