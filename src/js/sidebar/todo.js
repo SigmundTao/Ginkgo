@@ -23,6 +23,12 @@ export function renderToDos(container) {
     }
 }
 
+function createDefaultInput() {
+  const input = document.createElement('input');
+  input.classList.add('persistent-todo-input');
+  return input;
+}
+
 function createTaskCard(taskDataObj) {
     const task = USER.todo.lists[findListIndex(currentList)].tasks[findTaskIndex(taskDataObj.taskName)];
     const card = document.createElement('li');
@@ -65,23 +71,10 @@ function findTaskIndex(taskTitle) {
     return USER.todo.lists[findListIndex(currentList)].tasks.findIndex(task => task.taskName === taskTitle)
 }
 
-function createTask(container) {
-    const card = document.createElement('div');
-
-    const taskInput = document.createElement('input');
-
-    taskInput.addEventListener('keydown', (e) => {
-        if(e.key === 'Enter'){
-            USER.todo.lists[findListIndex(currentList)].tasks.push({taskName: taskInput.value, completed: false});
-            updateUserData()
-            renderToDos(container)
-        }
-    })
-
-    card.appendChild(taskInput)
-    container.appendChild(card)
-
-    taskInput.focus()
+function createTask(container, taskValue) {
+  USER.todo.lists[findListIndex(currentList)].tasks.push({taskName: taskValue, completed: false});
+  updateUserData()
+  renderToDos(container)
 }
 
 export function createToDoList() {
@@ -107,16 +100,21 @@ export function createToDoList() {
   const taskContainer = document.createElement('div');
   taskContainer.classList.add('task-container');
 
-  const createTaskBtn = document.createElement('button');
-  createTaskBtn.textContent = '+';
+  const persistentInput = createDefaultInput()
+  persistentInput.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' && persistentInput.value.length) {
+      createTask(taskContainer, persistentInput.value.trim())
+      persistentInput.value = '';
+      persistentInput.focus()
+    }
+  })
 
   listsContainer.appendChild(createSelect(USER.todo.lists));
   listsContainer.appendChild(addListBtn)
   toDoList.appendChild(listsContainer)
   toDoList.appendChild(taskContainer)
-  toDoList.appendChild(createTaskBtn)
+  toDoList.appendChild(persistentInput)
 
-  createTaskBtn.addEventListener('click', () => {createTask(taskContainer)})
   renderToDos(taskContainer)
   return toDoList;
 }

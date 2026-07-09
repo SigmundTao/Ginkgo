@@ -96,6 +96,7 @@
    padding: 5px;
    border: 1px solid black;
    gap: 5px;
+   background-color: white;
 }
 
 .module-menu-item {
