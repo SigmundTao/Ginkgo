@@ -1,5 +1,7 @@
 import { USER, updateUserData } from '../user.js';
 import { idNum, incrementIdNum } from '../state.js';
+import { renderFiletree } from '../filetree.js';
+import { render as updateSettingEl } from './settings.js';
 
 class DeletedFile {
   constructor(file) {
@@ -19,6 +21,8 @@ class DeletedFile {
       USER.files.push(this.file);
       USER.recentlyDeleted.splice(getIndexById(this.file.id), 1);
       updateUserData()
+      updateSettingEl(createNoteRecoverySettings(USER.recentlyDeleted))
+      renderFiletree()
     };
 
     const deleteBtn = document.createElement('button');

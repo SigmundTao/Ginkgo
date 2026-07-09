@@ -66,7 +66,7 @@ export function initSettings(){
   recentlyDeletedBtn.addEventListener('click', () => render(createNoteRecoverySettings(USER.recentlyDeleted)))
 }
 
-function render(element){
+export function render(element){
   clearSettingsOutput()
   settingsOutputEl.appendChild(element)
 }
