@@ -1,4 +1,4 @@
-import { USER } from './user.js'
+import { USER, updateLastLogIn } from './user.js'
 import { renderFiletree, renderPinnedFiles } from './filetree.js';
 import { initSearch } from './search.js';
 import { initShortcuts } from './shortcuts.js';
@@ -17,6 +17,7 @@ initSettings()
 initRightSidebar()
 initKeybinds()
 renderFiletree()
+updateLastLogIn()
 
 if(!USER.tabs.length >= 1){
     createDefaultTab()
@@ -24,5 +25,3 @@ if(!USER.tabs.length >= 1){
    switchToTab(USER.tabs[USER.tabs.length - 1].id) 
 }
 renderPinnedFiles()
-
-console.log(USER.recentlyDeleted)

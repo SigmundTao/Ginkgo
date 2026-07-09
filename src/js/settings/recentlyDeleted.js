@@ -18,8 +18,9 @@ class DeletedFile {
     const recoverBtn = document.createElement('button');
     recoverBtn.textContent = 'recover';
     recoverBtn.onclick = () => {
+      this.file.daysUntilDeletion = 5;
       USER.files.push(this.file);
-      USER.recentlyDeleted.splice(getIndexById(this.file.id), 1);
+      deleteFile(this.id)
       updateUserData()
       updateSettingEl(createNoteRecoverySettings(USER.recentlyDeleted))
       renderFiletree()
@@ -28,7 +29,7 @@ class DeletedFile {
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'x';
     deleteBtn.onclick = () => {
-      USER.recentlyDeleted.splice(getIndexById(this.file.id), 1);
+      deleteFile(this.id)
       updateUserData()
       updateSettingEl(createNoteRecoverySettings(USER.recentlyDeleted))
     }
@@ -67,10 +68,36 @@ export function createNoteRecoverySettings(files) {
   const deletedFiles = convertFilesIntoDeletedFileClassObjects(files);
   if(deletedFiles.length){
     deletedFiles.forEach(file => {
-      fileContainer.appendChild(file.createElement())
+      if(!removePermanently(file)){
+        fileContainer.appendChild(file.createElement())
+      }
     })
   }
 
   containerEl.append(title, fileContainer);
   return containerEl;
+}
+
+function removePermanently(file) {
+  const today = new Date();
+  const endDate = addDays(file.dateOfDeletion, 30);
+  let hasBeenDeleted = false;
+
+  if(today.getTime >= endDate.getTime()) {
+    deleteFile(file.id)
+    updateUserData()
+    hasBeenDeleted = true;
+  }
+
+  return hasBeenDeleted;
+}
+
+function addDays(date, days) {
+  const newDate = new Date(date);
+  newDate.setDate(newDate.getDate() + days);
+  return newDate;
+}
+
+function deleteFile(id) {
+  USER.recentlyDeleted.splice(getIndexById(id), 1);
 }

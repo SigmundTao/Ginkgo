@@ -124,7 +124,7 @@ export function createNewNote(isDailyNote){
         parentId: parent,
         date,
         lastEdited: date,
-        tags: []
+        tags: [],
     })
 
     if(parent !== null){

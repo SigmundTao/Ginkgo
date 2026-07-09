@@ -24,9 +24,15 @@ export const USER = JSON.parse(localStorage.getItem('user')) || {
     flashcards: {
       packs: []
     }
-  }
+  },
+  lastLogIn: '',
 }
 
 export function updateUserData(){
   localStorage.setItem('user', JSON.stringify(USER))
+}
+
+export function updateLastLogIn() {
+  const today = new Date();
+  if(USER.lastLogIn !== today) USER.lastLogIn = today;
 }

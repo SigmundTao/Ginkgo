@@ -324,6 +324,8 @@ export function deleteFile(id){
     if(file.pinned){
         unpinFile(file)
     }
+    file.dateOfDeletion = new Date();
+    console.log(file.dateOfDeletion)
     USER.recentlyDeleted.push(file)
     USER.files.splice(getFileIndex(id), 1)
     updateUserData()
