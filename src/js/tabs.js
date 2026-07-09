@@ -142,6 +142,7 @@ export function renderTabs(isFirstRender){
   addTabBtn.classList.add('add-tab-btn');
   addTabBtn.textContent = '+';
   addTabBtn.addEventListener('click', (e) => {
+    if(document.querySelector('.tab-menu')) return;
      page.appendChild(createTabMenu(e.clientX, e.clientY))
   })
 
