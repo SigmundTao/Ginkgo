@@ -1,4 +1,5 @@
 import { createTab } from '../tabs.js';
+import { createNewNote } from '../editor.js';
 
 class MenuItem {
   constructor(obj) {
@@ -37,6 +38,18 @@ const menuItems = [
 export function createTabMenu(posX, posY){
   const menuEl = document.createElement('div');
   menuEl.classList.add('tab-menu');
+
+  const createNewFile = document.createElement('div');
+  createNewFile.classList.add('tab-menu-item');
+  createNewFile.innerHTML = `
+    <p>New Note</p>
+    <img src="src/assets/file.svg" class="tab-menu-img">
+  `
+  createNewFile.onclick = () => {
+    createNewNote(false);
+    menuEl.remove();
+  }
+  menuEl.appendChild(createNewFile)
 
   menuItems.forEach(item => {
     const element = item.createElement()

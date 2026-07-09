@@ -16,6 +16,6 @@ v0.1 scope
 [x] Auto save indicator
 [x] duplicate notes
 [] make all code uniform (swap all old 4 tab into 2 tab)
-[] be able to delete tool tabs
-[] create new note with add tab btn
+[x] be able to delete tool tabs
+[x] create new note with add tab btn
 [] Sort notes alphabetically
