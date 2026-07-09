@@ -18,4 +18,5 @@ v0.1 scope
 [] make all code uniform (swap all old 4 tab into 2 tab)
 [x] be able to delete tool tabs
 [x] create new note with add tab btn
-[] Sort notes alphabetically
+[x] Sort notes alphabetically
+[] fix folder deleting

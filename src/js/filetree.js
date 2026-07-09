@@ -24,7 +24,8 @@ pinnedDisplayEl.addEventListener('drop', drop)
 
 export function renderFiletree(){
     fileTreeContainerEl.innerHTML = ''
-    USER.files.forEach(file => {
+    const sortedFiles = USER.files.toSorted((a, b) => a.title.localeCompare(b.title));
+    sortedFiles.forEach(file => {
         if(file.parentId) return
         if(file.type === 'folder'){
             renderFolder(file, 0, fileTreeContainerEl)
@@ -42,7 +43,10 @@ function renderFolder(folder, depth = 0, container, lastOfFolder) {
 
     if (!openFolderIds.has(folder.id)) return
 
-    const folderContents = USER.files.filter(f => f.parentId === folder.id)
+    const folderContents = USER.files
+    .filter(f => f.parentId === folder.id)
+    .toSorted((a, b) => a.title.localeCompare(b.title))
+
     const lastIndex = folderContents.length - 1;
 
     folderContents.forEach((file, index) => {
