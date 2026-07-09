@@ -276,8 +276,8 @@ function createRightClickMenu(posX, posY, file){
     }
 
     if(file.type === 'folder'){
-
       menu.appendChild(createRenameBtn(file, menu));
+      menu.appendChild(createDeleteAllBtn(file.id, menu));
     }
 
     menu.style.left = posX + 'px'
@@ -343,7 +343,7 @@ export function deleteFile(id){
     }
 }
 
-function createDeleteBtn(toBeDeleted, menu){
+function createDeleteBtn(toBeDeleted, menu) {
     const deleteBtn = document.createElement('div')
     deleteBtn.classList.add('rc-menu-item')
     deleteBtn.id = 'rc-delete-btn'
@@ -360,6 +360,20 @@ function createDeleteBtn(toBeDeleted, menu){
         menu.remove()
     })
     return deleteBtn
+}
+
+function createDeleteAllBtn(toBeDeleted, menu) {
+  const deleteAllBtn = document.createElement('div');
+  deleteAllBtn.classList.add('rc-menu-item');
+  deleteAllBtn.textContent = 'Delete All';
+  deleteAllBtn.onclick = () => {
+    const folderContents = USER.files.filter(f => f.parentId === toBeDeleted);
+    folderContents.forEach(item => deleteFile(item.id))
+    deleteFile(toBeDeleted);
+    menu.remove()
+  }
+
+  return deleteAllBtn;
 }
 
 function createPinBtn(file, menu){
