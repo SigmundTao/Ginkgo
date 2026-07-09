@@ -1,11 +1,17 @@
 import { USER, updateUserData } from '../user.js'
 import { createFontSelect } from './appearance/fonts.js';
+import { createThemeSelect } from './appearance/theme.js';
 
 const defaultURL = './src/assets/kangae-logo.svg';
 
 export function createAppearanceMenu(){
   const containerEl = document.createElement('div')
   containerEl.classList.add('appearance-settings-el');
+
+  const themeTitle = document.createElement('h3');
+  themeTitle.textContent = 'Theme:';
+  
+  const themeSelect = createThemeSelect()
 
   const fontTitle = document.createElement('h3');
   fontTitle.textContent = 'Font:';
@@ -34,6 +40,13 @@ export function createAppearanceMenu(){
     updateUserData()
   })
 
-  containerEl.append(fontTitle, fontSelect, dashboardLogoTitle, dashboardLogoDescription, logoInput)
+  containerEl.append(themeTitle, themeSelect, fontTitle, fontSelect, dashboardLogoTitle, dashboardLogoDescription, logoInput)
   return containerEl;
+}
+
+export function updateAppearance() {
+  const font = USER.settings.appearance.font;
+  const theme = USER.settings.appearance.theme;
+  document.body.classList = '';
+  document.body.classList.add(`${theme}`, `${font}`);
 }

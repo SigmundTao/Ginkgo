@@ -17,6 +17,12 @@
   --pannel: #F5F1E8;
 }
 
+:root .dark {
+  --bg-primary: #000000;
+}
+
+
+/* fonts */
 :root .Noto-Serif-JP {
   --font: 'Noto Serif JP', serif;
 }
