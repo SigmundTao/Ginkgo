@@ -6,7 +6,7 @@ import { deleteFile } from "./filetree.js";
 import { marked } from './markdown.js';
 import { createDashboard } from "./dashboard.js";
 import { createFlashcardModule } from './sidebar/flashcards.js';
-import { createPomodoroModule } from './sidebar/pomodoro.js';
+import { createPomodoroModule, destroyPomodoroTimer } from './sidebar/pomodoro.js';
 import { createToDoList } from './sidebar/todo.js';
 import { createTabMenu } from './tabs/tabMenu.js';
 

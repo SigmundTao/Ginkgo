@@ -2,7 +2,6 @@ import { USER } from './user.js'
 
 export function getFileIndex(id){
     const index = USER.files.findIndex(i => i.id === Number(id))
-    if(index === -1) console.warn('file not found for id: ', id)
     return index
 }
 

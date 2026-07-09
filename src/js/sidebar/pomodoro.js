@@ -8,8 +8,8 @@ const TIMER_TYPES = {
 
 const timerSound = new Audio('/src/assets/timer.mp3')
 
-const tabTimers = new Map();      // tabId -> engine, one per open pomodoro tab
-let sidebarTimer = null;          // single persistent engine for the sidebar widget
+const tabTimers = new Map();
+let sidebarTimer = null;
 
 function createTimerState(settings){
   return {

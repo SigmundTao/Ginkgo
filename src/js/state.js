@@ -48,7 +48,6 @@ export function setCurrentTabId(id){
 
 export function setAppState(state){
     if(!APP_STATES.includes(state)){
-        console.warn('Not a valid state:', state)
         return;
     }
     currentAppState = state;

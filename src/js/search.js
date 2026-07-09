@@ -66,7 +66,6 @@ function displaySearchResults(array, container){
     if(array.length != 0){
         array.forEach(item => container.appendChild(createMenuItem(item)))
     } else {
-        console.log(array)
         const newNoteCard = createNewNoteMenuItem()
         newNoteCard.addEventListener('click', createNoteFromMenu)
         container.appendChild(newNoteCard)
