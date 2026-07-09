@@ -2,7 +2,7 @@ import { USER, updateUserData } from '../user.js';
 import { createSelect, updateTodoTitle } from './todo/customSelect.js';
 
 export function initTodoLists() {
-  setCurrentList(USER.todo.lists[0].listName);
+  setCurrentList(USER.todo.lists[0].name);
 }
 const toDoBtn = document.getElementById('to-do-btn');
 export let currentList = 'todo';
@@ -95,6 +95,10 @@ export function createToDoList() {
   addListBtn.classList.add('add-list-btn');
   addListBtn.textContent = '+';
   addListBtn.addEventListener('click', () => {
+    if(document.querySelector('.list-input')){
+      document.querySelector('.list-input').focus();
+      return;
+    }
     const input = createListInput();
     listsContainer.appendChild(input);
     input.focus();
