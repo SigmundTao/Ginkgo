@@ -5,17 +5,20 @@ import { createKeybindMenu } from "./keybindMenu.js";
 import { createDailyNoteSettings } from "./daily-note.js";
 import { createExportSettings } from '../export.js';
 import { createPomodoroSettings } from './pomodoroSettings.js';
+import { createNoteRecoverySettings } from './recentlyDeleted.js';
+import { USER } from '../user.js';
 
-const settingEl = document.getElementById('settings')
-const appearanceBtn = document.getElementById('appearance-btn')
-const closeSettingsBtn = document.getElementById('close-settings-btn')
-const openSettingsBtn = document.getElementById('settings-btn')
-const settingsOutputEl = document.getElementById('settings-output')
-const flashcardBtn = document.getElementById('flashcard-btn')
-const pomodoroBtn = document.getElementById('pomodoro-btn')
-const keybindBtn = document.getElementById('keybinds-btn')
-const dailyNoteBtn = document.getElementById('daily-note-settings-btn')
-const exportBtn = document.getElementById('export-settings-btn')
+const settingEl = document.getElementById('settings');
+const appearanceBtn = document.getElementById('appearance-btn');
+const closeSettingsBtn = document.getElementById('close-settings-btn');
+const openSettingsBtn = document.getElementById('settings-btn');
+const settingsOutputEl = document.getElementById('settings-output');
+const flashcardBtn = document.getElementById('flashcard-btn');
+const pomodoroBtn = document.getElementById('pomodoro-btn');
+const keybindBtn = document.getElementById('keybinds-btn');
+const dailyNoteBtn = document.getElementById('daily-note-settings-btn');
+const exportBtn = document.getElementById('export-settings-btn');
+const recentlyDeletedBtn = document.getElementById('recently-deleted-btn');
 
 const savedTheme = localStorage.getItem('theme') || 'sakura';
 
@@ -59,6 +62,8 @@ export function initSettings(){
   dailyNoteBtn.addEventListener('click', () => render(createDailyNoteSettings()))
 
   exportBtn.addEventListener('click', () => render(createExportSettings()))
+
+  recentlyDeletedBtn.addEventListener('click', () => render(createNoteRecoverySettings(USER.recentlyDeleted)))
 }
 
 function render(element){

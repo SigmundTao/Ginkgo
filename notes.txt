@@ -2,7 +2,7 @@ v0.1 scope
 
 [] CSS polished
 [x] Module tabs
-[] Keep pomodoro state when changing tabs
+[x] Keep pomodoro state when changing tabs
 [x] Custom keybinds fully working
 [] No major bugs
 [] Two themes added
@@ -16,3 +16,6 @@ v0.1 scope
 [x] Auto save indicator
 [x] duplicate notes
 [] make all code uniform (swap all old 4 tab into 2 tab)
+[] be able to delete tool tabs
+[] create new note with add tab btn
+[] Sort notes alphabetically

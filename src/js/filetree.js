@@ -324,6 +324,7 @@ export function deleteFile(id){
     if(file.pinned){
         unpinFile(file)
     }
+    USER.recentlyDeleted.push(file)
     USER.files.splice(getFileIndex(id), 1)
     updateUserData()
     renderFiletree()
