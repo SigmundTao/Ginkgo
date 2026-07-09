@@ -1,0 +1,29 @@
+import { USER, updateUserData } from '../../user.js';
+const fonts = ['Noto Serif JP', 'monospace', 'Times New Roman']
+
+export function createFontSelect() {
+  const select = document.createElement('select');
+
+  fonts.forEach(font => {
+    select.appendChild(createOption(font))
+  })
+
+  select.addEventListener('change', () => {
+    document.body.classList = '';
+    USER.settings.appearance.font = select.value
+    .split(' ')
+    .join('-');
+    updateUserData();
+    document.body.classList = USER.settings.appearance.font;
+  })
+
+  return select;
+}
+
+function createOption(fontName) {
+  const option = document.createElement('option');
+  option.textContent = fontName;
+  option.value = fontName;
+
+  return option;
+}

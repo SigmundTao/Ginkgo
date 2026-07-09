@@ -3,6 +3,7 @@
   --bg-secondary: #EDE8DC;
   --bg-tertiary: #8C6A4E;
   --accent: #C8A96E;
+  --font: 'Noto Serif JP', serif;
   --font-primary: #1C1A17;
   --font-secondary: #4a4a48;
   --font-hover: #8C6A4E;
@@ -14,6 +15,18 @@
 
   --paper: #EAE4D6;
   --pannel: #F5F1E8;
+}
+
+:root .Noto-Serif-JP {
+  --font: 'Noto Serif JP', serif;
+}
+
+:root .monospace {
+  --font: monospace;
+}
+
+:root .Times-New-Roman {
+  --font: 'Times New Roman';
 }
 
 * {

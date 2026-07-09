@@ -1,4 +1,5 @@
 import { USER, updateUserData } from '../user.js'
+import { createFontSelect } from './appearance/fonts.js';
 
 const defaultURL = './src/assets/kangae-logo.svg';
 
@@ -6,28 +7,33 @@ export function createAppearanceMenu(){
   const containerEl = document.createElement('div')
   containerEl.classList.add('appearance-settings-el');
 
-  const title = document.createElement('h3');
-  title.textContent = 'Dashboard Image';
+  const fontTitle = document.createElement('h3');
+  fontTitle.textContent = 'Font:';
 
-  const description = document.createElement('p');
-  description.textContent = 'Paste in a url and hit enter, or type "default" for our default image:';
+  const fontSelect = createFontSelect()
 
-  const input = document.createElement('input');
+  const dashboardLogoTitle = document.createElement('h3');
+  dashboardLogoTitle.textContent = 'Dashboard Image';
+
+  const dashboardLogoDescription = document.createElement('p');
+  dashboardLogoDescription.textContent = 'Paste in a url and hit enter, or type "default" for our default image:';
+
+  const logoInput = document.createElement('input');
   let savedValue = USER.settings.appearance.dashboardLogo;
   if(savedValue === defaultURL) savedValue = 'default';
-  input.value = savedValue;
+  logoInput.value = savedValue;
 
-  input.addEventListener('keydown', (e) => {
+  logoInput.addEventListener('keydown', (e) => {
     if(!e.key === 'Enter') return;
     
-    if(input.value === 'defaultURL') {
+    if(logoInput.value === 'defaultURL') {
       USER.settings.appearance.dashboardLogo = defaultURL;
     } else {
-      USER.settings.appearance.dashboardLogo = input.value
+      USER.settings.appearance.dashboardLogo = logoInput.value
     }
     updateUserData()
   })
 
-  containerEl.append(title, description, input)
+  containerEl.append(fontTitle, fontSelect, dashboardLogoTitle, dashboardLogoDescription, logoInput)
   return containerEl;
 }

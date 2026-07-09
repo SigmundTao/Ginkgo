@@ -21,3 +21,4 @@ v0.1 scope
 [x] Sort notes alphabetically
 [x] fix folder deleting
 [x] fix todo deletion
+[] add a lot more styling options for the user

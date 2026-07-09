@@ -12,7 +12,7 @@ body {
     margin: 0;
     color: var(--font-primary);
     overflow: hidden;
-    font-family: 'Noto Serif JP', serif;
+    font-family: var(--font);
     background-color: var(--bg-primary);
     color: var(--font-primary);
 }

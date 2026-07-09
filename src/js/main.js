@@ -10,6 +10,7 @@ import { initKeybinds } from './settings/keybindMenu.js';
 import { showToast } from './toast.js';
 import { initTodoLists } from './sidebar/todo.js';
 
+document.body.classList = USER.settings.appearance.font;
 renderTabs(true)
 initSearch()
 initShortcuts()

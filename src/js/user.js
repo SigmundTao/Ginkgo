@@ -9,7 +9,8 @@ export const USER = JSON.parse(localStorage.getItem('user')) || {
   },
   settings: {
     appearance: {
-      dashboardLogo: './src/assets/kangae-logo.svg'
+      dashboardLogo: './src/assets/kangae-logo.svg',
+      font: 'Noto-Serif-JP',
     },
     dailyNote: {
       preset: '',
