@@ -1,6 +1,9 @@
 import { USER, updateUserData } from '../user.js';
 import { createSelect, updateTodoTitle } from './todo/customSelect.js';
 
+export function initTodoLists() {
+  setCurrentList(USER.todo.lists[0].listName);
+}
 const toDoBtn = document.getElementById('to-do-btn');
 export let currentList = 'todo';
 

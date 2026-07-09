@@ -1,4 +1,5 @@
 import { renderToDos, setCurrentList, currentList } from '../todo.js';
+import { USER, updateUserData } from '../../user.js';
 
 function getContainerEl() {
   return document.querySelector('.task-container');
@@ -48,7 +49,7 @@ function createDropdown(selectEl, lists, displayingListEl) {
     const listName = list.name;
     if(listName === currentList) return;
     else {
-      const option = createOption(listName);
+      const option = createOption(listName, dropdown);
       option.addEventListener('click', (e) => {
         e.stopPropagation();
         setCurrentList(listName);
@@ -70,10 +71,26 @@ export function updateTodoTitle(currentList) {
   element.textContent = `用${currentList}`;
 }
 
-function createOption(listName) {
+function createOption(listName, dropdown) {
   const option = document.createElement('div');
   option.classList.add('custom-dropdown-option');
-  option.textContent = listName;
+
+  const title = document.createElement('p');
+  title.textContent = listName;
+
+  const deleteBtn = document.createElement('button');
+  deleteBtn.textContent = 'x';
+  deleteBtn.onclick = (e) => {
+    e.stopPropagation();
+    const listIndex = USER.todo.lists.findIndex(list => list.listName === listName);
+    if(USER.todo.lists.length - 1 <= 0) showToast()
+    else USER.todo.lists.splice(listIndex, 1);
+    updateUserData()
+    option.remove()
+    if(USER.todo.lists.length <= 1) dropdown.remove();
+  }
+
+  option.append(title, deleteBtn);
 
   return option
 }

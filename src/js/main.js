@@ -8,6 +8,7 @@ import { initSettings } from './settings/settings.js';
 import { initRightSidebar } from './sidebar/sidebar.js';
 import { initKeybinds } from './settings/keybindMenu.js';
 import { showToast } from './toast.js';
+import { initTodoLists } from './sidebar/todo.js';
 
 renderTabs(true)
 initSearch()
@@ -16,6 +17,7 @@ initNavBar()
 initSettings()
 initRightSidebar()
 initKeybinds()
+initTodoLists()
 renderFiletree()
 updateLastLogIn()
 
