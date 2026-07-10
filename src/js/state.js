@@ -15,6 +15,11 @@ export const MODULE_TYPES = {POMODORO: 'pomodoro', FLASHCARDS: 'flashcards', TOD
 export const NOTE_MODES = {DISPLAY: 'display', EDIT: 'edit'};
 const idleScreenEl = document.getElementById('idle-screen');
 
+export function updateTabTitle(noteTitle) {
+  document.title = noteTitle ? `${noteTitle} - Kangae` : `Kangae`;
+  console.log(document.title)
+}
+
 export function addOpenModule(moduleTitle){
     openModules.push(moduleTitle)
 }

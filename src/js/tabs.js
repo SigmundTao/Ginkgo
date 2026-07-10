@@ -1,5 +1,5 @@
 import { USER, updateUserData } from "./user.js";
-import { MODULE_TYPES, NOTE_MODES,selectedFileId, openFolderIds, setCurrentTabId, tabId, currentTabId, getTabIndex, getTabIndexFromFileId, incrementTabId, setSelectedFileId, currentNoteMode, setCurrentNoteMode } from "./state.js";
+import { MODULE_TYPES, NOTE_MODES, updateTabTitle, selectedFileId, openFolderIds, setCurrentTabId, tabId, currentTabId, getTabIndex, getTabIndexFromFileId, incrementTabId, setSelectedFileId, currentNoteMode, setCurrentNoteMode } from "./state.js";
 import { checkForDuplicateTitles, getFileIndex } from "./storage.js";
 import { highlightSelectedFile, getTitleInput, getBodyInput, saveNote, saveTitle, saveBody } from "./editor.js";
 import { deleteFile } from "./filetree.js";
@@ -52,6 +52,7 @@ export function loadTab(id){
 }
 
 function createModuleView(type){
+  updateTabTitle(type)
   currentTabEl.innerHTML = '';
   currentTabEl.appendChild(getModuleContent(type))
   renderTabs()
@@ -204,10 +205,12 @@ export function checkIfTabExists(fileId){
 }
 
 function createDefaultView(){
+  updateTabTitle(null)
   createDashboard()
 }
 
 function createNoteView(file){
+    updateTabTitle(file.title);
     currentTabEl.innerHTML = ''
 
     const tab = document.createElement('div')

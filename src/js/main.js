@@ -10,6 +10,7 @@ import { initKeybinds } from './settings/keybindMenu.js';
 import { showToast } from './toast.js';
 import { initTodoLists } from './sidebar/todo.js';
 import { updateAppearance } from './settings/appearance.js';
+import { updateTabTitle, getFileIndex } from './state.js';
 
 updateAppearance()
 renderTabs(true)
@@ -29,3 +30,4 @@ if(!USER.tabs.length >= 1){
    switchToTab(USER.tabs[USER.tabs.length - 1].id) 
 }
 renderPinnedFiles()
+updateTabTitle(USER.files[getFileIndex(selectedFileId)])
