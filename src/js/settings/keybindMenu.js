@@ -57,7 +57,7 @@ function createKeybindOption(keybindDataObj) {
       updateUserData()
       initKeybinds()
     } else {
-      showToast('Bind already in use', TOAST_TYPES.ALERT)
+      showToast('Bind already in use', TOAST_TYPES.ERROR)
     }
   })
 

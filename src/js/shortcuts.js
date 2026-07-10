@@ -8,6 +8,7 @@ import { createDailyNote } from './navbar.js'
 import { createNewNote, getBodyInput, getTitleInput } from './editor.js'
 import { currentTabId, currentNoteMode } from './state.js'
 import { USER } from './user.js';
+import { toggleCmdPalette } from './commandPalette.js';
 
 export const SUPER = 'Alt';
 
@@ -48,6 +49,7 @@ export const FUNCTION_MAP = {
   'Open flashcards': () => modules[2].createModule(),
   'Open flashcard tab': () => createTab(null, 'flashcards'),
   'Close current tab' : () => deleteTab(currentTabId),
+  'Open command palette' : toggleCmdPalette,
 }
 
 export const DEFAULTS = [
@@ -59,6 +61,7 @@ export const DEFAULTS = [
   { title: 'Focus on note title',    keyValue: '8' },
   { title: 'Create folder',      keyValue: 'c' },
   { title: 'Close current tab',  keyValue: 'w' },
+  { title: 'Open command palette',  keyValue: 'k' },
   { title: 'Open dashboard',     keyValue: 't' },
   { title: 'Toggle note view',   keyValue: 'p' },
   { title: 'Quick capture',      keyValue: 'q' },
@@ -74,8 +77,7 @@ export const DEFAULTS = [
   { title: 'Open flashcard tab',    keyValue: '6' },
 ]
 
-export const KEY_BINDS = (USER.settings.keybinds.length ? USER.settings.keybinds : DEFAULTS)
-  .map(bind => ({ ...bind, function: FUNCTION_MAP[bind.title] }))
+export const KEY_BINDS = USER.settings.keybinds.map(bind => ({ ...bind, function: FUNCTION_MAP[bind.title] }))
 
 function getBindIndexFromKey(key){
   return KEY_BINDS.findIndex(bind => bind.keyValue === key)

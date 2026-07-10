@@ -17,7 +17,6 @@ const idleScreenEl = document.getElementById('idle-screen');
 
 export function updateTabTitle(noteTitle) {
   document.title = noteTitle ? `${noteTitle} - Kangae` : `Kangae`;
-  console.log(document.title)
 }
 
 export function addOpenModule(moduleTitle){

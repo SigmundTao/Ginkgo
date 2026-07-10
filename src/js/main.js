@@ -1,4 +1,4 @@
-import { USER, updateLastLogIn } from './user.js'
+import { USER, updateLastLogIn, updateUserData } from './user.js'
 import { renderFiletree, renderPinnedFiles } from './filetree.js';
 import { initSearch } from './search.js';
 import { initShortcuts } from './shortcuts.js';
@@ -11,6 +11,8 @@ import { showToast } from './toast.js';
 import { initTodoLists } from './sidebar/todo.js';
 import { updateAppearance } from './settings/appearance.js';
 import { updateTabTitle, getFileIndex } from './state.js';
+import { initCmdPalette } from './commandPalette.js';
+import {KEY_BINDS} from './shortcuts.js';
 
 updateAppearance()
 renderTabs(true)
@@ -21,6 +23,7 @@ initSettings()
 initRightSidebar()
 initKeybinds()
 initTodoLists()
+initCmdPalette()
 renderFiletree()
 updateLastLogIn()
 

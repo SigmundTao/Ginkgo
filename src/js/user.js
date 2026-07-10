@@ -8,9 +8,30 @@ export const USER = JSON.parse(localStorage.getItem('user')) || {
     ],
   },
   settings: {
-    keybinds: {
-
-    },
+    keybinds: [
+      { title: 'Create note',        keyValue: 'n' },
+      { title: 'Create daily note',  keyValue: 'd' },
+      { title: 'Search',             keyValue: 'f' },
+      { title: 'Open filetree',      keyValue: 'i' },
+      { title: 'Focus on note body',    keyValue: '7' },
+      { title: 'Focus on note title',    keyValue: '8' },
+      { title: 'Create folder',      keyValue: 'c' },
+      { title: 'Close current tab',  keyValue: 'w' },
+      { title: 'Open command palette',  keyValue: 'k' },
+      { title: 'Open dashboard',     keyValue: 't' },
+      { title: 'Toggle note view',   keyValue: 'p' },
+      { title: 'Quick capture',      keyValue: 'q' },
+      { title: 'Open config',        keyValue: 'm' },
+      { title: 'Open toolbar',       keyValue: '/' },
+      { title: 'Next tab',           keyValue: 'l' },
+      { title: 'Previous tab',       keyValue: 'h' },
+      { title: 'Open todo list',     keyValue: '1' },
+      { title: 'Open todo list tab',     keyValue: '4' },
+      { title: 'Open pomodoro timer',keyValue: '2' },
+      { title: 'Open pomodoro timer tab',keyValue: '5' },
+      { title: 'Open flashcards',    keyValue: '3' },
+      { title: 'Open flashcard tab',    keyValue: '6' },
+    ],
     appearance: {
       theme: 'light',
       font: 'Noto-Serif-JP',
