@@ -9,7 +9,8 @@
     width: 300px;
     max-width: 300px;
     transition: width 0.3s ease;
-    background-color: var(--bg-secondary);
+    background-image: url('https://i.pinimg.com/736x/40/63/b8/4063b8c1552159e973359b846f5dec66.jpg');
+    background-size: contain;
     display: flex;
     flex-direction: column;
     padding: 0;
@@ -119,7 +120,7 @@
     position: relative;
     border: 1px solid grey;
     max-height: 400px;
-    background-color: var(--pannel);
+    background-color: var(--color-glass);
 }
 
 .delete-module-btn {

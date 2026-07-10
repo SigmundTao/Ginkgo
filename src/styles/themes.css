@@ -1,7 +1,8 @@
 :root {
-    --bg-primary: #f4efe4;
+    --bg-primary: #F5F0E6;
     --bg-secondary: #ede8dc;
     --bg-tertiary: #8c6a4e;
+    --color-glass: rgba(217, 222, 210, 0.8);
     --accent: #c8a96e;
     --font: 'Noto Serif JP', serif;
     --font-primary: #1c1a17;
@@ -15,6 +16,19 @@
 
     --paper: #eae4d6;
     --pannel: #f5f1e8;
+}
+
+:root .japan {
+  --color-bg: #F5F0E6;
+  --color-surface: #EAE6DD;
+  --color-glass: rgba(217, 222, 210, 0.8);
+  --color-accent-primary: #3E4A61;
+  --color-accent-secondary: #B7C4A3;
+  --color-tatami: #C7B48A;
+  --color-wood-light: #8B5E3C;
+  --color-wood-dark: #5C4632;
+  --color-moss: #6E7A5E;
+  --color-text: #2B2823;
 }
 
 :root .dark {

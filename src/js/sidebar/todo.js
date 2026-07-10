@@ -85,7 +85,7 @@ function createTask(container, taskValue) {
 
 export function createToDoList() {
     const toDoList = document.createElement('div');
-    toDoList.classList.add('todo-module');
+    toDoList.classList.add('todo-module', 'module');
 
     const listsContainer = document.createElement('div');
     listsContainer.classList.add('list-container');
