@@ -9,8 +9,9 @@ import { initRightSidebar } from './sidebar/sidebar.js';
 import { initKeybinds } from './settings/keybindMenu.js';
 import { showToast } from './toast.js';
 import { initTodoLists } from './sidebar/todo.js';
+import { updateAppearance } from './settings/appearance.js';
 
-document.body.classList = USER.settings.appearance.font;
+updateAppearance()
 renderTabs(true)
 initSearch()
 initShortcuts()
@@ -28,5 +29,3 @@ if(!USER.tabs.length >= 1){
    switchToTab(USER.tabs[USER.tabs.length - 1].id) 
 }
 renderPinnedFiles()
-
-console.log(USER.recentlyDeleted)

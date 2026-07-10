@@ -24,6 +24,8 @@ function createSelectOption(theme){
   option.textContent = theme;
   option.value = theme;
 
+  if(theme === USER.settings.appearance.theme) option.selected = true;
+
   return option;
 }
 

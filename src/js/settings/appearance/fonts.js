@@ -24,6 +24,7 @@ function createOption(fontName) {
   const option = document.createElement('option');
   option.textContent = fontName;
   option.value = fontName;
+  if(fontName.split(' ').join('-') === USER.settings.appearance.font) option.selected = true;
 
   return option;
 }
