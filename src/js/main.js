@@ -30,4 +30,3 @@ if(!USER.tabs.length >= 1){
    switchToTab(USER.tabs[USER.tabs.length - 1].id) 
 }
 renderPinnedFiles()
-updateTabTitle(USER.files[getFileIndex(selectedFileId)])

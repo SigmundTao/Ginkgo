@@ -1,4 +1,5 @@
 import { KEY_BINDS } from '../shortcuts.js';
+import { showToast, TOAST_TYPES } from '../toast.js';
 
 const bindsInUse = new Set();
 
@@ -53,20 +54,12 @@ function createKeybindOption(keybindDataObj) {
     if(e.key !== 'Enter' || keyInput.length !== 1) return
     if(!isBindInUse(keyInput)){
       keybindDataObj.keyValue = keyInput;
-      saveKeyBinds()
+      updateUserData()
       initKeybinds()
     } else {
-      window.alert('Bind in use');
+      showToast('Bind already in use', TOAST_TYPES.ALERT)
     }
   })
 
   return optionEl;
-}
-
-function throwKeybindError(){
-  console.log('ERROR!')
-}
-
-function saveKeyBinds(){
-  localStorage.setItem('keybinds', JSON.stringify(KEY_BINDS))
 }

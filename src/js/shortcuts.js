@@ -7,9 +7,9 @@ import { openAndCloseSidebar, modules } from './sidebar/sidebar.js'
 import { createDailyNote } from './navbar.js'
 import { createNewNote, getBodyInput, getTitleInput } from './editor.js'
 import { currentTabId, currentNoteMode } from './state.js'
+import { USER } from './user.js';
 
 export const SUPER = 'Alt';
-const saved = JSON.parse(localStorage.getItem('keybinds')) || [];
 
 function focusOnInput(type) {
   if (currentNoteMode !== 'edit') {
@@ -26,7 +26,7 @@ function focusOnInput(type) {
   input.focus();
 }
 
-const FUNCTION_MAP = {
+export const FUNCTION_MAP = {
   'Create note': createNewNote,
   'Create daily note': createDailyNote,
   'Search': openSearchMenu,
@@ -50,7 +50,7 @@ const FUNCTION_MAP = {
   'Close current tab' : () => deleteTab(currentTabId),
 }
 
-const DEFAULTS = [
+export const DEFAULTS = [
   { title: 'Create note',        keyValue: 'n' },
   { title: 'Create daily note',  keyValue: 'd' },
   { title: 'Search',             keyValue: 'f' },
@@ -74,7 +74,7 @@ const DEFAULTS = [
   { title: 'Open flashcard tab',    keyValue: '6' },
 ]
 
-export const KEY_BINDS = (saved.length ? saved : DEFAULTS)
+export const KEY_BINDS = (USER.settings.keybinds.length ? USER.settings.keybinds : DEFAULTS)
   .map(bind => ({ ...bind, function: FUNCTION_MAP[bind.title] }))
 
 function getBindIndexFromKey(key){

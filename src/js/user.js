@@ -8,6 +8,9 @@ export const USER = JSON.parse(localStorage.getItem('user')) || {
     ],
   },
   settings: {
+    keybinds: {
+
+    },
     appearance: {
       theme: 'light',
       font: 'Noto-Serif-JP',
