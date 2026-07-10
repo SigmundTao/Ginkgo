@@ -33,7 +33,7 @@
     padding-bottom: 10px;
 }
 
-#right-sidebar.closed-sidebar{
+#right-sidebar.closed-sidebar {
     width: 0px;
     overflow: hidden;
 }
@@ -81,35 +81,35 @@
     align-items: center;
     border: 1px solid var(--bg-secondary);
     min-height: 150px;
-    color: var(--font-secondary)
+    color: var(--font-secondary);
 }
 
 .add-module-btn:hover {
-  cursor:pointer;
+    cursor: pointer;
 }
 
 .module-menu {
-   height: auto;
-   width: 100px; 
-   display:flex;
-   margin: 0px;
-   padding: 5px;
-   border: 1px solid black;
-   gap: 5px;
-   background-color: white;
+    height: auto;
+    width: 100px;
+    display: flex;
+    margin: 0px;
+    padding: 5px;
+    border: 1px solid black;
+    gap: 5px;
+    background-color: white;
 }
 
 .module-menu-item {
-   width: 50px;
-   aspect-ratio: 1;
-   border: 1px solid black;
-   padding: 5px;
-   border-radius: 5px;
+    width: 50px;
+    aspect-ratio: 1;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .module-menu-item:hover {
-  cursor: pointer;
-  background-color: darkgrey;
+    cursor: pointer;
+    background-color: darkgrey;
 }
 
 .module {
@@ -119,13 +119,13 @@
     position: relative;
     border: 1px solid grey;
     max-height: 400px;
-    background-color: var(--pannel)
+    background-color: var(--pannel);
 }
 
 .delete-module-btn {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  border: none;
-  background-color: inherit;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border: none;
+    background-color: inherit;
 }

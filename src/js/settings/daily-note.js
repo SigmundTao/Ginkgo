@@ -1,66 +1,66 @@
-import { USER, updateUserData } from '../user.js'
+import { USER, updateUserData } from '../user.js';
 
-export function createDailyNoteSettings(){
-  const container = document.createElement('div');
+export function createDailyNoteSettings() {
+    const container = document.createElement('div');
 
-  const folderTitle = document.createElement('h3');
-  folderTitle.textContent = 'Daily Note folder';
+    const folderTitle = document.createElement('h3');
+    folderTitle.textContent = 'Daily Note folder';
 
-  const folderSelect = createFolderSelect();
+    const folderSelect = createFolderSelect();
 
-  const presetTitle = document.createElement('h3');
-  presetTitle.textContent = 'Daily note preset';
+    const presetTitle = document.createElement('h3');
+    presetTitle.textContent = 'Daily note preset';
 
-  const presetInput = document.createElement('textarea');
-  presetInput.value = USER.settings.dailyNote.preset;
-  presetInput.classList.add('daily-preset-input');
+    const presetInput = document.createElement('textarea');
+    presetInput.value = USER.settings.dailyNote.preset;
+    presetInput.classList.add('daily-preset-input');
 
-  presetInput.addEventListener('change', () => {
-    USER.settings.dailyNote.preset = presetInput.value;
-    updateUserData()
-  })
+    presetInput.addEventListener('change', () => {
+        USER.settings.dailyNote.preset = presetInput.value;
+        updateUserData();
+    });
 
-  container.append(folderTitle, folderSelect, presetTitle, presetInput);
+    container.append(folderTitle, folderSelect, presetTitle, presetInput);
 
-  return container;
+    return container;
 }
 
-function createFolderSelect(){
-  const select = document.createElement('select');
+function createFolderSelect() {
+    const select = document.createElement('select');
 
-  const defaultOption = document.createElement('option');
-  defaultOption.value = '';
-  defaultOption.textContent = 'None';
-  select.appendChild(defaultOption);
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = 'None';
+    select.appendChild(defaultOption);
 
-  const folders = USER.files.filter(file => file.type === 'folder');
-  console.log(folders)
-  if(folders.length){
-    folders.forEach(folder => {
-      select.appendChild(createOptionForFolder(folder))
-    })
-  }
-
-  select.value = USER.settings.dailyNote.folder ?? '';
-
-  select.addEventListener('change', () => {
-    if(select.textContent === defaultOption.textContent) USER.settings.dailyNote.folder = null;
-    else {
-        const index = select.selectedIndex;
-        const optionElements = select.options;
-
-        USER.settings.dailyNote.folder = Number(optionElements[index].id);
+    const folders = USER.files.filter((file) => file.type === 'folder');
+    console.log(folders);
+    if (folders.length) {
+        folders.forEach((folder) => {
+            select.appendChild(createOptionForFolder(folder));
+        });
     }
-    updateUserData()
-  }) 
 
-  return select;
+    select.value = USER.settings.dailyNote.folder ?? '';
+
+    select.addEventListener('change', () => {
+        if (select.textContent === defaultOption.textContent) USER.settings.dailyNote.folder = null;
+        else {
+            const index = select.selectedIndex;
+            const optionElements = select.options;
+
+            USER.settings.dailyNote.folder = Number(optionElements[index].id);
+        }
+        updateUserData();
+    });
+
+    return select;
 }
 
-function createOptionForFolder(folder){
-  const option = document.createElement('option');
-  option.id = folder.id;
-  option.textContent = folder.title;
+function createOptionForFolder(folder) {
+    const option = document.createElement('option');
+    option.id = folder.id;
+    option.textContent = folder.title;
 
-  return option;
+    return option;
 }

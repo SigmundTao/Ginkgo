@@ -1,19 +1,19 @@
 .timer-module {
-  cursor: pointer;
-  position: relative;
-  height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    cursor: pointer;
+    position: relative;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .timer-label {
-  position: absolute;
-  top: 0;
-  left: 5px;
-  font-size: 0.8rem;
+    position: absolute;
+    top: 0;
+    left: 5px;
+    font-size: 0.8rem;
 }
 
 .timer {
-  font-size: 2rem;
+    font-size: 2rem;
 }

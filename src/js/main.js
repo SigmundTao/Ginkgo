@@ -1,4 +1,4 @@
-import { USER, updateLastLogIn, updateUserData } from './user.js'
+import { USER, updateLastLogIn, updateUserData } from './user.js';
 import { renderFiletree, renderPinnedFiles } from './filetree.js';
 import { initSearch } from './search.js';
 import { initShortcuts } from './shortcuts.js';
@@ -12,24 +12,24 @@ import { initTodoLists } from './sidebar/todo.js';
 import { updateAppearance } from './settings/appearance.js';
 import { updateTabTitle, getFileIndex } from './state.js';
 import { initCmdPalette } from './commandPalette.js';
-import {KEY_BINDS} from './shortcuts.js';
+import { KEY_BINDS } from './shortcuts.js';
 
-updateAppearance()
-renderTabs(true)
-initSearch()
-initShortcuts()
-initNavBar()
-initSettings()
-initRightSidebar()
-initKeybinds()
-initTodoLists()
-initCmdPalette()
-renderFiletree()
-updateLastLogIn()
+updateAppearance();
+renderTabs(true);
+initSearch();
+initShortcuts();
+initNavBar();
+initSettings();
+initRightSidebar();
+initKeybinds();
+initTodoLists();
+initCmdPalette();
+renderFiletree();
+updateLastLogIn();
 
-if(!USER.tabs.length >= 1){
-    createDefaultTab()
+if (!USER.tabs.length >= 1) {
+    createDefaultTab();
 } else {
-   switchToTab(USER.tabs[USER.tabs.length - 1].id) 
+    switchToTab(USER.tabs[USER.tabs.length - 1].id);
 }
-renderPinnedFiles()
+renderPinnedFiles();

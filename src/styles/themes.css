@@ -1,38 +1,37 @@
 :root {
-  --bg-primary: #f4efe4;
-  --bg-secondary: #EDE8DC;
-  --bg-tertiary: #8C6A4E;
-  --accent: #C8A96E;
-  --font: 'Noto Serif JP', serif;
-  --font-primary: #1C1A17;
-  --font-secondary: #4a4a48;
-  --font-hover: #8C6A4E;
-  --font-tertiary: #9a9a98;
-  --border: rgba(0, 0, 0, 0.1);
-  --cedar-hover: #F0E6D0;
+    --bg-primary: #f4efe4;
+    --bg-secondary: #ede8dc;
+    --bg-tertiary: #8c6a4e;
+    --accent: #c8a96e;
+    --font: 'Noto Serif JP', serif;
+    --font-primary: #1c1a17;
+    --font-secondary: #4a4a48;
+    --font-hover: #8c6a4e;
+    --font-tertiary: #9a9a98;
+    --border: rgba(0, 0, 0, 0.1);
+    --cedar-hover: #f0e6d0;
 
-  --primary-active: #CFC9BA;
+    --primary-active: #cfc9ba;
 
-  --paper: #EAE4D6;
-  --pannel: #F5F1E8;
+    --paper: #eae4d6;
+    --pannel: #f5f1e8;
 }
 
 :root .dark {
-  --bg-primary: #000000;
+    --bg-primary: #000000;
 }
-
 
 /* fonts */
 :root .Noto-Serif-JP {
-  --font: 'Noto Serif JP', serif;
+    --font: 'Noto Serif JP', serif;
 }
 
 :root .monospace {
-  --font: monospace;
+    --font: monospace;
 }
 
 :root .Times-New-Roman {
-  --font: 'Times New Roman';
+    --font: 'Times New Roman';
 }
 
 * {

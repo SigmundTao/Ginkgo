@@ -1,52 +1,61 @@
-import { USER, updateUserData } from '../user.js'
+import { USER, updateUserData } from '../user.js';
 import { createFontSelect } from './appearance/fonts.js';
 import { createThemeSelect } from './appearance/theme.js';
 
 const defaultURL = './src/assets/kangae-logo.svg';
 
-export function createAppearanceMenu(){
-  const containerEl = document.createElement('div')
-  containerEl.classList.add('appearance-settings-el');
+export function createAppearanceMenu() {
+    const containerEl = document.createElement('div');
+    containerEl.classList.add('appearance-settings-el');
 
-  const themeTitle = document.createElement('h3');
-  themeTitle.textContent = 'Theme:';
-  
-  const themeSelect = createThemeSelect()
+    const themeTitle = document.createElement('h3');
+    themeTitle.textContent = 'Theme:';
 
-  const fontTitle = document.createElement('h3');
-  fontTitle.textContent = 'Font:';
+    const themeSelect = createThemeSelect();
 
-  const fontSelect = createFontSelect()
+    const fontTitle = document.createElement('h3');
+    fontTitle.textContent = 'Font:';
 
-  const dashboardLogoTitle = document.createElement('h3');
-  dashboardLogoTitle.textContent = 'Dashboard Image';
+    const fontSelect = createFontSelect();
 
-  const dashboardLogoDescription = document.createElement('p');
-  dashboardLogoDescription.textContent = 'Paste in a url and hit enter, or type "default" for our default image:';
+    const dashboardLogoTitle = document.createElement('h3');
+    dashboardLogoTitle.textContent = 'Dashboard Image';
 
-  const logoInput = document.createElement('input');
-  let savedValue = USER.settings.appearance.dashboardLogo;
-  if(savedValue === defaultURL) savedValue = 'default';
-  logoInput.value = savedValue;
+    const dashboardLogoDescription = document.createElement('p');
+    dashboardLogoDescription.textContent =
+        'Paste in a url and hit enter, or type "default" for our default image:';
 
-  logoInput.addEventListener('keydown', (e) => {
-    if(!e.key === 'Enter') return;
-    
-    if(logoInput.value === 'defaultURL') {
-      USER.settings.appearance.dashboardLogo = defaultURL;
-    } else {
-      USER.settings.appearance.dashboardLogo = logoInput.value
-    }
-    updateUserData()
-  })
+    const logoInput = document.createElement('input');
+    let savedValue = USER.settings.appearance.dashboardLogo;
+    if (savedValue === defaultURL) savedValue = 'default';
+    logoInput.value = savedValue;
 
-  containerEl.append(themeTitle, themeSelect, fontTitle, fontSelect, dashboardLogoTitle, dashboardLogoDescription, logoInput)
-  return containerEl;
+    logoInput.addEventListener('keydown', (e) => {
+        if (!e.key === 'Enter') return;
+
+        if (logoInput.value === 'defaultURL') {
+            USER.settings.appearance.dashboardLogo = defaultURL;
+        } else {
+            USER.settings.appearance.dashboardLogo = logoInput.value;
+        }
+        updateUserData();
+    });
+
+    containerEl.append(
+        themeTitle,
+        themeSelect,
+        fontTitle,
+        fontSelect,
+        dashboardLogoTitle,
+        dashboardLogoDescription,
+        logoInput
+    );
+    return containerEl;
 }
 
 export function updateAppearance() {
-  const font = USER.settings.appearance.font;
-  const theme = USER.settings.appearance.theme;
-  document.body.classList = '';
-  document.body.classList.add(`${theme}`, `${font}`);
+    const font = USER.settings.appearance.font;
+    const theme = USER.settings.appearance.theme;
+    document.body.classList = '';
+    document.body.classList.add(`${theme}`, `${font}`);
 }

@@ -21,7 +21,7 @@
     overflow-y: scroll;
 }
 
-#settings-nav{
+#settings-nav {
     width: 30%;
     height: 100%;
     border: 1px solid red;
@@ -48,6 +48,6 @@
 
 /*// Daily Notes settings menu ////////////*/
 .daily-preset-input {
-  width: 100%;
-  height: 500px;
+    width: 100%;
+    height: 500px;
 }

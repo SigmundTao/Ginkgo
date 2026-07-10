@@ -1,8 +1,8 @@
 import { createAppearanceMenu } from './appearance.js';
 import { createFlashcardModule } from '../sidebar/flashcards.js';
-import { createPomodoroModule } from "../sidebar/pomodoro.js";
-import { createKeybindMenu } from "./keybindMenu.js";
-import { createDailyNoteSettings } from "./daily-note.js";
+import { createPomodoroModule } from '../sidebar/pomodoro.js';
+import { createKeybindMenu } from './keybindMenu.js';
+import { createDailyNoteSettings } from './daily-note.js';
 import { createExportSettings } from '../export.js';
 import { createPomodoroSettings } from './pomodoroSettings.js';
 import { createNoteRecoverySettings } from './recentlyDeleted.js';
@@ -22,56 +22,57 @@ const recentlyDeletedBtn = document.getElementById('recently-deleted-btn');
 
 const savedTheme = localStorage.getItem('theme') || 'sakura';
 
-function openSettingsMenu(){
-    settingEl.showModal()
+function openSettingsMenu() {
+    settingEl.showModal();
     settingsOutputEl.innerHTML = '';
 }
 
-function closeSettingsMenu(){
-    settingEl.close()
+function closeSettingsMenu() {
+    settingEl.close();
 }
 
-export function toggleConfigMenu(){
-  if(settingEl.classList.contains('settings-closed')){
-    openSettingsMenu()
-    settingEl.classList.toggle('.settings-closed');
-  } else {
-    closeSettingsMenu()
-    settingEl.classList.toggle('.settings-closed');
-  }
+export function toggleConfigMenu() {
+    if (settingEl.classList.contains('settings-closed')) {
+        openSettingsMenu();
+        settingEl.classList.toggle('.settings-closed');
+    } else {
+        closeSettingsMenu();
+        settingEl.classList.toggle('.settings-closed');
+    }
 }
 
-function setTheme(theme){
-    document.documentElement.className = theme
-    localStorage.setItem('theme', theme)
+function setTheme(theme) {
+    document.documentElement.className = theme;
+    localStorage.setItem('theme', theme);
 }
 
-closeSettingsBtn.addEventListener('click', closeSettingsMenu)
+closeSettingsBtn.addEventListener('click', closeSettingsMenu);
 
-export function initSettings(){
-  openSettingsBtn.addEventListener('click', openSettingsMenu)
+export function initSettings() {
+    openSettingsBtn.addEventListener('click', openSettingsMenu);
 
-  flashcardBtn.addEventListener('click', () => render(createFlashcardModule(false)))
+    flashcardBtn.addEventListener('click', () => render(createFlashcardModule(false)));
 
-  pomodoroBtn.addEventListener('click', () => render(createPomodoroSettings()))
+    pomodoroBtn.addEventListener('click', () => render(createPomodoroSettings()));
 
-  keybindBtn.addEventListener('click', () => render(createKeybindMenu()))
+    keybindBtn.addEventListener('click', () => render(createKeybindMenu()));
 
-  appearanceBtn.addEventListener('click', () => render(createAppearanceMenu()))
+    appearanceBtn.addEventListener('click', () => render(createAppearanceMenu()));
 
-  dailyNoteBtn.addEventListener('click', () => render(createDailyNoteSettings()))
+    dailyNoteBtn.addEventListener('click', () => render(createDailyNoteSettings()));
 
-  exportBtn.addEventListener('click', () => render(createExportSettings()))
+    exportBtn.addEventListener('click', () => render(createExportSettings()));
 
-  recentlyDeletedBtn.addEventListener('click', () => render(createNoteRecoverySettings(USER.recentlyDeleted)))
+    recentlyDeletedBtn.addEventListener('click', () =>
+        render(createNoteRecoverySettings(USER.recentlyDeleted))
+    );
 }
 
-export function render(element){
-  clearSettingsOutput()
-  settingsOutputEl.appendChild(element)
+export function render(element) {
+    clearSettingsOutput();
+    settingsOutputEl.appendChild(element);
 }
 
-function clearSettingsOutput(){
-  settingsOutputEl.innerHTML = ``;
+function clearSettingsOutput() {
+    settingsOutputEl.innerHTML = ``;
 }
-

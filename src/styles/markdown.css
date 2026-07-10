@@ -8,10 +8,14 @@
     padding: 0 2px;
 }
 
-.markdown-display h1 {}
-.markdown-display h2 {}
-.markdown-display h3 {}
-.markdown-display p {}
+.markdown-display h1 {
+}
+.markdown-display h2 {
+}
+.markdown-display h3 {
+}
+.markdown-display p {
+}
 
 .markdown-display pre {
     background-color: var(--bg-secondary);
@@ -36,8 +40,9 @@
     padding: 2px 5px;
     border-radius: 3px;
 }
-    
-.markdown-display blockquote {}
+
+.markdown-display blockquote {
+}
 .markdown-display table {
     border: 1px solid var(--border-strong);
 }
@@ -51,14 +56,19 @@
     border: 1px solid var(--border-secondary);
 }
 
-.markdown-display a {}
-.markdown-display ul {}
-.markdown-display ol {}
+.markdown-display a {
+}
+.markdown-display ul {
+}
+.markdown-display ol {
+}
 .markdown-display li {
     list-style: none;
 }
-.markdown-display hr {}
-.markdown-display img {}
+.markdown-display hr {
+}
+.markdown-display img {
+}
 
 .md-tag {
     background-color: var(--gold);

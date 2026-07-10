@@ -1,31 +1,31 @@
 .tab-menu {
-  border: 1px solid black;
-  background-color: darkgrey;
-  z-index: 99;
-  border-radius: 5px;
+    border: 1px solid black;
+    background-color: darkgrey;
+    z-index: 99;
+    border-radius: 5px;
 }
 
 .tab-menu-item {
-  width: 200px;
-  height: 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px;
+    width: 200px;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
 }
 
 .tab-menu-item:hover {
-  cursor: pointer;
-  background-color: grey;
+    cursor: pointer;
+    background-color: grey;
 }
 
 .tab-menu-img {
-  height: 100%;
-  aspect-ratio: 1;
+    height: 100%;
+    aspect-ratio: 1;
 }
 
 .add-tab-btn {
-  border: none;
-  background-color: '#ffffff';
-  height: 100%;
+    border: none;
+    background-color: '#ffffff';
+    height: 100%;
 }
