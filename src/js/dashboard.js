@@ -58,6 +58,11 @@ const DASHBOARD_SHORTCUTS = [
     img: '/src/assets/settings.svg',
   }),
   new DashboardShortcut({
+    name: 'Open Command Palette',
+    key: `${SUPER} + k`,
+    img: '/src/assets/settings.svg',
+  }),
+  new DashboardShortcut({
     name: 'Daily Note',
     key: `${SUPER} + d`,
     img: '/src/assets/dailynote.svg',

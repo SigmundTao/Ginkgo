@@ -42,40 +42,15 @@ export const FUNCTION_MAP = {
   'Open toolbar': openAndCloseSidebar,
   'Next tab': switchToNextTab,
   'Previous tab': switchToPrevTab,
-  'Open todo list': () => modules[0].createModule(),
+  'Open todo list module': () => modules[0].createModule(),
   'Open todo list tab': () => createTab(null, 'todo'),
-  'Open pomodoro timer': () => modules[1].createModule(),
+  'Open pomodoro timer module': () => modules[1].createModule(),
   'Open pomodoro timer tab': () => createTab(null, 'pomodoro'),
-  'Open flashcards': () => modules[2].createModule(),
+  'Open flashcard module': () => modules[2].createModule(),
   'Open flashcard tab': () => createTab(null, 'flashcards'),
   'Close current tab' : () => deleteTab(currentTabId),
   'Open command palette' : toggleCmdPalette,
 }
-
-export const DEFAULTS = [
-  { title: 'Create note',        keyValue: 'n' },
-  { title: 'Create daily note',  keyValue: 'd' },
-  { title: 'Search',             keyValue: 'f' },
-  { title: 'Open filetree',      keyValue: 'i' },
-  { title: 'Focus on note body',    keyValue: '7' },
-  { title: 'Focus on note title',    keyValue: '8' },
-  { title: 'Create folder',      keyValue: 'c' },
-  { title: 'Close current tab',  keyValue: 'w' },
-  { title: 'Open command palette',  keyValue: 'k' },
-  { title: 'Open dashboard',     keyValue: 't' },
-  { title: 'Toggle note view',   keyValue: 'p' },
-  { title: 'Quick capture',      keyValue: 'q' },
-  { title: 'Open config',        keyValue: 'm' },
-  { title: 'Open toolbar',       keyValue: '/' },
-  { title: 'Next tab',           keyValue: 'l' },
-  { title: 'Previous tab',       keyValue: 'h' },
-  { title: 'Open todo list',     keyValue: '1' },
-  { title: 'Open todo list tab',     keyValue: '4' },
-  { title: 'Open pomodoro timer',keyValue: '2' },
-  { title: 'Open pomodoro timer tab',keyValue: '5' },
-  { title: 'Open flashcards',    keyValue: '3' },
-  { title: 'Open flashcard tab',    keyValue: '6' },
-]
 
 export const KEY_BINDS = USER.settings.keybinds.map(bind => ({ ...bind, function: FUNCTION_MAP[bind.title] }))
 
