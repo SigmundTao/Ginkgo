@@ -110,7 +110,8 @@
     border-left: 2px solid var(--gold);
 }
 
-.temp {
+.temp-card {
+  border: 1px solid black;
 }
 
 .temp-card-input {

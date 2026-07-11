@@ -210,8 +210,8 @@ export function createFolder() {
     temporaryCard.classList.add('file-card');
     temporaryCard.classList.add('temp');
     temporaryCard.innerHTML = `
-        <div class="file-card-header">
-            <img class="file-card-img" src="./assets/empty-folder.svg">
+        <div class="file-card-header temp-card">
+            <img class="file-card-img" src="src/assets/folder-closed.svg">
             <input type="text" class="temp-card-input">
         </div>
     `;
