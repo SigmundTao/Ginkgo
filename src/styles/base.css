@@ -47,7 +47,6 @@ a {
     list-style: none;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     border-right: 1px solid var(--border-tertiary);
 }
 
