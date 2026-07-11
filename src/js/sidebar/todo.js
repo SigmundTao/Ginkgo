@@ -5,7 +5,7 @@ export function initTodoLists() {
     setCurrentList(USER.todo.lists[0].name);
 }
 const toDoBtn = document.getElementById('to-do-btn');
-export let currentList = 'todo';
+export let currentList = USER.todo.lists[0].name;
 
 export function setCurrentList(listName) {
     currentList = listName;
@@ -84,6 +84,8 @@ function createTask(container, taskValue) {
 }
 
 export function createToDoList() {
+    console.log('currentList:', currentList)
+    console.log(USER.todo.lists)
     const toDoList = document.createElement('div');
     toDoList.classList.add('todo-module', 'module');
 

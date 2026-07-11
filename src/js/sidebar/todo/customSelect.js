@@ -82,7 +82,7 @@ function createOption(listName, dropdown) {
     deleteBtn.textContent = 'x';
     deleteBtn.onclick = (e) => {
         e.stopPropagation();
-        const listIndex = USER.todo.lists.findIndex((list) => list.listName === listName);
+        const listIndex = USER.todo.lists.findIndex((list) => list.name === listName);
         if (USER.todo.lists.length - 1 <= 0) showToast();
         else USER.todo.lists.splice(listIndex, 1);
         updateUserData();
