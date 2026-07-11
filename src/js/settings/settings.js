@@ -33,23 +33,19 @@ function closeSettingsMenu() {
 
 export function toggleConfigMenu() {
     if (settingEl.classList.contains('settings-closed')) {
+        settingEl.classList.remove('settings-closed');
         openSettingsMenu();
-        settingEl.classList.toggle('.settings-closed');
+        console.log(settingEl.classList)
     } else {
         closeSettingsMenu();
-        settingEl.classList.toggle('.settings-closed');
+        settingEl.classList.add('settings-closed');
+        console.log('false');
     }
 }
 
-function setTheme(theme) {
-    document.documentElement.className = theme;
-    localStorage.setItem('theme', theme);
-}
-
-closeSettingsBtn.addEventListener('click', closeSettingsMenu);
-
 export function initSettings() {
     openSettingsBtn.addEventListener('click', openSettingsMenu);
+    closeSettingsBtn.addEventListener('click', closeSettingsMenu);
 
     flashcardBtn.addEventListener('click', () => render(createFlashcardModule(false)));
 
