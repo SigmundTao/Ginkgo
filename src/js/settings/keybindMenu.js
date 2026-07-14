@@ -2,6 +2,7 @@ import { KEY_BINDS } from '../shortcuts.js';
 import { showToast, TOAST_TYPES } from '../toast.js';
 
 const bindsInUse = new Set();
+let currentBind = null;
 
 export function initKeybinds() {
     bindsInUse.clear();
@@ -88,14 +89,15 @@ function createKeybindOption(keybindDataObj) {
     optionEl.appendChild(bindInput);
 
     bindInput.addEventListener('keydown', (e) => {
+        currentBind = keybindDataObj.keyValue;
         const keyInput = bindInput.value;
         if (e.key !== 'Enter' || keyInput.length !== 1) return;
-        if (!isBindInUse(keyInput)) {
+        if(isBindInUse(keyInput) && keyInput !== currentBind){
+            showToast('Bind already in use', TOAST_TYPES.ERROR);
+        } else {
             keybindDataObj.keyValue = keyInput;
             updateUserData();
             initKeybinds();
-        } else {
-            showToast('Bind already in use', TOAST_TYPES.ERROR);
         }
     });
 
