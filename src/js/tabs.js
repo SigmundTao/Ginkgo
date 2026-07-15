@@ -280,6 +280,7 @@ function createNoteView(file) {
         if (e.key === 'Enter') {
             saveTitle(file);
             switchToEditMode(noteContentInput, markdownDisplay);
+            noteContentInput.focus()
         }
     });
 
