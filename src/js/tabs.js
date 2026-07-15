@@ -257,6 +257,11 @@ function createNoteView(file) {
     noteContentInput.classList.add('note-body-input');
     noteContentInput.value = file.body;
 
+    function resizeTextarea() {
+        noteContentInput.style.height = '0px';
+        noteContentInput.style.height = `${noteContentInput.scrollHeight}px`;
+    }
+
     const markdownDisplay = document.createElement('div');
     markdownDisplay.classList.add('note-body-markdown');
     markdownDisplay.classList.add('markdown-display');
@@ -266,29 +271,38 @@ function createNoteView(file) {
             toggleCheckboxInBody(file, e.target, markdownDisplay, noteContentInput);
         } else {
             switchToEditMode(noteContentInput, markdownDisplay);
+            resizeTextarea();
         }
     });
+
     const countHolder = document.createElement('div');
     countHolder.classList.add('count-holder');
 
     tab.appendChild(titleInput);
     tab.appendChild(noteContentInput);
     tab.appendChild(markdownDisplay);
-    tab.appendChild(countHolder);
+
+    currentTabEl.appendChild(countHolder);
     currentTabEl.appendChild(tab);
     currentTabEl.appendChild(persistentTitle);
+
     updateCountHolder(countHolder, file, currentNoteMode);
     switchToDisplayMode(noteContentInput, markdownDisplay);
+
+    resizeTextarea();
 
     titleInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             saveTitle(file);
             switchToEditMode(noteContentInput, markdownDisplay);
-            noteContentInput.focus()
+            resizeTextarea();
+            noteContentInput.focus();
         }
     });
 
     noteContentInput.addEventListener('input', () => {
+        resizeTextarea();
+
         clearTimeout(noteDebounce);
 
         noteDebounce = setTimeout(() => {
@@ -352,6 +366,12 @@ function switchToEditMode(bodyInput, markdownDiv) {
     markdownDiv.style.display = 'none';
     bodyInput.style.display = 'flex';
     setCurrentNoteMode('edit');
+    const t = document.querySelector('.note-body-input');
+    console.log({
+    clientHeight: t.clientHeight,
+    scrollHeight: t.scrollHeight,
+    overflow: getComputedStyle(t).overflowY
+    });
 }
 
 export function updateCountHolder(holder, file, mode) {
