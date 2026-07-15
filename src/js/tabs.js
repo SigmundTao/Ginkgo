@@ -179,6 +179,9 @@ function createTabCard(tab) {
     tabCard.classList.add('tab-card');
     tabCard.id = tab.id;
 
+    const titleSpan = document.createElement('span');
+    titleSpan.classList.add('tab-card-title');
+
     const tabTitle = document.createElement('p');
     if (tab.moduleType) {
         tabTitle.textContent = tab.moduleType.charAt(0).toUpperCase() + tab.moduleType.slice(1);
@@ -198,7 +201,8 @@ function createTabCard(tab) {
     });
 
     tabCard.addEventListener('click', () => switchToTab(tab.id));
-    tabCard.appendChild(tabTitle);
+    titleSpan.appendChild(tabTitle);
+    tabCard.appendChild(titleSpan);
     tabCard.appendChild(closeTabBtn);
     return tabCard;
 }

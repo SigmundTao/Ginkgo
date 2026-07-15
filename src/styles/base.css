@@ -15,10 +15,14 @@ body {
     font-family: var(--font);
     background-color: var(--bg-primary);
     color: var(--font-primary);
+    width: 100vw;
+    height: 100vh;
 }
 
 main {
     display: flex;
+    max-width: 100%;
+    max-height: 100vh;
 }
 
 input:focus {
@@ -79,17 +83,21 @@ a {
    File Display
    ===================== */
 #file-display {
-    height: 100vh;
+    height: 100%;
     width: auto;
+    min-width: 0;
     background-color: var(--bg-primary);
     flex: 1;
+    border: 1px solid red;
 }
 
 #tab-bar {
-    height: 40px;
+    height: 42px;
     width: 100%;
+    max-width: 100%;
     padding: 0;
     padding-left: 15px;
+    padding-bottom: 2px;
     margin: 0;
     display: flex;
     flex-direction: row;
@@ -98,11 +106,14 @@ a {
     justify-content: flex-start;
     position: relative;
     z-index: 100;
-    overflow: visible;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .tab-card {
-    width: 150px;
+    flex: 1 1 150px;
+    min-width: 60px;
+    max-width: 150px;
     height: 80%;
     display: flex;
     align-items: center;
@@ -110,9 +121,17 @@ a {
     padding: 10px;
     border: none;
     font-size: 0.8rem;
-    overflow-x: visible;
+    overflow: hidden;
     position: relative;
     color: var(--font-secondary);
+}
+
+.tab-card-title {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .tab-card:hover {
@@ -181,7 +200,7 @@ a {
 }
 
 #current-tab {
-    height: calc(100vh - 40px);
+    height: calc(100vh - 42px);
     position: relative;
     padding-bottom: 50px;
     background-color: var(--bg-primary);
