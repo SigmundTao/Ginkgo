@@ -320,9 +320,10 @@ function duplicateFile(fileID) {
     const file = USER.files[getFileIndex(fileID)];
     const id = idNum;
     const date = getFormattedDate(new Date());
+    let newTitle = `${file.title}*`;
 
     USER.files.push({
-        title: `${file.title}(duplicate)`,
+        title: newTitle,
         body: file.body,
         id,
         type: 'note',
