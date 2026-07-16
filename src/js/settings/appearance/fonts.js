@@ -1,5 +1,10 @@
 import { USER, updateUserData } from '../../user.js';
-const fonts = ['Noto Serif JP', 'monospace', 'Times New Roman'];
+const fonts = ['Noto Serif JP',
+  'Yuji Syuku',
+  'Shippori Mincho',
+  'Zen Old Mincho',
+  'Kosugi Maru',
+];
 
 export function createFontSelect() {
     const select = document.createElement('select');

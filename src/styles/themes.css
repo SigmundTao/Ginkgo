@@ -48,14 +48,24 @@
     --font: 'Noto Serif JP', serif;
 }
 
-:root .monospace {
-    --font: monospace;
+:root .Yuji-Syuku {
+    --font: 'Yuji Syuku';
 }
 
-:root .Times-New-Roman {
-    --font: 'Times New Roman';
+:root .Shippori-Mincho {
+    --font: 'Shippori Mincho';
+    --font-size: 1.1rem;
 }
 
+:root .Zen-Old-Mincho {
+    --font: 'Zen Old Mincho';
+    --font-size: 1.1rem;
+}
+
+:root .Kosugi-Maru {
+  --font: 'Kosugi-Maru';
+  --font-size: 1.1rem;
+}
 * {
     box-sizing: border-box;
 }

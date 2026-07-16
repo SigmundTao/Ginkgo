@@ -417,6 +417,7 @@ a {
     caret-color: var(--caret);
     width: 900px;
     margin-top: 40px;
+    font-family: var(--font);
 }
 
 .note-body-input,
@@ -426,7 +427,7 @@ a {
     border: none;
     outline: none;
     color: var(--font-primary);
-    font-size: 1rem;
+    font-size: var(--font-size);
     padding: 0 50px 50px 50px;
     flex-direction: column;
     font-family: 'Noto Serif JP', serif;
@@ -435,6 +436,7 @@ a {
     resize: none;
     width: 900px;
     padding-top: 5px;
+    font-family: var(--font);
 }
 
 .note-body-input {
