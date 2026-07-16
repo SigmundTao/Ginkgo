@@ -49,7 +49,7 @@ export function createQuickCaptureEl() {
 function quickCapture(content) {
     const date = getFormattedDate(new Date());
     const id = idNum;
-    const title = getUntitledTitle();
+    const title = `!${content.substring(0, 10)}...`
     USER.files.push({
         title: title,
         body: content,
