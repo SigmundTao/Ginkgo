@@ -292,7 +292,11 @@ function createRightClickMenu(posX, posY, file) {
 
     if (file.type === 'folder') {
         menu.appendChild(createRenameBtn(file, menu));
-        menu.appendChild(createDeleteAllBtn(file.id, menu));
+
+        const folderContents = USER.files.filter(f => f.parentId === file.id);
+        if(folderContents.length){
+          menu.appendChild(createDeleteAllBtn(file.id, menu));
+        }
     }
 
     menu.style.left = posX + 'px';
