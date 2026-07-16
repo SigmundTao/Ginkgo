@@ -41,6 +41,9 @@
 
 :root .dark {
     --bg-primary: #000000;
+    --color: white;
+    --bg-secondary: white;
+    --bg-tertiary: red;
 }
 
 /* fonts */
