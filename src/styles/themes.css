@@ -1,15 +1,19 @@
 :root {
     --bg-primary: #F5F0E6;
     --bg-secondary: #ede8dc;
-    --bg-tertiary: #8c6a4e;
+    --bg-tertiary: #000000;
     --color-glass: rgba(217, 222, 210, 0.8);
-    --accent: #c8a96e;
+    --accent: #999999;
     --font: 'Noto Serif JP', serif;
     --font-primary: #1c1a17;
     --font-secondary: #4a4a48;
     --font-hover: #8c6a4e;
     --font-tertiary: #9a9a98;
+
     --border: rgba(0, 0, 0, 0.1);
+    --border-primary: #6E6E6E;
+    --border-radius: 4px;
+
     --cedar-hover: #f0e6d0;
 
     --primary-active: #cfc9ba;

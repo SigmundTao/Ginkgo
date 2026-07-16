@@ -6,14 +6,14 @@
 
 #right-sidebar {
     height: 100vh;
-    width: 300px;
+    width: 200px;
     max-width: 300px;
     transition: width 0.3s ease;
-    background-image: url('https://i.pinimg.com/736x/40/63/b8/4063b8c1552159e973359b846f5dec66.jpg');
-    background-size: contain;
+    background-color: var(--bg-secondary);
     display: flex;
     flex-direction: column;
     padding: 0;
+    border-left: 1px solid var(--border-primary);
 }
 
 #right-sidebar-btn {

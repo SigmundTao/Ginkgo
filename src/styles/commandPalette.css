@@ -1,19 +1,36 @@
 @import './themes.css';
 
+#cmd-palette {
+    background-color: var(--bg-tertiary);
+    height: 300px;
+    width: 500px;
+    overflow: hidden;
+    padding: 5px;
+}
+
 #cmd-search-bar {
     height: 30px;
     width: 100%;
     padding: 5px;
 }
 
+#cmd-holder {
+    width: 100%;
+    height: 250px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
 .cmd {
     height: 20px;
-    width: 400px;
+    width: 100%;
     font-size: 0.8rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px;
+    border: 1px solid var(--border-primary);
+    color: white;
 }
 
 .cmd:hover {

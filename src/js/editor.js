@@ -56,7 +56,7 @@ export function saveNote(file) {
 }
 
 export function saveTitle(file) {
-    const newTitle = getTitleInput().value;
+    const newTitle = getTitleInput().value.trim();
     const bodyInput = getBodyInput();
 
     if (newTitle === file.title) {
@@ -73,7 +73,6 @@ export function saveTitle(file) {
     renderFiletree();
     renderTabs();
     indicateAutoSave();
-    bodyInput.focus();
 }
 
 export function saveBody(file) {

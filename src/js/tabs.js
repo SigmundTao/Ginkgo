@@ -296,7 +296,6 @@ function createNoteView(file) {
             saveTitle(file);
             switchToEditMode(noteContentInput, markdownDisplay);
             resizeTextarea();
-            noteContentInput.focus();
         }
     });
 

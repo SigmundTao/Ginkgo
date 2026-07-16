@@ -46,6 +46,23 @@ a {
     color: var(--accent);
 }
 
+/*scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 /* =====================
    Navigation
    ===================== */
@@ -58,7 +75,7 @@ a {
     list-style: none;
     display: flex;
     flex-direction: column;
-    border-right: 1px solid var(--border-tertiary);
+    border-right: 1px solid var(--border-primary);
 }
 
 .nav-item {
@@ -96,7 +113,6 @@ a {
     min-width: 0;
     background-color: var(--bg-primary);
     flex: 1;
-    border: 1px solid red;
 }
 
 #tab-bar {
@@ -208,7 +224,7 @@ a {
 }
 
 #current-tab {
-    height: calc(100vh - 42px - 50px);
+    height: calc(100vh - 42px);
     position: relative;
     padding-bottom: 50px;
     background-color: var(--bg-primary);
@@ -435,11 +451,10 @@ a {
    ===================== */
 .count-holder {
     position: absolute;
-    bottom: 0;
-    right: 0;
-    border: 1px solid var(--border-secondary);
-    border-bottom: none;
-    border-right: none;
+    bottom: 5px;
+    right: 5px;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--border-radius);
     height: 25px;
     width: 200px;
     display: flex;
@@ -447,7 +462,6 @@ a {
     align-items: center;
     background-color: var(--bg-secondary);
     font-size: 0.75rem;
-    border-top-left-radius: 2px;
     color: var(--font-tertiary);
 }
 

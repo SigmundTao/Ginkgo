@@ -1,12 +1,15 @@
 .toast-el {
     z-index: 99;
-    height: 150px;
-    width: 500px;
+    height: 50px;
+    width: 400px;
     border: 1px solid black;
     background-color: grey;
     position: fixed;
     left: 50%;
     top: 50px;
     transform: translateX(-50%);
-    border-radius: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

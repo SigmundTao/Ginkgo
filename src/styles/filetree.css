@@ -6,6 +6,8 @@
     height: 100vh;
     width: 200px;
     transition: width 0.3s ease;
+    border-right: 1px solid var(--border-primary);
+    z-index: 50;
 }
 
 #filetree.closed {

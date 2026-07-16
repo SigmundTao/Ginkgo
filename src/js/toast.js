@@ -20,15 +20,11 @@ function createToastElement(message, type) {
     const containerEl = document.createElement('div');
     containerEl.classList.add('toast-el');
 
-    const typeHolder = document.createElement('div');
-    typeHolder.textContent = type;
-    typeHolder.classList.add('toast-type-holder');
-
     const messageHolder = document.createElement('div');
     messageHolder.classList.add('toast-message-holder');
     messageHolder.textContent = message;
 
-    containerEl.append(typeHolder, messageHolder);
+    containerEl.append(messageHolder);
 
     return containerEl;
 }
