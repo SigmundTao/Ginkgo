@@ -3,7 +3,9 @@
     --bg-secondary: #ede8dc;
     --bg-tertiary: #000000;
     --color-glass: rgba(217, 222, 210, 0.8);
+
     --accent: #999999;
+
     --font: 'Noto Serif JP', serif;
     --font-primary: #1c1a17;
     --font-secondary: #4a4a48;
@@ -13,6 +15,8 @@
     --border: rgba(0, 0, 0, 0.1);
     --border-primary: #6E6E6E;
     --border-radius: 4px;
+
+    --hover-dark: #101010;
 
     --cedar-hover: #f0e6d0;
 

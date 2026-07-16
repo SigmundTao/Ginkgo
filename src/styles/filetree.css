@@ -145,7 +145,7 @@
 }
 
 .rc-menu-item:hover {
-    background-color: var(--bg-secondary);
+    background-color: var(--hover-dark);
 }
 
 #rc-delete-btn {
