@@ -42,13 +42,103 @@ const MODULE_CREATORS = {
     flashcards: createFlashcardModule,
 };
 
-export function createTab(fileId, moduleType = null) {
+function getTabContainer() {
+    return currentTabEl.querySelector('.tab');
+}
+
+function getClickCharOffset(e) {
+    const blockEl = e.target.closest('[data-line]');
+    if (!blockEl) return 0;
+
+    const start = parseInt(blockEl.dataset.start, 10);
+    const length = parseInt(blockEl.dataset.length, 10);
+
+    let range = null;
+    if (document.caretPositionFromPoint) {
+        const pos = document.caretPositionFromPoint(e.clientX, e.clientY);
+        if (pos) {
+            range = document.createRange();
+            range.setStart(blockEl, 0);
+            range.setEnd(pos.offsetNode, pos.offset);
+        }
+    } else if (document.caretRangeFromPoint) {
+        const r = document.caretRangeFromPoint(e.clientX, e.clientY);
+        if (r) {
+            range = document.createRange();
+            range.setStart(blockEl, 0);
+            range.setEnd(r.startContainer, r.startOffset);
+        }
+    }
+
+    const ratio = range ? range.toString().length / (blockEl.textContent.length || 1) : 0;
+    return Math.round(start + ratio * length);
+}
+
+function getCursorLine(textarea) {
+    return textarea.value.slice(0, textarea.selectionStart).split('\n').length - 1;
+}
+
+function placeCursorAtChar(textarea, charOffset) {
+    const clamped = Math.max(0, Math.min(textarea.value.length, charOffset));
+    textarea.focus({ preventScroll: true });
+    textarea.setSelectionRange(clamped, clamped);
+}
+
+function getLineFromChar(text, charOffset) {
+    return text.slice(0, charOffset).split('\n').length - 1;
+}
+
+function scrollToLine(markdownDiv, tab, lineNumber) {
+    const blocks = [...markdownDiv.querySelectorAll('[data-line]')];
+    let target = blocks[0];
+    for (const b of blocks) {
+        if (parseInt(b.dataset.line, 10) <= lineNumber) target = b;
+        else break;
+    }
+    if (target) {
+        const tabRect = tab.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        tab.scrollTop += targetRect.top - tabRect.top - tab.clientHeight * 0.3;
+    }
+}
+
+function scrollToTextareaLine(textarea, tab, lineNumber) {
+    const style = getComputedStyle(textarea);
+    const lineHeight = parseFloat(style.lineHeight) || 24;
+    const paddingTop = parseFloat(style.paddingTop) || 0;
+    const y = paddingTop + lineNumber * lineHeight;
+    tab.scrollTop = textarea.offsetTop + y - tab.clientHeight * 0.3;
+}
+
+function resizeTextarea(textarea) {
+    textarea.style.height = '0px';
+    textarea.style.height = `${textarea.scrollHeight}px`;
+}export function createTab(fileId, moduleType = null) {
     USER.tabs.push({ file: fileId, id: tabId, moduleType });
     setCurrentTabId(tabId);
     incrementTabId();
     loadTab(currentTabId);
     renderTabs();
     updateUserData();
+}
+
+function syncMarkdownHeight(textarea, markdownDiv) {
+    markdownDiv.style.minHeight = `${textarea.scrollHeight}px`;
+}
+
+function renderMarkdownWithLines(source) {
+    const tokens = marked.lexer(source);
+    let cursor = 0;
+    let html = '';
+    tokens.forEach((token) => {
+        if (!token.raw) return;
+        const idx = source.indexOf(token.raw, cursor);
+        const startChar = idx !== -1 ? idx : cursor;
+        const line = source.slice(0, startChar).split('\n').length - 1;
+        if (idx !== -1) cursor = idx + token.raw.length;
+        html += `<div data-line="${line}" data-start="${startChar}" data-length="${token.raw.length}">${marked.parser([token])}</div>`;
+    });
+    return html;
 }
 
 export function loadTab(id) {
@@ -270,10 +360,10 @@ function createNoteView(file) {
         if (e.target.matches('input[type="checkbox"]')) {
             toggleCheckboxInBody(file, e.target, markdownDisplay, noteContentInput);
         } else {
-            switchToEditMode(noteContentInput, markdownDisplay);
-            resizeTextarea();
+            switchToEditMode(noteContentInput, markdownDisplay, getClickCharOffset(e));
         }
     });
+
 
     const countHolder = document.createElement('div');
     countHolder.classList.add('count-holder');
@@ -289,19 +379,16 @@ function createNoteView(file) {
     updateCountHolder(countHolder, file, currentNoteMode);
     switchToDisplayMode(noteContentInput, markdownDisplay);
 
-    resizeTextarea();
-
     titleInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             saveTitle(file);
             switchToEditMode(noteContentInput, markdownDisplay);
-            resizeTextarea();
         }
     });
 
     noteContentInput.addEventListener('input', () => {
         resizeTextarea();
-
+        syncMarkdownHeight(noteContentInput, markdownDisplay);
         clearTimeout(noteDebounce);
 
         noteDebounce = setTimeout(() => {
@@ -338,38 +425,44 @@ export function toggleNoteView() {
         if (currentNoteMode === 'display') {
             switchToEditMode(bodyInput, markdownEl);
         } else {
-            switchToDisplayMode(bodyInput, markdownEl);
+            switchToDisplayMode(bodyInput, markdownEl, getCursorLine(bodyInput));
         }
     }
-
     updateCountHolder(getCountHolder(), USER.files[getFileIndex(selectedFileId)], currentNoteMode);
 }
 
-function switchToDisplayMode(bodyInput, markdownDiv) {
-    markdownDiv.innerHTML = marked.parse(bodyInput.value);
-    markdownDiv.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
-        cb.disabled = false;
-    });
+function switchToDisplayMode(bodyInput, markdownDiv, lineOverride = null) {
+    const tab = getTabContainer();
+    const line = lineOverride !== null ? lineOverride : getCursorLine(bodyInput);
+
+    markdownDiv.innerHTML = renderMarkdownWithLines(bodyInput.value);
+    markdownDiv.querySelectorAll('input[type="checkbox"]').forEach((cb) => (cb.disabled = false));
     bodyInput.style.display = 'none';
     markdownDiv.style.display = 'flex';
     setCurrentNoteMode('display');
+
+    requestAnimationFrame(() => scrollToLine(markdownDiv, tab, line));
+
     setTimeout(() => {
-        const bars = document.querySelectorAll('.progress-bar-fill');
-        bars.forEach((bar) => {
+        document.querySelectorAll('.progress-bar-fill').forEach((bar) => {
             bar.style.width = bar.dataset.value + '%';
         });
     }, 0);
 }
 
-function switchToEditMode(bodyInput, markdownDiv) {
+function switchToEditMode(bodyInput, markdownDiv, charOverride = null) {
+    const tab = getTabContainer();
+    const charOffset = charOverride !== null ? charOverride : 0;
+    const line = getLineFromChar(bodyInput.value, charOffset);
+
     markdownDiv.style.display = 'none';
     bodyInput.style.display = 'flex';
     setCurrentNoteMode('edit');
-    const t = document.querySelector('.note-body-input');
-    console.log({
-    clientHeight: t.clientHeight,
-    scrollHeight: t.scrollHeight,
-    overflow: getComputedStyle(t).overflowY
+    resizeTextarea(bodyInput);
+
+    requestAnimationFrame(() => {
+        placeCursorAtChar(bodyInput, charOffset);
+        scrollToTextareaLine(bodyInput, tab, line);
     });
 }
 
