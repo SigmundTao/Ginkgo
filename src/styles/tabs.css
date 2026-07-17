@@ -31,5 +31,11 @@
 .add-tab-btn {
     border: none;
     background-color: transparent;
-    height: 100%;
+    height: 80%;
+    color: var(--font-primary);
+}
+
+.add-tab-btn:hover {
+    cursor: pointer;
+    color: var(--font-secondary);
 }

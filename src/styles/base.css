@@ -120,7 +120,6 @@ a {
     width: 100%;
     max-width: 100%;
     padding: 0;
-    padding-left: var(--padding-large);
     padding-bottom: 2px;
     margin: 0;
     display: flex;
@@ -132,6 +131,7 @@ a {
     z-index: 100;
     overflow-x: hidden;
     overflow-y: hidden;
+    background-color: var(--bg-secondary)
 }
 
 .tab-card {
@@ -168,10 +168,9 @@ a {
     color: var(--gold);
     height: calc(80% + 2px);
     margin-bottom: -2px;
-    border-bottom: 2px solid var(--accent);
     z-index: 2;
-    border-top-right-radius: 2px;
-    border-top-left-radius: 2px;
+    border-top-right-radius: var(--border-radius-medium);
+    border-top-left-radius: var(--border-radius-medium);
     border-top: none;
     border-left: none;
     border-right: none;
