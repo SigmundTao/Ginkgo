@@ -4,9 +4,7 @@ import { marked } from './markdown.js';
 const page = document.getElementById('page');
 
 export function createCheatSheet() {
-  console.log('createCheatSheet called, existing sheet:', getCheatSheet());
   if(getCheatSheet()) return;
-   console.log('creating new sheet');
   const sheet = document.createElement('div');
   sheet.classList.add('md-cheatsheet');
 
@@ -37,7 +35,6 @@ export function removeCheatSheet(sheet) {
 }
 
 export function toggleCheatSheet() {
-    console.log('toggleCheatSheet called');
     const sheet = getCheatSheet()
     if(sheet) removeCheatSheet(sheet);
     else createCheatSheet();
@@ -82,7 +79,7 @@ const markdownExamples = [
   `},
   {title: 'Bold text', content: '**Kangae**'},
   {title: 'Italic', content: '*Kangae*'},
-  {title: 'Blockquote', content: '> '},
+  {title: 'Blockquote', content: '> First learn the meaning of what you say, and then speak'},
   {title: 'Ordered List', content: `
   1. First item
   2. Second item
