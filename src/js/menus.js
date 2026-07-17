@@ -3,6 +3,7 @@ import { createTabMenu } from './tabs/tabMenu.js';
 import { removeModuleMenu } from './sidebar/sidebar.js';
 import { closeCmdPalette } from './commandPalette.js';
 import { removeCheatSheet, getCheatSheet } from './cheatsheet.js';
+import { closeSearchMenu } from './search.js';
 
 let openMenu = null;
 
@@ -13,6 +14,7 @@ const MENU_FUNCTIONS = {
     'command palette': closeCmdPalette,
     'quick capture': () => document.querySelector('.quick-capture')?.remove(),
     'md cheatsheet': () => removeCheatSheet(getCheatSheet()),
+    'search': closeSearchMenu,
 }
 
 export function setOpenMenu(menu) {

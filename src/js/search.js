@@ -4,6 +4,7 @@ import { openFile, renderTabs } from './tabs.js';
 import { createNewNote } from './editor.js';
 import { getFormattedDate } from './storage.js';
 import { renderFiletree } from './filetree.js';
+import { clearOpenMenu, setOpenMenu } from './menus.js';
 
 const searchMenu = document.getElementById('search-menu');
 const searchBarEl = document.getElementById('search-bar');
@@ -25,11 +26,13 @@ export function openSearchMenu() {
     displaySearchResults(USER.files, searchResultsEl);
     searchMenu.showModal();
     searchBarEl.focus();
+    setOpenMenu('search');
     window.addEventListener('click', () => closeSearchMenu(), { once: true });
 }
 
 export function closeSearchMenu() {
     searchMenu.close();
+    clearOpenMenu()
 }
 
 function handleSearchInput(e) {
