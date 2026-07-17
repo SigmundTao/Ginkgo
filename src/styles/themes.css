@@ -26,31 +26,38 @@
     --hover-dark: #101010;
 
     --cedar-hover: #f0e6d0;
-
     --primary-active: #cfc9ba;
-
-    --paper: #eae4d6;
-    --pannel: #f5f1e8;
-}
-
-:root .japan {
-  --color-bg: #F5F0E6;
-  --color-surface: #EAE6DD;
-  --color-glass: rgba(217, 222, 210, 0.8);
-  --color-accent-primary: #3E4A61;
-  --color-accent-secondary: #B7C4A3;
-  --color-tatami: #C7B48A;
-  --color-wood-light: #8B5E3C;
-  --color-wood-dark: #5C4632;
-  --color-moss: #6E7A5E;
-  --color-text: #2B2823;
 }
 
 :root .dark {
-    --bg-primary: #000000;
-    --color: white;
-    --bg-secondary: white;
-    --bg-tertiary: red;
+    --bg-primary: #292929;
+    --bg-secondary: #1C1C1C;
+    --bg-tertiary: #000000;
+    --color-glass: rgba(217, 222, 210, 0.8);
+
+    --accent: #999999;
+
+    --font: 'Noto Serif JP', serif;
+    --font-primary: #CFCFCF;
+    --font-secondary: #BABABA;
+    --font-hover: #8c6a4e;
+    --font-tertiary: #9a9a98;
+
+    --border: rgba(0, 0, 0, 0.1);
+    --border-primary: #6E6E6E;
+    --border-tertiary: #242424;
+    --border-radius-small: 4px;
+    --border-radius-medium: 6px;
+    --border-radius-large: 10px;
+
+    --padding-small: 4px;
+    --padding-medium: 8px;
+    --padding-large: 12px;
+
+    --hover-dark: #101010;
+
+    --cedar-hover: #f0e6d0;
+    --primary-active: #cfc9ba;
 }
 
 /* fonts */
