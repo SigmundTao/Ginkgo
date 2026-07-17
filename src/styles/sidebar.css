@@ -13,12 +13,12 @@
     flex-direction: column;
     padding: 0;
     border-left: 1px solid var(--border-primary);
-    box-shadow: -4px 0px 15px 4px rgba(0,0,0,0.61);
-    z-index: 98;
+    box-shadow: -4px 0px 15px 4px rgba(0,0,0,0.21);
+    z-index: 101;
 }
 
 #right-sidebar-btn {
-    z-index: 101;
+    z-index: 102;
     position: fixed;
     top: 5px;
     right: 5px;

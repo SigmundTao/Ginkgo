@@ -16,6 +16,7 @@ export const USER = JSON.parse(localStorage.getItem('user')) || {
             { title: 'Create folder', keyValue: 'c' },
             { title: 'Close current tab', keyValue: 'w' },
             { title: 'Open command palette', keyValue: 'k' },
+            { title: 'Open markdown cheat sheet', keyValue: 'e' },
             { title: 'Open dashboard', keyValue: 't' },
             { title: 'Toggle note view', keyValue: 'p' },
             { title: 'Quick capture', keyValue: 'q' },

@@ -11,6 +11,7 @@ const MENU_FUNCTIONS = {
     'module menu': removeModuleMenu,
     'command palette': closeCmdPalette,
     'quick capture': () => document.querySelector('.quick-capture').remove(),
+    'md cheatsheet': () => document.querySelector('.md-cheatsheet').remove(),
 }
 
 export function setOpenMenu(menu) {
