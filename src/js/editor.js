@@ -61,11 +61,10 @@ export function saveTitle(file) {
 
     if (newTitle === file.title) {
         bodyInput.focus();
-        return;
     }
     if (checkForDuplicateTitles(newTitle, file.id)) {
         throwDuplicateTitleError(newTitle);
-        return;
+        return true;
     }
     file.title = newTitle;
     file.lastEdited = getFormattedDate(new Date());

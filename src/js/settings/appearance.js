@@ -57,5 +57,5 @@ export function updateAppearance() {
     const font = USER.settings.appearance.font;
     const theme = USER.settings.appearance.theme;
     document.body.classList = '';
-    document.body.classList.add(`${theme}`, `${font}`);
+    document.body.classList.add(theme, font);
 }

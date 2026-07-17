@@ -8,6 +8,7 @@
     transition: width 0.3s ease;
     border-right: 1px solid var(--border-primary);
     z-index: 50;
+    box-shadow: 4px 0px 15px 4px rgba(0,0,0,0.61);
 }
 
 #filetree.closed {

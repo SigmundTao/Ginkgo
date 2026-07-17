@@ -381,8 +381,9 @@ function createNoteView(file) {
 
     titleInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
-            saveTitle(file);
-            switchToEditMode(noteContentInput, markdownDisplay);
+            const failedToSave = saveTitle(file);
+            if(failedToSave) return;
+            else switchToEditMode(noteContentInput, markdownDisplay);
         }
     });
 

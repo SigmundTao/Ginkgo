@@ -1,4 +1,5 @@
 import { USER, updateUserData } from '../../user.js';
+
 const fonts = ['Noto Serif JP',
   'Yuji Syuku',
   'Shippori Mincho',

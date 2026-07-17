@@ -120,6 +120,7 @@ a {
     width: 100%;
     max-width: 100%;
     padding: 0;
+    padding-left: 15px;
     padding-bottom: 2px;
     margin: 0;
     display: flex;
