@@ -1,16 +1,20 @@
-import { setOpenMenu } from './menus.js';
-import { marked } from './marked.js';
+import { setOpenMenu, clearOpenMenu } from './menus.js';
+import { marked } from './markdown.js';
 
 const page = document.getElementById('page');
 
 export function createCheatSheet() {
+  console.log('createCheatSheet called, existing sheet:', getCheatSheet());
+  if(getCheatSheet()) return;
+   console.log('creating new sheet');
   const sheet = document.createElement('div');
   sheet.classList.add('md-cheatsheet');
 
   const closeSheetBtn = document.createElement('button');
+  closeSheetBtn.textContent = 'x';
   closeSheetBtn.classList.add('close-md-sheet-btn');
-  closeSheetBtn.onclick = sheet.remove();
   sheet.appendChild(closeSheetBtn);
+  closeSheetBtn.onclick = () => removeCheatSheet(sheet);
 
   markdownExamples.forEach(example => {
     const md = new MarkdownExample(example);
@@ -20,6 +24,23 @@ export function createCheatSheet() {
 
   page.appendChild(sheet);
   setOpenMenu('md cheatsheet');
+}
+
+export function getCheatSheet() {
+    return document.querySelector('.md-cheatsheet');
+}
+
+export function removeCheatSheet(sheet) {
+    if(!sheet) return;
+    sheet.remove();
+    clearOpenMenu()
+}
+
+export function toggleCheatSheet() {
+    console.log('toggleCheatSheet called');
+    const sheet = getCheatSheet()
+    if(sheet) removeCheatSheet(sheet);
+    else createCheatSheet();
 }
 
 class MarkdownExample {
@@ -49,6 +70,8 @@ class MarkdownExample {
 
     container.append(input, output);
     example.append(title, container);
+
+    return example;
   }
 }
 

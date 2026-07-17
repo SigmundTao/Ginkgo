@@ -16,7 +16,7 @@ import { createNewNote, getBodyInput, getTitleInput } from './editor.js';
 import { currentTabId, currentNoteMode } from './state.js';
 import { USER } from './user.js';
 import { toggleCmdPalette } from './commandPalette.js';
-import { createCheatSheet } from './cheatsheet.js';
+import { toggleCheatSheet } from './cheatsheet.js';
 
 export const SUPER = 'Alt';
 
@@ -30,7 +30,7 @@ function focusOnInput(type) {
         toggleNoteView();
     }
 
-    const input = type === 'title' ? getTitleInput() : getBodyInput(); // fresh reference, post-toggle
+    const input = type === 'title' ? getTitleInput() : getBodyInput();
     if (!input) return;
     input.focus();
 }
@@ -38,7 +38,7 @@ function focusOnInput(type) {
 export const FUNCTION_MAP = {
     'Create note': createNewNote,
     'Create daily note': createDailyNote,
-    Search: openSearchMenu,
+    'Search' : openSearchMenu,
     'Open filetree': toggleFileHolder,
     'Create folder': createFolder,
     'Focus on note body': () => focusOnInput('body'),
@@ -58,7 +58,7 @@ export const FUNCTION_MAP = {
     'Open flashcard tab': () => createTab(null, 'flashcards'),
     'Close current tab': () => deleteTab(currentTabId),
     'Open command palette': toggleCmdPalette,
-    'Open markdown cheat sheet': createCheatSheet,
+    'Open markdown cheat sheet': toggleCheatSheet,
 };
 
 export const KEY_BINDS = USER.settings.keybinds.map((bind) => ({

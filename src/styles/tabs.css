@@ -1,4 +1,4 @@
-@import url('src/styles/themes.css');
+@import url('./themes.css');
 
 .tab-menu {
     border: 3px solid var(--border-tertiary);
