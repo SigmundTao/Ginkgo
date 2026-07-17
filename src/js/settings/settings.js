@@ -21,8 +21,6 @@ const dailyNoteBtn = document.getElementById('daily-note-settings-btn');
 const exportBtn = document.getElementById('export-settings-btn');
 const recentlyDeletedBtn = document.getElementById('recently-deleted-btn');
 
-const savedTheme = localStorage.getItem('theme') || 'sakura';
-
 export function openSettingsMenu() {
     settingEl.showModal();
     settingsOutputEl.innerHTML = '';
@@ -31,17 +29,15 @@ export function openSettingsMenu() {
 
 export function closeSettingsMenu() {
     settingEl.close();
+    settingEl.classList.add('settings-closed');
 }
 
 export function toggleConfigMenu() {
     if (settingEl.classList.contains('settings-closed')) {
-        settingEl.classList.remove('settings-closed');
         openSettingsMenu();
-        console.log(settingEl.classList)
+        settingEl.classList.remove('settings-closed');
     } else {
         closeSettingsMenu();
-        settingEl.classList.add('settings-closed');
-        console.log('false');
     }
 }
 
