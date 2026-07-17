@@ -22,3 +22,7 @@ v0.1 scope
 [x] fix folder deleting
 [x] fix todo deletion
 [] add a lot more styling options for the user
+
+
+[] Make all elements use variables instead of fixed values
+[] Create a dark theme

@@ -1,14 +1,17 @@
+@import url('src/styles/themes.css');
+
 .toast-el {
     z-index: 99;
     height: 50px;
     width: 400px;
-    border: 1px solid black;
-    background-color: grey;
+    border: 3px solid var(--border-tertiary);
+    background-color: var(--bg-tertiary);
+    color: var(--font-tertiary);
     position: fixed;
     left: 50%;
     top: 50px;
     transform: translateX(-50%);
-    border-radius: 5px;
+    border-radius: var(--border-radius-medium);
     display: flex;
     justify-content: center;
     align-items: center;

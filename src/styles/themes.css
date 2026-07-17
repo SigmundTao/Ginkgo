@@ -14,7 +14,14 @@
 
     --border: rgba(0, 0, 0, 0.1);
     --border-primary: #6E6E6E;
-    --border-radius: 4px;
+    --border-tertiary: #242424;
+    --border-radius-small: 4px;
+    --border-radius-medium: 6px;
+    --border-radius-large: 10px;
+
+    --padding-small: 4px;
+    --padding-medium: 8px;
+    --padding-large: 12px;
 
     --hover-dark: #101010;
 
