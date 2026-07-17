@@ -1,5 +1,6 @@
 import { createTab } from '../tabs.js';
 import { createNewNote } from '../editor.js';
+import { setOpenMenu } from '../menus.js';
 
 class MenuItem {
     constructor(obj) {
@@ -46,6 +47,7 @@ const menuItems = [
 ];
 
 export function createTabMenu(posX, posY) {
+    setOpenMenu('tab menu')
     const menuEl = document.createElement('div');
     menuEl.classList.add('tab-menu');
 

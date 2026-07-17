@@ -1,5 +1,6 @@
 import { FUNCTION_MAP, SUPER } from './shortcuts.js';
 import { USER } from './user.js';
+import { setOpenMenu } from './menus.js';
 
 const cmdPalette = document.getElementById('cmd-palette');
 const cmdInput = document.getElementById('cmd-search-bar');
@@ -43,7 +44,8 @@ class Command {
     }
 }
 
-function openCmdPalette() {
+export function openCmdPalette() {
+    setOpenMenu('command palette');
     cmdInput.value = '';
     cmdOutput.innerHTML = '';
     USER.settings.keybinds.forEach((bind) => {
@@ -55,7 +57,7 @@ function openCmdPalette() {
     cmdInput.focus();
 }
 
-function closeCmdPalette() {
+export function closeCmdPalette() {
     cmdPalette.classList.remove('cmd-palette-showing');
     cmdPalette.close();
 }

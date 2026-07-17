@@ -3,6 +3,7 @@ import { createSidebarPomodoroModule, destroySidebarPomodoroTimer } from './pomo
 import { createToDoList } from './todo.js';
 import { openModules, removeOpenModule, addOpenModule } from '../state.js';
 import { createFlashcardModule } from './flashcards.js';
+import { setOpenMenu } from '../menus.js';
 
 const toolbar = document.getElementById('right-sidebar');
 const sidebarBtn = document.getElementById('right-sidebar-btn');
@@ -83,7 +84,8 @@ export function openAndCloseSidebar() {
     toolbar.classList.toggle('closed-sidebar');
 }
 
-function createModuleMenu(posX, posY) {
+export function createModuleMenu(posX, posY) {
+    setOpenMenu('module menu');
     const moduleMenuEl = document.createElement('div');
     moduleMenuEl.classList.add('module-menu');
 

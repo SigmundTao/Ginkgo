@@ -4,8 +4,10 @@ import { renderFiletree } from './filetree.js';
 import { idNum, currentFolderId, incrementIdNum } from './state.js';
 import { getFormattedDate } from './storage.js';
 import { currentTabEl } from './tabs.js';
+import { setOpenMenu } from './menus.js';
 
 export function createQuickCaptureEl() {
+    setOpenMenu('quick capture');
     const quickCaptureEl = document.createElement('div');
     quickCaptureEl.classList.add('quick-capture');
     quickCaptureEl.innerHTML = `

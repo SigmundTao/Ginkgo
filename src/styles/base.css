@@ -519,9 +519,9 @@ a {
 #settings {
     height: 800px;
     width: 600px;
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-default);
-    color: var(--font-primary);
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-tertiary);
+    color: var(--font-tertiary);
 }
 
 #settings-btn {

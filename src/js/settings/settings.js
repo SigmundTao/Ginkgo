@@ -6,6 +6,7 @@ import { createDailyNoteSettings } from './daily-note.js';
 import { createExportSettings } from '../export.js';
 import { createPomodoroSettings } from './pomodoroSettings.js';
 import { createNoteRecoverySettings } from './recentlyDeleted.js';
+import { setOpenMenu } from '../menus.js';
 import { USER } from '../user.js';
 
 const settingEl = document.getElementById('settings');
@@ -22,12 +23,13 @@ const recentlyDeletedBtn = document.getElementById('recently-deleted-btn');
 
 const savedTheme = localStorage.getItem('theme') || 'sakura';
 
-function openSettingsMenu() {
+export function openSettingsMenu() {
     settingEl.showModal();
     settingsOutputEl.innerHTML = '';
+    setOpenMenu('settings')
 }
 
-function closeSettingsMenu() {
+export function closeSettingsMenu() {
     settingEl.close();
 }
 
