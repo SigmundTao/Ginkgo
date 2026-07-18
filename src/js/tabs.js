@@ -354,7 +354,6 @@ function createNoteView(file) {
 
     const markdownDisplay = document.createElement('div');
     markdownDisplay.classList.add('note-body-markdown');
-    markdownDisplay.classList.add('markdown-display');
     markdownDisplay.id = 'markdown-div';
     markdownDisplay.addEventListener('click', (e) => {
         if (e.target.matches('input[type="checkbox"]')) {

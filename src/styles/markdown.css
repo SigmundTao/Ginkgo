@@ -8,16 +8,16 @@
     padding: 0 2px;
 }
 
-.markdown-display h1 {
+.note-body-markdown h1 {
 }
-.markdown-display h2 {
+.note-body-markdown h2 {
 }
-.markdown-display h3 {
+.note-body-markdown h3 {
 }
-.markdown-display p {
+.note-body-markdown  p {
 }
 
-.markdown-display pre {
+.note-body-markdown pre {
     background-color: var(--bg-secondary);
     border-radius: var(--border-radius);
     padding: 20px;
@@ -26,14 +26,14 @@
     align-items: center;
 }
 
-.markdown-display pre code {
+.note-body-markdown pre code {
     font-family: var(--font-mono);
     font-size: 0.875rem;
     color: var(--font-color);
     background: none;
 }
 
-.markdown-display code {
+.note-body-markdown code {
     font-family: var(--font-mono);
     font-size: 0.875rem;
     background-color: var(--bg-secondary);
@@ -41,33 +41,33 @@
     border-radius: 3px;
 }
 
-.markdown-display blockquote {
+.note-body-markdown blockquote {
 }
-.markdown-display table {
+.note-body-markdown table {
     border: 1px solid var(--border-strong);
 }
 
-.markdown-display table th {
+.note-body-markdown table th {
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-secondary);
 }
 
-.markdown-display table * {
+.note-body-markdown table * {
     border: 1px solid var(--border-secondary);
 }
 
-.markdown-display a {
+.note-body-markdown a {
 }
-.markdown-display ul {
+.note-body-markdown ul {
 }
-.markdown-display ol {
+.note-body-markdown ol {
 }
-.markdown-display li {
+.note-body-markdown li {
     list-style: none;
 }
-.markdown-display hr {
+.note-body-markdown hr {
 }
-.markdown-display img {
+.note-body-markdown img {
 }
 
 .md-tag {

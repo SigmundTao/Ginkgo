@@ -15,53 +15,55 @@
     padding: var(--padding-large);
     overflow-y: scroll;
     overflow-x: hidden;
+    gap: var(--padding-medium);
+    border: 3px solid var(--border-tertiary);
 }
-
 .close-md-sheet-btn {
     position: fixed;
     top: 15px;
     right: 15px;
     color: var(--font-tertiary);
+    z-index: 202;
 }
-
 .markdown-example {
-    max-height: 400px;
+    height: 400px;
     width: 100%;
-    border: 1px solid red;
     padding: var(--padding-medium);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: var(--padding-small);
 }
-
 .markdown-example-title {
-    height: 10%;
+    flex: 0 0 auto;
 }
-
 .markdown-display-container {
     display: flex;
     width: 100%;
-    border: 1px solid blue;
-    height: 80%;
+    flex: 1;
+    gap: var(--padding-medium);
+    min-height: 0;
 }
-
-.markdown-display  {
-    height: 100%;
-    width: 50%;
-    border: 1px solid yellow;
+.markdown-display {
+    flex: 1;
     display: flex;
-    justify-content: flext-start;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: auto;
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius-medium);
 }
-
 .markdown-output {
-    height: 100%;
-    width: 50%;
-    border: 1px solid yellow;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: auto;
 }
-
 .markdown-input {
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
-
-

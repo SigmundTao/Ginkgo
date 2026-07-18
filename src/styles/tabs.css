@@ -3,7 +3,7 @@
 .tab-menu {
     border: 3px solid var(--border-tertiary);
     background-color: var(--bg-tertiary);
-    z-index: 99;
+    z-index: 200;
     border-radius: var(--border-radius-medium);
     color: var(--font-tertiary);
     padding: var(--padding-medium)

@@ -17,6 +17,7 @@ import { currentTabId, currentNoteMode } from './state.js';
 import { USER } from './user.js';
 import { toggleCmdPalette } from './commandPalette.js';
 import { toggleCheatSheet } from './cheatsheet.js';
+import { closeOpenMenu, openMenu } from './menus.js';
 
 export const SUPER = 'Alt';
 
@@ -76,6 +77,10 @@ export function initShortcuts() {
 
 function handleKeydown(e) {
     const leaderHeld = SUPER === 'Alt' ? e.altKey : e.ctrlKey;
+    if(e.key === 'Escape' && openMenu != null) {
+      closeOpenMenu();
+      return;
+    } 
     if (!leaderHeld) return;
     e.preventDefault();
     const bindIndex = getBindIndexFromKey(e.key);

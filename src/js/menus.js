@@ -5,7 +5,7 @@ import { closeCmdPalette } from './commandPalette.js';
 import { removeCheatSheet, getCheatSheet } from './cheatsheet.js';
 import { closeSearchMenu } from './search.js';
 
-let openMenu = null;
+export let openMenu = null;
 
 const MENU_FUNCTIONS = {
     'settings': closeSettingsMenu,
@@ -18,10 +18,14 @@ const MENU_FUNCTIONS = {
 }
 
 export function setOpenMenu(menu) {
-    if(openMenu && openMenu !== menu) MENU_FUNCTIONS[openMenu]();
+    if(openMenu && openMenu !== menu) closeOpenMenu()
     openMenu = menu;
 }
 
 export function clearOpenMenu() {
     openMenu = null;
+}
+
+export function closeOpenMenu() {
+  MENU_FUNCTIONS[openMenu]();
 }

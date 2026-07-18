@@ -52,7 +52,7 @@ class MarkdownExample {
 
     const title = document.createElement('div');
     title.classList.add('markdown-example-title');
-    title.textContent =  this.title;
+    title.textContent =  `${this.title}:`;
 
     const container = document.createElement('div');
     container.classList.add('markdown-display-container')
