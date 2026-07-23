@@ -35,6 +35,7 @@ export const USER = JSON.parse(localStorage.getItem('user')) || {
             theme: 'light',
             font: 'Noto-Serif-JP',
             dashboardLogo: './src/assets/kangae-logo.svg',
+            background: 'default',
         },
         dailyNote: {
             preset: '',

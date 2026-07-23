@@ -18,8 +18,11 @@ body {
     color: var(--font-primary);
     overflow: hidden;
     font-family: var(--font);
-    background-color: var(--bg-primary);
-    color: var(--font-primary);
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     width: 100vw;
     height: 100vh;
 }
@@ -111,7 +114,7 @@ a {
     min-height: 0;
     width: auto;
     min-width: 0;
-    background-color: var(--bg-primary);
+    background-color: color-mix(in srgb, var(--bg-primary) 20%, transparent);
     flex: 1;
 }
 
@@ -132,7 +135,7 @@ a {
     z-index: 100;
     overflow-x: hidden;
     overflow-y: hidden;
-    background-color: var(--bg-secondary)
+    background-color: var(--bg-secondary);
 }
 
 .tab-card {
@@ -165,10 +168,24 @@ a {
 }
 
 .current-tab {
-    background-color: var(--bg-primary);
-    color: var(--gold);
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: white;
     height: calc(80% + 2px);
-    margin-bottom: -2px;
+    margin-bottom: -5px;
+    z-index: 2;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    position: relative;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+    color: white;
+    height: calc(80% + 2px);
+    margin-bottom: -5px;
     z-index: 2;
     border-top-right-radius: var(--border-radius-medium);
     border-top-left-radius: var(--border-radius-medium);
@@ -204,7 +221,9 @@ a {
     height: calc(100vh - 42px);
     position: relative;
     padding-bottom: 50px;
-    background-color: var(--bg-primary);
+    background-color: transparent;
+    border-right: 1px solid var(--border-primary);
+    border-top: 1px solid var(--border-primary);
 }
 
 .persistent-title {
@@ -212,7 +231,7 @@ a {
     top: 0;
     left: 50%;
     width: 100%;
-    background-color: var(--bg-primary);
+    background-color: transparent;
     transform: translateX(-50%);
     font-size: 0.85rem;
     height: 40px;
@@ -385,7 +404,7 @@ a {
 
 .note-title {
     height: 100px;
-    background-color: var(--bg-primary);
+    background-color: transparent;
     color: var(--font-primary);
     font-size: 1.5rem;
     padding-left: 50px;
@@ -400,7 +419,7 @@ a {
 .note-body-input,
 .note-body-markdown {
     min-height: 100%;
-    background-color: var(--bg-primary);
+    background-color: rgba(255, 255, 255, 0.1);
     border: none;
     outline: none;
     color: var(--font-primary);

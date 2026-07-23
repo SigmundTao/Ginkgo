@@ -18,6 +18,7 @@
     gap: var(--padding-medium);
     border: 3px solid var(--border-tertiary);
 }
+
 .close-md-sheet-btn {
     position: fixed;
     top: 15px;
@@ -25,6 +26,7 @@
     color: var(--font-tertiary);
     z-index: 202;
 }
+
 .markdown-example {
     height: 400px;
     width: 100%;
@@ -33,9 +35,11 @@
     flex-direction: column;
     gap: var(--padding-small);
 }
+
 .markdown-example-title {
     flex: 0 0 auto;
 }
+
 .markdown-display-container {
     display: flex;
     width: 100%;
@@ -43,6 +47,7 @@
     gap: var(--padding-medium);
     min-height: 0;
 }
+
 .markdown-display {
     flex: 1;
     display: flex;
@@ -53,6 +58,7 @@
     background-color: var(--bg-secondary);
     border-radius: var(--border-radius-medium);
 }
+
 .markdown-output {
     flex: 1;
     display: flex;
@@ -61,6 +67,7 @@
     align-items: flex-start;
     overflow: auto;
 }
+
 .markdown-input {
     display: flex;
     flex-direction: column;
