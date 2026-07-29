@@ -385,6 +385,7 @@ function createDeleteBtn(toBeDeleted, menu) {
 function createDeleteAllBtn(toBeDeleted, menu) {
     const deleteAllBtn = document.createElement('div');
     deleteAllBtn.classList.add('rc-menu-item');
+    deleteAllBtn.classList.add('rc-delete-all-btn');
     deleteAllBtn.textContent = 'Delete All';
     deleteAllBtn.onclick = () => {
         const folderContents = USER.files.filter((f) => f.parentId === toBeDeleted);

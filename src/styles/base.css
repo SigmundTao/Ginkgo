@@ -18,11 +18,11 @@ body {
     color: var(--font-primary);
     overflow: hidden;
     font-family: var(--font);
-    background-image: var(--bg-image);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-color: var(--bg-primary);
     width: 100vw;
     height: 100vh;
 }
@@ -114,7 +114,6 @@ a {
     min-height: 0;
     width: auto;
     min-width: 0;
-    background-color: color-mix(in srgb, var(--bg-primary) 20%, transparent);
     flex: 1;
 }
 
@@ -123,7 +122,7 @@ a {
     width: 100%;
     max-width: 100%;
     padding: 0;
-    padding-left: 15px;
+    padding-left: 5px;
     padding-bottom: 2px;
     margin: 0;
     display: flex;
@@ -132,10 +131,10 @@ a {
     align-items: end;
     justify-content: flex-start;
     position: relative;
-    z-index: 100;
-    overflow-x: hidden;
-    overflow-y: hidden;
+    z-index: 200;
     background-color: var(--bg-secondary);
+    overflow: clip;
+    overflow-clip-margin: 10px;
 }
 
 .tab-card {
@@ -168,31 +167,19 @@ a {
 }
 
 .current-tab {
-    background-image: var(--bg-image);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-color: var(--bg-primary);
     color: white;
-    height: calc(80% + 2px);
-    margin-bottom: -5px;
+    height: calc(80% + 6px);
     z-index: 2;
-    border-top: none;
-    border-left: none;
-    border-right: none;
     position: relative;
     text-shadow: 0 1px 3px rgba(0,0,0,0.6);
-}
-    color: white;
-    height: calc(80% + 2px);
-    margin-bottom: -5px;
-    z-index: 2;
-    border-top-right-radius: var(--border-radius-medium);
-    border-top-left-radius: var(--border-radius-medium);
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    position: relative;
+    border: none;
+    border-top: 1px solid var(--border-primary);
+    border-left: 1px solid var(--border-primary);
+    border-right: 1px solid var(--border-primary);
+    margin-bottom: -3px;
+    background-color: var(--bg-primary);
+    z-index: 403;
 }
 
 .current-tab button {
@@ -218,11 +205,11 @@ a {
 }
 
 #current-tab {
-    height: calc(100vh - 42px);
+    height: calc(100vh - 43px);
     position: relative;
     padding-bottom: 50px;
     background-color: transparent;
-    border-right: 1px solid var(--border-primary);
+    z-index: 100;
     border-top: 1px solid var(--border-primary);
 }
 
@@ -419,7 +406,6 @@ a {
 .note-body-input,
 .note-body-markdown {
     min-height: 100%;
-    background-color: rgba(255, 255, 255, 0.1);
     border: none;
     outline: none;
     color: var(--font-primary);
@@ -433,6 +419,7 @@ a {
     width: 900px;
     padding-top: 5px;
     font-family: var(--font);
+    background-color: var(--bg-primary);
 }
 
 .note-body-input {
