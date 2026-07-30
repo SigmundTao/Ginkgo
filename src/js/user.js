@@ -32,7 +32,7 @@ export const USER = JSON.parse(localStorage.getItem('user')) || {
             { title: 'Open flashcard tab', keyValue: '6' },
         ],
         appearance: {
-            theme: 'light',
+            theme: 'dark',
             font: 'Noto-Serif-JP',
             dashboardLogo: './src/assets/kangae-logo.svg',
             background: 'default',

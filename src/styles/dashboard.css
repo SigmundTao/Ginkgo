@@ -11,8 +11,8 @@
 }
 
 .dashboard-logo {
-    width: 500px;
     opacity: 0.9;
+    max-height: 500px;
 }
 
 .dashboard-shortcut-holder {

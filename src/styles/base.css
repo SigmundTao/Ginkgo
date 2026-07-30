@@ -141,12 +141,14 @@ a {
     flex: 1 1 150px;
     min-width: 60px;
     max-width: 150px;
-    height: 80%;
+    height: 65%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: var(--padding-large);
     border: none;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
     font-size: 0.8rem;
     overflow: hidden;
     position: relative;
@@ -169,7 +171,7 @@ a {
 .current-tab {
     background-color: var(--bg-primary);
     color: white;
-    height: calc(80% + 6px);
+    height: calc(65% + 6px);
     z-index: 2;
     position: relative;
     text-shadow: 0 1px 3px rgba(0,0,0,0.6);
