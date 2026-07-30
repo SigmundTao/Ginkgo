@@ -15,7 +15,7 @@ import { initCmdPalette } from './commandPalette.js';
 import { KEY_BINDS } from './shortcuts.js';
 
 updateAppearance();
-renderTabs(true);
+renderTabs();
 initSearch();
 initShortcuts();
 initNavBar();

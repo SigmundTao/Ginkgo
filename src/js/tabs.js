@@ -222,15 +222,7 @@ export function deleteTab(id) {
     }
 }
 
-export function renderTabs(isFirstRender) {
-    if (isFirstRender) {
-        for (let i = 0; i < USER.tabs.length; i++) {
-            if (USER.tabs[i].moduleType) {
-                USER.tabs = USER.tabs.filter((t) => !t.moduleType);
-            }
-        }
-    }
-
+export function renderTabs() {
     tabBar.innerHTML = '';
     USER.tabs.forEach((tab) => {
         const tabCard = createTabCard(tab);
