@@ -233,6 +233,11 @@ function createFlashcard(card, element) {
 }
 
 function promptNewPack(root, state, container) {
+    const existingInput = document.querySelector('.pack-name-input') ? true : false;
+    if(existingInput){
+        document.querySelector('.pack-name-input').focus();
+        return;
+    };
     const input = document.createElement('input');
     input.classList.add('pack-name-input');
     input.placeholder = 'Pack name...';
