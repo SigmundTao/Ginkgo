@@ -106,6 +106,7 @@ function renderCardList(root, state) {
     const pack = USER.settings.flashcards.packs[state.activePack];
 
     const backBtn = document.createElement('button');
+    backBtn.classList.add('card-list-back-btn', 'card-view-btn');
     backBtn.textContent = '← Back';
     backBtn.addEventListener('click', () => {
         state.view = ROOT_STATES.packlist;
@@ -114,29 +115,30 @@ function renderCardList(root, state) {
     root.appendChild(backBtn);
 
     const studyBtn = document.createElement('button');
-    studyBtn.textContent = 'Study';
+    studyBtn.textContent = 'Study →';
+    studyBtn.classList.add('card-list-study-btn', 'card-view-btn');
     studyBtn.addEventListener('click', () => {
         state.currentCard = 0;
         state.view = ROOT_STATES.study;
         render(root, state);
     });
-    root.appendChild(studyBtn);
 
     const title = document.createElement('h3');
     title.textContent = pack.title;
     root.appendChild(title);
 
+    const cardContainer = document.createElement('div');
+    cardContainer.classList.add('card-view-card-container');
+
     pack.cards.forEach((card) => {
         const cardEl = document.createElement('div');
         cardEl.classList.add('flashcard-card-element');
 
-        const front = document.createElement('input');
-        front.type = 'text';
+        const front = document.createElement('textarea');
         front.classList.add('card-input');
         front.value = card.front;
 
-        const back = document.createElement('input');
-        back.type = 'text';
+        const back = document.createElement('textarea');
         back.classList.add('card-input');
         back.value = card.back;
 
@@ -144,19 +146,21 @@ function renderCardList(root, state) {
         front.addEventListener('input', () => updateCard(state, card, front.value, back.value))
 
         const deleteBtn = document.createElement('button');
+        deleteBtn.classList.add('delete-card-btn');
         deleteBtn.textContent = 'x';
         deleteBtn.addEventListener('click', () => {
             deleteCard(card.front, state, root);
         });
 
         cardEl.append(front, back, deleteBtn);
-        root.appendChild(cardEl);
+        cardContainer.appendChild(cardEl);
     });
 
     const addCardBtn = document.createElement('button');
     addCardBtn.textContent = '+ Add Card';
+    addCardBtn.classList.add('card-view-add-card-btn', 'card-view-btn');
     addCardBtn.addEventListener('click', () => promptNewCard(root, state, pack));
-    root.appendChild(addCardBtn);
+    root.append(addCardBtn, cardContainer, studyBtn);
 }
 
 function updateCard(state, card, front, back) {
