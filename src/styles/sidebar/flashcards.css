@@ -93,14 +93,18 @@
 
 /* card list view */
 .card-view-card-container {
+    margin-top: 25px;
     overflow-y: scroll;
-    max-height: 600px;
+    max-height: 500px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
     gap: 5px;
     padding: 25px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--border-radius-small);
 }
 
 .flashcard-card-element {
@@ -115,7 +119,7 @@
 
 .card-input {
     height: 200px;
-    width: 150px;
+    width: 175px;
     background-color: var(--bg-secondary);
     border-radius: var(--border-radius-small);
     border: 1px solid var(--border-primary);
@@ -128,6 +132,13 @@
     position: absolute;
     top: 0px;
     right: 0px;
+    border-radius: var(--border-radius-small);
+    border: 1px solid var(--border-primary);
+}
+
+.delete-card-btn:hover {
+    cursor: pointer;
+    transform: scale(1.05);
 }
 
 .card-list-study-btn {
@@ -147,10 +158,12 @@
     color: var(--font-primary);
     padding: var(--padding-small);
     border-radius: var(--border-radius-small);
+    font-family: var(--font);
 }
 
 .card-view-btn:hover {
     cursor: pointer;
+    transform: scale(1.05);
 }
 
 .card-view-add-card-btn {
@@ -158,6 +171,11 @@
     width: 100px;
 }
 
+.card-confirm-btn {
+    position: relative;
+    width: 100px;
+    margin-top: 25px;
+}
 
 .flashcard-nav-btn {
     height: 100%;

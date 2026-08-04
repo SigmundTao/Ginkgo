@@ -131,16 +131,22 @@ function renderCardList(root, state) {
     cardContainer.classList.add('card-view-card-container');
 
     pack.cards.forEach((card) => {
+        const colour = FLASHCARD_COLOURS[Math.floor(Math.random() * FLASHCARD_COLOURS.length)]
+
         const cardEl = document.createElement('div');
         cardEl.classList.add('flashcard-card-element');
 
         const front = document.createElement('textarea');
         front.classList.add('card-input');
         front.value = card.front;
+        front.style.backgroundColor = colour.bg;
+        front.style.color = colour.text;
 
         const back = document.createElement('textarea');
         back.classList.add('card-input');
         back.value = card.back;
+        back.style.backgroundColor = colour.bg;
+        back.style.color = colour.text;
 
         back.addEventListener('input', () => updateCard(state, card, front.value, back.value))
         front.addEventListener('input', () => updateCard(state, card, front.value, back.value))
@@ -148,6 +154,8 @@ function renderCardList(root, state) {
         const deleteBtn = document.createElement('button');
         deleteBtn.classList.add('delete-card-btn');
         deleteBtn.textContent = 'x';
+        deleteBtn.style.backgroundColor = colour.text;
+        deleteBtn.style.color = colour.bg;
         deleteBtn.addEventListener('click', () => {
             deleteCard(card.front, state, root);
         });
@@ -278,11 +286,17 @@ function promptNewPack(root, state, container) {
 }
 
 function promptNewCard(root, state, pack) {
-    const frontInput = document.createElement('input');
-    frontInput.placeholder = 'Front...';
+    const containerEl = document.createElement('div');
+    containerEl.classList.add('flashcard-card-element');
 
-    const backInput = document.createElement('input');
+    const frontInput = document.createElement('textarea');
+    frontInput.placeholder = 'Front...';
+    frontInput.classList.add('card-input');
+
+    const backInput = document.createElement('textarea');
     backInput.placeholder = 'Back...';
+    backInput.classList.add('card-input');
+
 
     frontInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
@@ -297,11 +311,13 @@ function promptNewCard(root, state, pack) {
 
     const confirmBtn = document.createElement('button');
     confirmBtn.textContent = 'Add';
+    confirmBtn.classList.add('card-confirm-btn', 'card-view-btn');
     confirmBtn.addEventListener('click', () => {
         saveCard(root, state, frontInput.value.trim(), backInput.value.trim(), pack);
     });
 
-    root.append(frontInput, backInput, confirmBtn);
+    containerEl.append(frontInput, backInput)
+    root.append(containerEl, confirmBtn);
     frontInput.focus();
 }
 
