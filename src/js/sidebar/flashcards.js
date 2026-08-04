@@ -134,15 +134,14 @@ function renderCardList(root, state) {
         front.type = 'text';
         front.classList.add('card-input');
         front.value = card.front;
-        front.addEventListener('input', () => console.log(front.value));
 
         const back = document.createElement('input');
         back.type = 'text';
         back.classList.add('card-input');
         back.value = card.back;
 
-        back.addEventListener('change', () => updateCard(state, card, front.value, back.value))
-        front.addEventListener('change', () => updateCard(state, card, front.value, back.value))
+        back.addEventListener('input', () => updateCard(state, card, front.value, back.value))
+        front.addEventListener('input', () => updateCard(state, card, front.value, back.value))
 
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = 'x';
