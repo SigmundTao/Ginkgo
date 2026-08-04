@@ -57,25 +57,49 @@ function render(root, state) {
 
 function renderPackList(root, state) {
     const title = document.createElement('h3');
-    title.textContent = 'My Packs';
-    root.appendChild(title);
+    title.textContent = 'My Packs:';
+
+    const packContainer = document.createElement('div');
+    packContainer.classList.add('pack-list-pack-container');
 
     USER.settings.flashcards.packs.forEach((pack, index) => {
         const packEl = document.createElement('div');
         packEl.classList.add('flashcard-pack-element');
         packEl.textContent = pack.title;
+
+        const deletePackBtn = document.createElement('button');
+        deletePackBtn.textContent = 'x';
+        deletePackBtn.classList.add('delete-pack-btn');
+        deletePackBtn.addEventListener('click', (e) => {
+            e.stopPropagation()
+            deletePack(root, state, index)
+        });
+        packEl.append(deletePackBtn);
+
         packEl.addEventListener('click', () => {
             state.activePack = index;
             state.view = ROOT_STATES.cardlist;
             render(root, state);
         });
-        root.appendChild(packEl);
+        packContainer.appendChild(packEl);
     });
+
+    const btnInputContainer = document.createElement('div');
+    btnInputContainer.classList.add('btn-input-container');
 
     const addBtn = document.createElement('button');
     addBtn.textContent = '+';
-    addBtn.addEventListener('click', () => promptNewPack(root, state));
-    root.appendChild(addBtn);
+    addBtn.addEventListener('click', () => promptNewPack(root, state, btnInputContainer));
+    addBtn.classList.add('pack-list-add-btn');
+    btnInputContainer.append(addBtn);
+    root.append(title, packContainer, btnInputContainer);
+}
+
+function deletePack(root, state, packIndex) {
+    USER.settings.flashcards.packs.splice(packIndex, 1);
+    state.activePack = null;
+    updateUserData()
+    render(root, state)
 }
 
 function renderCardList(root, state) {
@@ -183,9 +207,7 @@ function renderStudyView(root, state) {
     flashcardDisplayEl.appendChild(flashcardBtnHolder);
 
     if (pack.cards.length) createFlashcard(pack.cards[state.currentCard], flashcardEl);
-    else
-        flashcardEl.textContent =
-            'This pack has no cards. Go to flashcards in settings to add some';
+    else flashcardEl.textContent ='This pack has no cards.';
 }
 
 function createFlashcard(card, element) {
@@ -210,8 +232,9 @@ function createFlashcard(card, element) {
     };
 }
 
-function promptNewPack(root, state) {
+function promptNewPack(root, state, container) {
     const input = document.createElement('input');
+    input.classList.add('pack-name-input');
     input.placeholder = 'Pack name...';
     input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && input.value.trim()) {
@@ -221,7 +244,7 @@ function promptNewPack(root, state) {
         }
         if (e.key === 'Escape') render(root, state);
     });
-    root.appendChild(input);
+    container.appendChild(input);
     input.focus();
 }
 

@@ -1,3 +1,5 @@
+@import '../themes.css';
+
 .flashcard-module {
     height: 300px;
     padding: 5px;
@@ -18,6 +20,77 @@
     justify-content: center;
     align-items: center;
     height: 80%;
+}
+
+.pack-list-pack-container {
+    min-height: 300px;
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.flashcard-pack-element {
+    height: 200px;
+    width: 150px;
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius-small);
+    border: 1px solid var(--border-primary);
+    position: relative;
+}
+
+.flashcard-pack-element:hover {
+    cursor: pointer;
+}
+
+.delete-pack-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--border-radius-small);
+    aspect-ratio: 1;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    text-align: center;
+}
+
+.delete-pack-btn:hover {
+    cursor: pointer;
+}
+
+.btn-input-container {
+    height: 40px;
+    padding: 5px;
+    padding-left: 0;
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    width: auto;
+}
+
+.pack-name-input {
+    background-color: var(--bg-tertiary);
+    color: var(--font-primary);
+    border-radius: var(--border-radius-small);
+    border: 1px solid var(--border-primary);
+}
+
+.pack-list-add-btn {
+    width: 30px;
+    border-radius: var(--border-radius-small);
+    border: 1px solid var(--border-primary);
+    color: var(--font-primary);
+    background-color: var(--bg-tertiary);
 }
 
 .flashcard-nav-btn {
@@ -72,4 +145,12 @@
 
 .card-back {
     transform: rotateY(180deg);
+}
+
+.tab-flashcards {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
 }

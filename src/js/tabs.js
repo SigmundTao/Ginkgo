@@ -166,7 +166,9 @@ export function loadTab(id) {
 function createModuleView(type) {
     updateTabTitle(type);
     currentTabEl.innerHTML = '';
-    currentTabEl.appendChild(getModuleContent(type));
+    const content = getModuleContent(type);
+    if(type === MODULE_TYPES.FLASHCARDS) content.classList.add('tab-flashcards');
+    currentTabEl.appendChild(content);
     renderTabs();
 }
 
