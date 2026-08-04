@@ -92,7 +92,7 @@ function renderPackList(root, state) {
     addBtn.addEventListener('click', () => promptNewPack(root, state, btnInputContainer));
     addBtn.classList.add('pack-list-add-btn');
     btnInputContainer.append(addBtn);
-    root.append(title, packContainer, btnInputContainer);
+    root.append(title, btnInputContainer, packContainer);
 }
 
 function deletePack(root, state, packIndex) {
@@ -130,8 +130,19 @@ function renderCardList(root, state) {
         const cardEl = document.createElement('div');
         cardEl.classList.add('flashcard-card-element');
 
-        const cardText = document.createElement('p');
-        cardText.textContent = `${card.front} → ${card.back}`;
+        const front = document.createElement('input');
+        front.type = 'text';
+        front.classList.add('card-input');
+        front.value = card.front;
+        front.addEventListener('input', () => console.log(front.value));
+
+        const back = document.createElement('input');
+        back.type = 'text';
+        back.classList.add('card-input');
+        back.value = card.back;
+
+        back.addEventListener('change', () => updateCard(state, card, front.value, back.value))
+        front.addEventListener('change', () => updateCard(state, card, front.value, back.value))
 
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = 'x';
@@ -139,7 +150,7 @@ function renderCardList(root, state) {
             deleteCard(card.front, state, root);
         });
 
-        cardEl.append(cardText, deleteBtn);
+        cardEl.append(front, back, deleteBtn);
         root.appendChild(cardEl);
     });
 
@@ -147,6 +158,16 @@ function renderCardList(root, state) {
     addCardBtn.textContent = '+ Add Card';
     addCardBtn.addEventListener('click', () => promptNewCard(root, state, pack));
     root.appendChild(addCardBtn);
+}
+
+function updateCard(state, card, front, back) {
+    const pack = USER.settings.flashcards.packs[state.activePack];
+    const cardIndex = pack.cards.findIndex(c => c.front === card.front && c.back === card.back);
+    const currentCard = pack.cards[cardIndex];
+
+    currentCard.front = front;
+    currentCard.back = back;
+    updateUserData()
 }
 
 function deleteCard(cardFront, state, root) {

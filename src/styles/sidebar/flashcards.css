@@ -23,7 +23,6 @@
 }
 
 .pack-list-pack-container {
-    min-height: 300px;
     height: auto;
     width: 100%;
     display: flex;
