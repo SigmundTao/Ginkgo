@@ -31,12 +31,16 @@ function createTaskCard(taskDataObj) {
     card.classList.add('task-card');
 
     const checkbox = document.createElement('input');
+    checkbox.classList.add('task-checkbox');
     checkbox.type = 'checkbox';
     if (taskDataObj.completed) checkbox.checked = true;
     checkbox.addEventListener('change', () => {
         task.completed = !task.completed;
         updateUserData();
     });
+
+    const titleCheckboxSpan = document.createElement('span');
+    titleCheckboxSpan.classList.add('title-checkbox-span');
 
     const title = document.createElement('p');
     title.textContent = taskDataObj.taskName;
@@ -47,12 +51,10 @@ function createTaskCard(taskDataObj) {
 
     const removeTaskBtn = document.createElement('button');
     removeTaskBtn.textContent = 'x';
-
     removeTaskBtn.addEventListener('click', () => removeTask(title.textContent));
 
-    card.appendChild(checkbox);
-    card.appendChild(title);
-    card.appendChild(removeTaskBtn);
+    titleCheckboxSpan.append(checkbox, title);
+    card.append(titleCheckboxSpan, removeTaskBtn);
 
     return card;
 }
@@ -98,6 +100,9 @@ export function createToDoList() {
         input.focus();
     });
 
+    const tasksAndInputContainerEl = document.createElement('div');
+    tasksAndInputContainerEl.classList.add('task-input-container');
+
     const taskContainer = document.createElement('div');
     taskContainer.classList.add('task-container');
 
@@ -111,7 +116,8 @@ export function createToDoList() {
     });
 
     listsContainer.append(createSelect(USER.todo.lists), addListBtn);
-    toDoList.append(listsContainer, taskContainer, persistentInput);
+    tasksAndInputContainerEl.append(taskContainer, persistentInput)
+    toDoList.append(listsContainer, tasksAndInputContainerEl);
 
     renderToDos(taskContainer);
     return toDoList;

@@ -7,11 +7,23 @@
     width: 100%;
     padding: 50px;
     border-radius: var(--br);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .add-list-btn {
-    border: none;
-    background-color: inherit;
+    border: 1px solid var(--border-primary);
+    background-color: var(--bg-secondary);
+    color: var(--font-primary);
+    width: 30px;
+    border-radius: var(--border-radius-small);
+    max-height: 30px;
+}
+
+.add-list-btn:hover {
+    transform: scale(1.05);
+    cursor: pointer;
 }
 
 .list-container {
@@ -19,13 +31,32 @@
     gap: 5px;
 }
 
+.task-input-container {
+    width: 80%;
+    background-color: var(--bg-secondary);
+    padding: 50px;
+    border-radius: var(--border-radius-large);
+    border: 1px solid var(--border-primary);
+    margin-top: 25px;
+    color: var(--font);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .task-container {
     height: auto;
+    width: 60%;
 }
 
 .persistent-todo-input {
     background-color: var(--bg-primary);
+    color: var(--font);
     border: none;
+    width: 60%;
+    height: 40px;
+    border-radius: var(--border-radius-small);
+    padding-left: 25px;
 }
 
 .task-card {
@@ -34,14 +65,26 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 25px;
+    height: 40px;
     font-size: 0.8rem;
+    padding: 5px;
+    border-radius: var(--border-radius-small);
+}
+
+.task-card:hover {
+    background-color: var(--bg-primary);
+}
+
+.title-checkbox-span {
+    display: flex;
 }
 
 .custom-select {
     height: auto;
-    border: 1px solid black;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--border-radius-small);
     width: 150px;
+    background-color: var(--bg-secondary);
 }
 
 .custom-select:hover {
@@ -55,21 +98,22 @@
 }
 
 .custom-dropdown-option {
-    height: 20px;
+    height: 30px;
     font-size: 0.8rem;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.add-list-btn {
-    border: 1px solid black;
-}
-
 .list-input {
     height: 30px;
-    width: 60px;
-    border: 1px solid black;
+    width: 100px;
+    border: 1px solid var(--border-primary);
+    background-color: var(--bg-tertiary);
+    color: var(--font-primary);
+    border-radius: var(--border-radius-small);
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .displaying-list-option {
