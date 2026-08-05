@@ -140,7 +140,7 @@ a {
 .tab-card {
     flex: 1 1 150px;
     min-width: 60px;
-    max-width: 150px;
+    max-width: 190px;
     height: 65%;
     display: flex;
     align-items: center;
@@ -403,6 +403,7 @@ a {
     width: 900px;
     margin-top: 40px;
     font-family: var(--font);
+    padding-top: 25px;
 }
 
 .note-body-input,

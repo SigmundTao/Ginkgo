@@ -113,7 +113,9 @@ function scrollToTextareaLine(textarea, tab, lineNumber) {
 function resizeTextarea(textarea) {
     textarea.style.height = '0px';
     textarea.style.height = `${textarea.scrollHeight}px`;
-}export function createTab(fileId, moduleType = null) {
+}
+
+export function createTab(fileId, moduleType = null) {
     USER.tabs.push({ file: fileId, id: tabId, moduleType });
     setCurrentTabId(tabId);
     incrementTabId();
@@ -148,7 +150,7 @@ export function loadTab(id) {
     setCurrentTabId(id);
 
     if (tab.moduleType) {
-        createModuleView(tab.moduleType);
+        createModuleView(tab.moduleType, id);
         setSelectedFileId(null);
         highlightSelectedFile();
     } else if (tab.file === null) {
@@ -163,17 +165,21 @@ export function loadTab(id) {
     }
 }
 
-function createModuleView(type) {
+function createModuleView(type, tabId) {
     updateTabTitle(type);
     currentTabEl.innerHTML = '';
-    const content = getModuleContent(type);
+    const content = getModuleContent(type, tabId);
     if(type === MODULE_TYPES.FLASHCARDS) content.classList.add('tab-flashcards');
     currentTabEl.appendChild(content);
     renderTabs();
 }
 
-function getModuleContent(type) {
-    return MODULE_CREATORS[type]?.();
+function getModuleContent(type, tabId) {
+    if(type === MODULE_TYPES.POMODORO) {
+      return createPomodoroModule(tabId)
+    } else {
+      return MODULE_CREATORS[type]?.();
+    }
 }
 
 export function createDefaultTab() {
@@ -267,6 +273,8 @@ function createTabCard(tab) {
     titleSpan.classList.add('tab-card-title');
 
     const tabTitle = document.createElement('p');
+    tabTitle.id = `tab-title-${tab.id}`;
+    
     if (tab.moduleType) {
         tabTitle.textContent = tab.moduleType.charAt(0).toUpperCase() + tab.moduleType.slice(1);
     } else if (!tab.file) {

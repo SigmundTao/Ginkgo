@@ -40,6 +40,17 @@ export function createPomodoroModule(tabId) {
     return mount(timer, tabId, 'tab');
 }
 
+function updateTabTitle(timer, tabId) {
+  let text = 'testing';
+  if(timer.currentType === TIMER_TYPES.pomodoro) text = '集Focus';
+  else if(timer.currentType === TIMER_TYPES.shortbreak) text = '息Break';
+  else if(timer.currentType === TIMER_TYPES.longbreak) text = '暇Long Break';
+
+  const title = `${text} - ${formatTime(timer.secondsLeft)}`;
+  const tabTitle = document.querySelector(`#tab-title-${tabId}`)
+  tabTitle.textContent = title;
+}
+
 export function destroyPomodoroTimer(tabId) {
     const timer = tabTimers.get(tabId);
     if (!timer) return;
@@ -69,6 +80,7 @@ function mount(timer, key, kind) {
     const paint = renderView(root, timer, key);
     timer.listeners.add(paint);
     paint();
+    console.log(key)
 
     root._onDestroy = () => timer.listeners.delete(paint);
 
@@ -76,6 +88,7 @@ function mount(timer, key, kind) {
 }
 
 function renderView(root, timer, key) {
+    console.log(key)
     const timerLabel = document.createElement('p');
     timerLabel.classList.add('timer-label');
     timerLabel.style.fontWeight = 'bold';
@@ -95,23 +108,25 @@ function renderView(root, timer, key) {
     }
 
     startStopBtn.addEventListener('click', () => {
-        timer.isGoing ? stopTimer(timer) : startTimer(timer);
+        timer.isGoing ? stopTimer(timer) : startTimer(timer, key);
     });
 
     return paint;
 }
 
-function startTimer(timer) {
+function startTimer(timer, key) {
+    console.log(key)
     if (timer.isGoing) return;
     timer.isGoing = true;
     timer.intervalId = setInterval(() => {
         timer.secondsLeft--;
+        updateTabTitle(timer, key)
         if (timer.secondsLeft <= 0) {
             stopTimer(timer);
             timerSound.play();
             window.alert(`${timer.currentType} has ended`);
             advancePhase(timer);
-            startTimer(timer);
+            startTimer(timer, key);
             return;
         }
         notify(timer);
