@@ -1,19 +1,40 @@
+@import '../themes.css';
+
 .timer-module {
     cursor: pointer;
     position: relative;
-    height: 300px;
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    color: var(--font);
+    gap: 25px;
 }
 
 .timer-label {
     position: absolute;
-    top: 0;
-    left: 5px;
+    top: 50px;
+    left: 50px;
     font-size: 0.8rem;
 }
 
 .timer {
-    font-size: 2rem;
+    font-size: 8rem;
+}
+
+.pomodoro-start-stop-btn {
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--border-radius-small);
+  color: var(--font-primary);
+  height: 50px;
+  width: 100px;
+  padding: 10px;
+}
+
+.pomodoro-start-stop-btn:hover {
+  cursor: pointer;
+  transform: scale(1.05);
 }

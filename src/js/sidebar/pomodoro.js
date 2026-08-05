@@ -80,7 +80,6 @@ function mount(timer, key, kind) {
     const paint = renderView(root, timer, key);
     timer.listeners.add(paint);
     paint();
-    console.log(key)
 
     root._onDestroy = () => timer.listeners.delete(paint);
 
@@ -88,7 +87,6 @@ function mount(timer, key, kind) {
 }
 
 function renderView(root, timer, key) {
-    console.log(key)
     const timerLabel = document.createElement('p');
     timerLabel.classList.add('timer-label');
     timerLabel.style.fontWeight = 'bold';
@@ -99,6 +97,7 @@ function renderView(root, timer, key) {
     root.appendChild(timerEl);
 
     const startStopBtn = document.createElement('button');
+    startStopBtn.classList.add('pomodoro-start-stop-btn');
     root.appendChild(startStopBtn);
 
     function paint() {
@@ -115,7 +114,6 @@ function renderView(root, timer, key) {
 }
 
 function startTimer(timer, key) {
-    console.log(key)
     if (timer.isGoing) return;
     timer.isGoing = true;
     timer.intervalId = setInterval(() => {
