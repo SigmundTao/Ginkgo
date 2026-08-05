@@ -1,4 +1,5 @@
 import { USER, updateUserData } from '../user.js';
+import { showToast, TOAST_TYPES } from '../toast.js';
 
 const TIMER_TYPES = {
     pomodoro: 'pomodoro',
@@ -41,11 +42,7 @@ export function createPomodoroModule(tabId) {
 }
 
 function updateTabTitle(timer, tabId) {
-  let text = 'testing';
-  if(timer.currentType === TIMER_TYPES.pomodoro) text = '集Focus';
-  else if(timer.currentType === TIMER_TYPES.shortbreak) text = '息Break';
-  else if(timer.currentType === TIMER_TYPES.longbreak) text = '暇Long Break';
-
+  const text = formatText(timer.currentType);
   const title = `${text} - ${formatTime(timer.secondsLeft)}`;
   const tabTitle = document.querySelector(`#tab-title-${tabId}`)
   tabTitle.textContent = title;
@@ -122,7 +119,8 @@ function startTimer(timer, key) {
         if (timer.secondsLeft <= 0) {
             stopTimer(timer);
             timerSound.play();
-            window.alert(`${timer.currentType} has ended`);
+            const message = `${formatText(timer.currentType)} has ended`;
+            showToast(message, TOAST_TYPES.ALERT);
             advancePhase(timer);
             startTimer(timer, key);
             return;
@@ -130,6 +128,12 @@ function startTimer(timer, key) {
         notify(timer);
     }, 1000);
     notify(timer);
+}
+
+function formatText (text) {
+  if(text === TIMER_TYPES.pomodoro) return '集Focus';
+  else if(text === TIMER_TYPES.longbreak) return '暇Long Break';
+  else if(text === TIMER_TYPES.shortbreak) return '息Short Break';
 }
 
 function stopTimer(timer) {
