@@ -69,7 +69,7 @@ function renderPackList(root, state) {
 
         const deletePackBtn = document.createElement('button');
         deletePackBtn.textContent = 'x';
-        deletePackBtn.classList.add('delete-pack-btn');
+        deletePackBtn.classList.add('delete-pack-btn', 'responsive-btn');
         deletePackBtn.addEventListener('click', (e) => {
             e.stopPropagation()
             deletePack(root, state, index)
@@ -88,9 +88,9 @@ function renderPackList(root, state) {
     btnInputContainer.classList.add('btn-input-container');
 
     const addBtn = document.createElement('button');
-    addBtn.textContent = '+';
+    addBtn.textContent = '+ Add Pack';
     addBtn.addEventListener('click', () => promptNewPack(root, state, btnInputContainer));
-    addBtn.classList.add('pack-list-add-btn');
+    addBtn.classList.add('pack-list-add-btn', 'responsive-btn');
     btnInputContainer.append(addBtn);
     root.append(title, btnInputContainer, packContainer);
 }
@@ -106,7 +106,7 @@ function renderCardList(root, state) {
     const pack = USER.settings.flashcards.packs[state.activePack];
 
     const backBtn = document.createElement('button');
-    backBtn.classList.add('card-list-back-btn', 'card-view-btn');
+    backBtn.classList.add('card-list-back-btn', 'card-view-btn', 'responsive-btn');
     backBtn.textContent = '← Back';
     backBtn.addEventListener('click', () => {
         state.view = ROOT_STATES.packlist;
@@ -116,7 +116,7 @@ function renderCardList(root, state) {
 
     const studyBtn = document.createElement('button');
     studyBtn.textContent = 'Study →';
-    studyBtn.classList.add('card-list-study-btn', 'card-view-btn');
+    studyBtn.classList.add('card-list-study-btn', 'card-view-btn', 'responsive-btn');
     studyBtn.addEventListener('click', () => {
         state.currentCard = 0;
         state.view = ROOT_STATES.study;
@@ -131,31 +131,29 @@ function renderCardList(root, state) {
     cardContainer.classList.add('card-view-card-container');
 
     pack.cards.forEach((card) => {
-        const colour = FLASHCARD_COLOURS[Math.floor(Math.random() * FLASHCARD_COLOURS.length)]
-
         const cardEl = document.createElement('div');
         cardEl.classList.add('flashcard-card-element');
 
         const front = document.createElement('textarea');
         front.classList.add('card-input');
         front.value = card.front;
-        front.style.backgroundColor = colour.bg;
-        front.style.color = colour.text;
+        front.style.backgroundColor = card.bg;
+        front.style.color = card.textColor;
 
         const back = document.createElement('textarea');
         back.classList.add('card-input');
         back.value = card.back;
-        back.style.backgroundColor = colour.bg;
-        back.style.color = colour.text;
+        back.style.backgroundColor = card.bg;
+        back.style.color = card.textColor;
 
         back.addEventListener('input', () => updateCard(state, card, front.value, back.value))
         front.addEventListener('input', () => updateCard(state, card, front.value, back.value))
 
         const deleteBtn = document.createElement('button');
-        deleteBtn.classList.add('delete-card-btn');
+        deleteBtn.classList.add('delete-card-btn', 'responsive-btn');
         deleteBtn.textContent = 'x';
-        deleteBtn.style.backgroundColor = colour.text;
-        deleteBtn.style.color = colour.bg;
+        deleteBtn.style.backgroundColor = card.textColor;
+        deleteBtn.style.color = card.bg;
         deleteBtn.addEventListener('click', () => {
             deleteCard(card.front, state, root);
         });
@@ -166,7 +164,7 @@ function renderCardList(root, state) {
 
     const addCardBtn = document.createElement('button');
     addCardBtn.textContent = '+ Add Card';
-    addCardBtn.classList.add('card-view-add-card-btn', 'card-view-btn');
+    addCardBtn.classList.add('card-view-add-card-btn', 'card-view-btn', 'responsive-btn');
     addCardBtn.addEventListener('click', () => promptNewCard(root, state, pack));
     root.append(addCardBtn, cardContainer, studyBtn);
 }
@@ -228,6 +226,7 @@ function renderStudyView(root, state) {
     });
 
     const returnBtn = document.createElement('button');
+    returnBtn.classList.add('study-view-return-btn', 'responsive-btn');
     returnBtn.textContent = '← Back';
     returnBtn.addEventListener('click', () => {
         state.view = ROOT_STATES.packlist;
@@ -247,7 +246,9 @@ function createFlashcard(card, element) {
     const cardContainer = document.createElement('div');
     cardContainer.classList.add('card-container');
     element.appendChild(cardContainer);
-    colourFlashcard(cardContainer);
+    cardContainer.style.backgroundColor = card.bg;
+    cardContainer.style.color = card.textColor;
+
 
     const frontOfCard = document.createElement('div');
     frontOfCard.classList.add('card-front');
@@ -311,7 +312,7 @@ function promptNewCard(root, state, pack) {
 
     const confirmBtn = document.createElement('button');
     confirmBtn.textContent = 'Add';
-    confirmBtn.classList.add('card-confirm-btn', 'card-view-btn');
+    confirmBtn.classList.add('card-confirm-btn', 'card-view-btn', 'responsive-btn');
     confirmBtn.addEventListener('click', () => {
         saveCard(root, state, frontInput.value.trim(), backInput.value.trim(), pack);
     });
@@ -323,7 +324,8 @@ function promptNewCard(root, state, pack) {
 
 function saveCard(root, state, front, back, pack) {
     if (front && back) {
-        pack.cards.push({ front, back });
+        const colourCombo = FLASHCARD_COLOURS[randomNumberWithinRange(FLASHCARD_COLOURS.length - 1)];
+        pack.cards.push({ front, back, bg: colourCombo.bg, textColor: colourCombo.text });
         updateUserData();
         render(root, state);
     }

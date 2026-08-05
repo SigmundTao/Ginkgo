@@ -1,5 +1,10 @@
 @import '../themes.css';
 
+.responsive-btn:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
 .flashcard-module {
     height: 300px;
     padding: 5px;
@@ -22,6 +27,11 @@
     height: 80%;
 }
 
+.add-pack-btn {
+    margin-bottom: 25px;
+    height: 30px;
+}
+
 .pack-list-pack-container {
     height: auto;
     width: 100%;
@@ -29,6 +39,7 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     gap: 25px;
+    margin-top: 20px;
 }
 
 .flashcard-pack-element {
@@ -62,10 +73,6 @@
     text-align: center;
 }
 
-.delete-pack-btn:hover {
-    cursor: pointer;
-}
-
 .btn-input-container {
     height: 40px;
     padding: 5px;
@@ -84,7 +91,7 @@
 }
 
 .pack-list-add-btn {
-    width: 30px;
+    height: 30px;
     border-radius: var(--border-radius-small);
     border: 1px solid var(--border-primary);
     color: var(--font-primary);
@@ -95,16 +102,22 @@
 .card-view-card-container {
     margin-top: 25px;
     overflow-y: scroll;
+    scroll: hidden;
     max-height: 500px;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 5px;
     padding: 25px;
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-primary);
     border-radius: var(--border-radius-small);
+    scrollbar-width: none;
+}
+
+.card-view-card-container::-webkit-scrollbar {
+    display: none;
 }
 
 .flashcard-card-element {
@@ -136,11 +149,6 @@
     border: 1px solid var(--border-primary);
 }
 
-.delete-card-btn:hover {
-    cursor: pointer;
-    transform: scale(1.05);
-}
-
 .card-list-study-btn {
     top: 15px;
     right: 15px;
@@ -161,11 +169,6 @@
     font-family: var(--font);
 }
 
-.card-view-btn:hover {
-    cursor: pointer;
-    transform: scale(1.05);
-}
-
 .card-view-add-card-btn {
     position: relative;
     width: 100px;
@@ -183,6 +186,16 @@
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.study-view-return-btn {
+    height: 25px;
+    width: 100px;
+    color: var(--font-primary);
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-primary);
+    font-family: var(--font);
+    border-radius: var(--border-radius-small);
 }
 
 .flashcard {
