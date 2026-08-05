@@ -206,7 +206,7 @@ function renderStudyView(root, state) {
     flashcardBtnHolder.classList.add('flashcard-btn-holder');
 
     const backBtn = document.createElement('div');
-    backBtn.classList.add('flashcard-nav-btn');
+    backBtn.classList.add('flashcard-nav-btn', 'responsive-btn');
     backBtn.style.backgroundImage = `url('src/assets/leftarrow.svg')`;
     flashcardBtnHolder.appendChild(backBtn);
     backBtn.addEventListener('click', () => {
@@ -216,7 +216,7 @@ function renderStudyView(root, state) {
     });
 
     const forwardBtn = document.createElement('div');
-    forwardBtn.classList.add('flashcard-nav-btn');
+    forwardBtn.classList.add('flashcard-nav-btn', 'responsive-btn');
     forwardBtn.style.backgroundImage = `url('src/assets/rightarrow.svg')`;
     flashcardBtnHolder.appendChild(forwardBtn);
     forwardBtn.addEventListener('click', () => {
