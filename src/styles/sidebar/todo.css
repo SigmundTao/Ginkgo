@@ -1,11 +1,12 @@
 :root {
     --br: 5px;
 }
+
 .todo-module {
-    height: 300px;
-    padding: 5px;
+    height: 100%;
+    width: 100%;
+    padding: 50px;
     border-radius: var(--br);
-    background-color: white;
 }
 
 .add-list-btn {
@@ -13,8 +14,18 @@
     background-color: inherit;
 }
 
+.list-container {
+    display: flex;
+    gap: 5px;
+}
+
 .task-container {
-    height: 60%;
+    height: auto;
+}
+
+.persistent-todo-input {
+    background-color: var(--bg-primary);
+    border: none;
 }
 
 .task-card {

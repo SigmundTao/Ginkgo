@@ -13,14 +13,9 @@ export function setCurrentList(listName) {
 
 export function renderToDos(container) {
     container.innerHTML = ``;
-
-    if (!USER.todo.lists[findListIndex(currentList)].tasks.length) {
-        container.textContent = 'Press + to create a task';
-    } else {
-        USER.todo.lists[findListIndex(currentList)].tasks.forEach((task) => {
-            container.appendChild(createTaskCard(task));
-        });
-    }
+    USER.todo.lists[findListIndex(currentList)].tasks.forEach((task) => {
+        container.appendChild(createTaskCard(task));
+    });
 }
 
 function createDefaultInput() {
@@ -84,10 +79,8 @@ function createTask(container, taskValue) {
 }
 
 export function createToDoList() {
-    console.log('currentList:', currentList)
-    console.log(USER.todo.lists)
-    const toDoList = document.createElement('div');
-    toDoList.classList.add('todo-module', 'module');
+   const toDoList = document.createElement('div');
+    toDoList.classList.add('todo-module');
 
     const listsContainer = document.createElement('div');
     listsContainer.classList.add('list-container');
@@ -117,11 +110,8 @@ export function createToDoList() {
         }
     });
 
-    listsContainer.appendChild(createSelect(USER.todo.lists));
-    listsContainer.appendChild(addListBtn);
-    toDoList.appendChild(listsContainer);
-    toDoList.appendChild(taskContainer);
-    toDoList.appendChild(persistentInput);
+    listsContainer.append(createSelect(USER.todo.lists), addListBtn);
+    toDoList.append(listsContainer, taskContainer, persistentInput);
 
     renderToDos(taskContainer);
     return toDoList;
@@ -137,6 +127,7 @@ function createListInput() {
             updateUserData();
             setCurrentList(listName);
             updateTodoTitle(currentList);
+            renderToDos(document.querySelector('.task-container'))
             input.remove();
         }
     });
