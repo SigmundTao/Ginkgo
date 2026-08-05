@@ -25,8 +25,7 @@ function createDefaultInput() {
 }
 
 function createTaskCard(taskDataObj) {
-    const task =
-        USER.todo.lists[findListIndex(currentList)].tasks[findTaskIndex(taskDataObj.taskName)];
+    const task = USER.todo.lists[findListIndex(currentList)].tasks[findTaskIndex(taskDataObj.taskName)];
     const card = document.createElement('li');
     card.classList.add('task-card');
 
@@ -42,8 +41,15 @@ function createTaskCard(taskDataObj) {
     const titleCheckboxSpan = document.createElement('span');
     titleCheckboxSpan.classList.add('title-checkbox-span');
 
-    const title = document.createElement('p');
+    const title = document.createElement('input');
     title.textContent = taskDataObj.taskName;
+    title.classList.add('todo-title-input');
+    title.value = task.taskName;
+
+    title.addEventListener('input', () => {
+        USER.todo.lists[findListIndex(currentList)].tasks[findTaskIndex(taskDataObj.taskName)].taskName = title.value;
+        updateUserData()
+    })
 
     if (taskDataObj.completed) {
         checkbox.checked = true;
@@ -52,6 +58,7 @@ function createTaskCard(taskDataObj) {
     const removeTaskBtn = document.createElement('button');
     removeTaskBtn.textContent = 'x';
     removeTaskBtn.addEventListener('click', () => removeTask(title.textContent));
+    removeTaskBtn.classList.add('remove-task-btn');
 
     titleCheckboxSpan.append(checkbox, title);
     card.append(titleCheckboxSpan, removeTaskBtn);

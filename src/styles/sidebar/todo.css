@@ -47,6 +47,20 @@
 .task-container {
     height: auto;
     width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+.remove-task-btn {
+    background-color: inherit;
+    color: var(--font-secondary);
+    border: none;
+}
+
+.remove-task-btn:hover {
+    cursor: pointer;
 }
 
 .persistent-todo-input {
@@ -75,8 +89,18 @@
     background-color: var(--bg-primary);
 }
 
+.todo-title-input {
+    font-family: var(--font);
+    color: var(--font-primary);
+    background-color: inherit;
+    border: none;
+    height: 100%;
+    width: 90%;
+}
+
 .title-checkbox-span {
     display: flex;
+    width: 90%;
 }
 
 .custom-select {
