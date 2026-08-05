@@ -116,7 +116,6 @@
 }
 
 .custom-dropdown {
-    border: 1px solid black;
     height: auto;
     width: 100%;
 }
@@ -125,8 +124,17 @@
     height: 30px;
     font-size: 0.8rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    overflow: hidden;
+}
+
+.dropdown-delete-btn {
+    background-color: inherit;
+    border: none;
+    color: var(--font-secondary);
 }
 
 .list-input {
@@ -141,4 +149,9 @@
 }
 
 .displaying-list-option {
+    overflow: hidden;
+}
+
+.dropdown-option-title {
+    overflow: hidden;
 }

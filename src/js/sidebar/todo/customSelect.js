@@ -23,14 +23,17 @@ export function createSelect(lists) {
     selectEl.classList.add('custom-select');
 
     const displayingList = document.createElement('div');
-    displayingList.classList.add('displaying-list-option');
-    displayingList.classList.add('custom-dropdown-option');
+    displayingList.classList.add('displaying-list-option', 'custom-dropdown-option');
     displayingList.textContent = `用${currentList}`;
-    selectEl.addEventListener('click', () => {
+    displayingList.addEventListener('click', (e) => {
+        e.stopPropagation()
         const dropdown = getDropdownEl();
-        if (dropdown) dropdown.remove();
+        if(dropdown){
+            dropdown.remove();
+            return;
+        }
 
-        const newDropdown = createDropdown(selectEl, lists, displayingList);
+        const newDropdown = createDropdown(lists, displayingList);
         if (newDropdown) selectEl.appendChild(newDropdown);
     });
 
@@ -39,7 +42,7 @@ export function createSelect(lists) {
     return selectEl;
 }
 
-function createDropdown(selectEl, lists, displayingListEl) {
+function createDropdown(lists, displayingListEl) {
     if (lists.length <= 1) return;
 
     const dropdown = document.createElement('div');
@@ -63,7 +66,7 @@ function createDropdown(selectEl, lists, displayingListEl) {
         }
     });
 
-    selectEl.appendChild(dropdown);
+    return dropdown;
 }
 
 export function updateTodoTitle(currentList) {
@@ -76,9 +79,11 @@ function createOption(listName, dropdown) {
     option.classList.add('custom-dropdown-option');
 
     const title = document.createElement('p');
+    title.classList.add('dropdown-option-title');
     title.textContent = listName;
 
     const deleteBtn = document.createElement('button');
+    deleteBtn.classList.add('dropdown-delete-btn');
     deleteBtn.textContent = 'x';
     deleteBtn.onclick = (e) => {
         e.stopPropagation();

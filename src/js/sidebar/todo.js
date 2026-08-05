@@ -140,7 +140,8 @@ function createListInput() {
             updateUserData();
             setCurrentList(listName);
             updateTodoTitle(currentList);
-            renderToDos(document.querySelector('.task-container'))
+            document.querySelector('.custom-dropdown')?.remove();
+            renderToDos(document.querySelector('.task-container'));
             input.remove();
         }
     });
