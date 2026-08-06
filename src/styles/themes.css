@@ -35,7 +35,7 @@
     --bg-primary: #292929;
     --bg-secondary: #1C1C1C;
     --bg-tertiary: #101010;
-    --color-glass: rgba(217, 222, 210, 0.8);
+    --bg-four: #121212;
 
     --accent: #999999;
 
@@ -47,7 +47,7 @@
 
     --border: rgba(0, 0, 0, 0.1);
     --border-primary: #454545;
-    --border-secondary: #393939;
+    --border-secondary: #454545;
     --border-tertiary: #242424;
     --border-radius-small: 4px;
     --border-radius-medium: 6px;

@@ -27,6 +27,7 @@ export function createDailyNoteSettings() {
 
 function createFolderSelect() {
     const select = document.createElement('select');
+    select.classList.add('settings-select');
 
     const defaultOption = document.createElement('option');
     defaultOption.value = '';
@@ -34,14 +35,11 @@ function createFolderSelect() {
     select.appendChild(defaultOption);
 
     const folders = USER.files.filter((file) => file.type === 'folder');
-    console.log(folders);
     if (folders.length) {
         folders.forEach((folder) => {
             select.appendChild(createOptionForFolder(folder));
         });
     }
-
-    select.value = USER.settings.dailyNote.folder ?? '';
 
     select.addEventListener('change', () => {
         if (select.textContent === defaultOption.textContent) USER.settings.dailyNote.folder = null;
@@ -61,6 +59,8 @@ function createOptionForFolder(folder) {
     const option = document.createElement('option');
     option.id = folder.id;
     option.textContent = folder.title;
+    if(USER.settings.dailyNote.folder === folder.id) option.selected = true;
+    console.log('option:', option, ' selected:', option.selected);
 
     return option;
 }
