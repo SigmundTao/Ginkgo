@@ -25,7 +25,7 @@ import {
     saveBody,
 } from './editor.js';
 import { deleteFile } from './filetree.js';
-import { marked } from './markdown.js';
+import { md } from './markdown.js';
 import { createDashboard } from './dashboard.js';
 import {
         createFlashcardModule,
@@ -141,18 +141,53 @@ function syncMarkdownHeight(textarea, markdownDiv) {
     markdownDiv.style.minHeight = `${textarea.scrollHeight}px`;
 }
 
+function lineToChar(source, line) {
+    const lines = source.split('\n');
+    let offset = 0;
+    for (let i = 0; i < line; i++) {
+        offset += lines[i].length + 1; // +1 for the \n
+    }
+    return offset;
+}
+
 function renderMarkdownWithLines(source) {
-    const tokens = marked.lexer(source);
-    let cursor = 0;
+    const tokens = md.parse(source, {});
     let html = '';
-    tokens.forEach((token) => {
-        if (!token.raw) return;
-        const idx = source.indexOf(token.raw, cursor);
-        const startChar = idx !== -1 ? idx : cursor;
-        const line = source.slice(0, startChar).split('\n').length - 1;
-        if (idx !== -1) cursor = idx + token.raw.length;
-        html += `<div data-line="${line}" data-start="${startChar}" data-length="${token.raw.length}">${marked.parser([token])}</div>`;
-    });
+    let i = 0;
+
+    while (i < tokens.length) {
+        const token = tokens[i];
+
+        if (token.level !== 0 || !token.map) {
+            i++;
+            continue;
+        }
+
+        // collect this block's full token set (open + children + close)
+        const chunk = [token];
+        let j = i + 1;
+        if (token.nesting === 1) {
+            while (j < tokens.length && !(tokens[j].level === 0 && tokens[j].nesting === -1)) {
+                chunk.push(tokens[j]);
+                j++;
+            }
+            if (j < tokens.length) {
+                chunk.push(tokens[j]); // the closing token
+                j++;
+            }
+        } else {
+            j = i + 1; // self-closing block (e.g. hr, fence)
+        }
+
+        const [startLine, endLine] = token.map;
+        const startChar = lineToChar(source, startLine);
+        const endChar = lineToChar(source, endLine);
+        const blockHtml = md.renderer.render(chunk, md.options, {});
+
+        html += `<div data-line="${startLine}" data-start="${startChar}" data-length="${endChar - startChar}">${blockHtml}</div>`;
+        i = j;
+    }
+
     return html;
 }
 

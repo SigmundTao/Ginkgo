@@ -1,5 +1,5 @@
 import { USER } from './user.js';
-import { marked } from 'https://cdn.jsdelivr.net/npm/marked/+esm';
+import MarkdownIt from 'markdown-it';
 import { getFormattedDate } from './storage.js';
 import { getBodyInput } from './editor.js';
 import { getWordCount } from './tabs.js';
@@ -224,21 +224,7 @@ const wordCount = {
     },
 };
 
-marked.use({
-    mangle: false,
-    headerIds: false,
-    extensions: [
-        wordCount,
-        tagExtension,
-        progressBar,
-        highlightExtension,
-        importantLabel,
-        colorSwash,
-        nameTag,
-        currentDate,
-        tomorrow,
-        yesterday,
-    ],
+export const md = new MarkdownIt({
+    html: true,
+    linkify: true,
 });
-
-export { marked };

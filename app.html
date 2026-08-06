@@ -72,7 +72,13 @@
             <div id="settings-output"></div>
             <button id="close-settings-btn" class="settings-remove-btn">x</button>
         </dialog>
-
+        <script type="importmap">
+          {
+            "imports": {
+              "markdown-it": "https://cdn.jsdelivr.net/npm/markdown-it@14/+esm"
+            }
+          }
+        </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
         <script type="module" src="./src/js/main.js"></script>
     </body>

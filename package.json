@@ -1,5 +1,8 @@
 {
     "devDependencies": {
         "prettier": "3.9.5"
+    },
+    "dependencies": {
+        "markdown-it": "^15.0.0"
     }
 }
