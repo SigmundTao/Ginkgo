@@ -52,10 +52,12 @@ function createMenuItem(file) {
     const menuItem = document.createElement('div');
     menuItem.classList.add('search-result');
     menuItem.innerHTML = `
-        <img src="assets/file.svg" class="search-result-img">
-        <p>${file.title}</p>
+        <span class="search-result-span">
+            <img src="src/assets/file.svg" class="search-result-img">
+            <p class="search-result-text">${file.title}</p>
+        </span>
         <div class="search-result-date-container">
-            <img src="assets/date-icon.svg" class="search-result-img">
+            <img src="src/assets/date-icon.svg" class="search-result-img">
             <p>${file.date}</p>
         </div>
     `;
