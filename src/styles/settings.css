@@ -4,41 +4,66 @@
     display: flex;
     position: relative;
     z-index: 98;
+    width: 1000px;
+    padding: 0;
+    border-radius: var(--border-radius-large);
+    border: 1px solid var(--border-primary);
 }
 
 #close-settings-btn {
     position: absolute;
     top: 10px;
     right: 10px;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-secondary);
+    color: var(--font-primary);
+    border-radius: var(--border-radius-small);
+}
+
+#close-settings-btn:hover {
+    transform: scale(1.05);
+    cursor: pointer;
 }
 
 #settings-output {
     width: 70%;
     height: 100%;
-    border: 1px solid blue;
     padding: 15px;
     overflow-x: hidden;
     overflow-y: scroll;
+    scroll-width: 0;
+}
+
+#settings-output::-webkit-scrollbar {
+    display: none;
 }
 
 #settings-nav {
     width: 30%;
     height: 100%;
-    border: 1px solid red;
+    background-color: var(--bg-secondary);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-right: 1px solid var(--border-secondary);
 }
 
 .settings-nav-item {
-    height: 30px;
+    height: 50px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 5px;
+    padding: 10px;
+    background-color: var(--bg-primary);
+    border-radius:var(--border-radius-small);
 }
 
 .settings-nav-item:hover {
     cursor: pointer;
     color: darkgrey;
     text-decoration: underline;
+    background-color: var(--primary-active);
 }
 
 .pack-select {
