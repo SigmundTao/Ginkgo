@@ -1,0 +1,9 @@
+.deleted-file-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.deleted-file-btn-holder {
+    display: flex;
+    gap: 5px;
+}

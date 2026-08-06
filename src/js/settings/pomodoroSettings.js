@@ -14,6 +14,7 @@ class Setting {
         container.appendChild(label);
 
         const input = document.createElement('input');
+        input.classList.add('settings-input');
         input.type = 'number';
         input.value = USER.settings.pomodoroTimer[this.setting];
         container.appendChild(input);
@@ -39,7 +40,7 @@ export function createPomodoroSettings() {
     const root = document.createElement('div');
 
     const title = document.createElement('h3');
-    title.textContent = 'Pomodoro';
+    title.textContent = 'Pomodoro Timer';
     root.appendChild(title);
 
     settings.forEach((setting) => {

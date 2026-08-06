@@ -82,9 +82,11 @@ function createKeybindOption(keybindDataObj) {
 
     const bindTitle = document.createElement('p');
     bindTitle.textContent = `${keybindDataObj.title}:`;
+    bindTitle.classList.add('bind-title');
     optionEl.appendChild(bindTitle);
 
     const bindInput = document.createElement('input');
+    bindInput.classList.add('settings-input');
     bindInput.value = keybindDataObj.keyValue;
     optionEl.appendChild(bindInput);
 

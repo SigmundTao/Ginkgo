@@ -1,13 +1,37 @@
 @import url('./themes.css');
 
-.settings-select {
+.settings-select,
+.settings-input {
     background-color: var(--bg-four);
     border: 1px solid var(--border-secondary);
-    min-width: 100px;
+    width: 150px;
     border-radius: var(--border-radius-small);
     color: var(--font-primary);
     height: 30px;
     padding: 5px;
+}
+
+.settings-btn {
+    height: 30px;
+    color: var(--font-primary);
+    width: auto;
+    padding: 5px;
+    border-radius: var(--border-radius-small);
+    border: 1px solid var(--border-secondary);
+    background-color: var(--bg-four);
+}
+
+.settings-btn:hover,
+.settings-remove-btn:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.settings-remove-btn {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-secondary);
+    color: var(--font-primary);
+    border-radius: var(--border-radius-small);
 }
 
 #settings {
@@ -24,10 +48,6 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-secondary);
-    color: var(--font-primary);
-    border-radius: var(--border-radius-small);
 }
 
 #close-settings-btn:hover {
@@ -38,7 +58,7 @@
 #settings-output {
     width: 70%;
     height: 100%;
-    padding: 15px;
+    padding: 25px;
     overflow-x: hidden;
     overflow-y: scroll;
     scroll-width: 0;

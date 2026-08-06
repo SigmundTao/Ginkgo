@@ -15,7 +15,11 @@ class DeletedFile {
         const title = document.createElement('p');
         title.textContent = this.file.title;
 
+        const btnHolder = document.createElement('div');
+        btnHolder.classList.add('deleted-file-btn-holder');
+
         const recoverBtn = document.createElement('button');
+        recoverBtn.classList.add('settings-btn');
         recoverBtn.textContent = 'recover';
         recoverBtn.onclick = () => {
             this.file.daysUntilDeletion = 5;
@@ -27,6 +31,7 @@ class DeletedFile {
         };
 
         const deleteBtn = document.createElement('button');
+        deleteBtn.classList.add('settings-remove-btn');
         deleteBtn.textContent = 'x';
         deleteBtn.onclick = () => {
             deleteFile(this.file.id);
@@ -34,7 +39,8 @@ class DeletedFile {
             updateSettingEl(createNoteRecoverySettings(USER.recentlyDeleted));
         };
 
-        card.append(title, recoverBtn, deleteBtn);
+        btnHolder.append(recoverBtn, deleteBtn);
+        card.append(title, btnHolder);
         return card;
     }
 }

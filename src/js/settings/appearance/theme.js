@@ -5,6 +5,7 @@ const themes = ['light', 'dark'];
 
 export function createThemeSelect() {
     const select = document.createElement('select');
+    select.classList.add('settings-select');
 
     themes.forEach((theme) => {
         select.appendChild(createSelectOption(theme));

@@ -10,6 +10,7 @@ const fonts = ['Noto Serif JP',
 
 export function createFontSelect() {
     const select = document.createElement('select');
+    select.classList.add('settings-select');
 
     fonts.forEach((font) => {
         select.appendChild(createOption(font));

@@ -26,6 +26,7 @@ export function createAppearanceMenu() {
         'Paste in a url and hit enter, or type "default" for our default image:';
 
     const logoInput = document.createElement('input');
+    logoInput.classList.add('settings-input');
     let savedValue = USER.settings.appearance.dashboardLogo;
     if (savedValue === defaultURL) savedValue = 'default';
     logoInput.value = savedValue;

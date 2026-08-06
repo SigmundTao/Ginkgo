@@ -64,6 +64,7 @@ export function createExportSettings() {
     containerEl.appendChild(description);
 
     const downloadBtn = document.createElement('button');
+    downloadBtn.classList.add('settings-btn');
     downloadBtn.textContent = 'Download';
     containerEl.appendChild(downloadBtn);
     downloadBtn.addEventListener('click', () => exportFiles(USER.files));
