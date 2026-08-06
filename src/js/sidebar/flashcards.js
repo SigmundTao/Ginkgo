@@ -29,7 +29,7 @@ const FLASHCARD_COLOURS = [
     { bg: '#E0F7FA', text: '#006064' }, // pale teal
 ];
 
-function createState() {
+export function createState() {
     return {
         packs: USER.settings.flashcards.packs,
         view: 'packList',
@@ -39,8 +39,13 @@ function createState() {
     };
 }
 
-export function createFlashcardModule() {
-    const state = createState();
+export function createFlashcardModule(existingState = null) {
+    let state;
+    if(!existingState){
+        state = createState()
+    } else {
+        state = existingState;
+    }
     const root = document.createElement('div');
     root.classList.add('flashcard-module');
     root.id = 'flashcard-root';
@@ -229,7 +234,7 @@ function renderStudyView(root, state) {
     returnBtn.classList.add('study-view-return-btn', 'responsive-btn');
     returnBtn.textContent = '← Back';
     returnBtn.addEventListener('click', () => {
-        state.view = ROOT_STATES.packlist;
+        state.view = ROOT_STATES.cardlist;
         render(root, state);
     });
 

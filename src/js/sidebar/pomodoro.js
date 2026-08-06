@@ -41,7 +41,7 @@ export function createPomodoroModule(tabId) {
     return mount(timer, tabId, 'tab');
 }
 
-function updateTabTitle(timer, tabId) {
+export function updateTabTitle(timer, tabId) {
   const text = formatText(timer.currentType);
   const title = `${text} - ${formatTime(timer.secondsLeft)}`;
   const tabTitle = document.querySelector(`#tab-title-${tabId}`)
@@ -131,9 +131,9 @@ function startTimer(timer, key) {
 }
 
 function formatText (text) {
-  if(text === TIMER_TYPES.pomodoro) return '集Focus';
-  else if(text === TIMER_TYPES.longbreak) return '暇Long Break';
-  else if(text === TIMER_TYPES.shortbreak) return '息Short Break';
+  if(text === TIMER_TYPES.pomodoro) return 'Focus';
+  else if(text === TIMER_TYPES.longbreak) return 'Long Break';
+  else if(text === TIMER_TYPES.shortbreak) return 'Short Break';
 }
 
 function stopTimer(timer) {

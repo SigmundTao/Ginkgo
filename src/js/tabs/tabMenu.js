@@ -1,6 +1,7 @@
 import { createTab } from '../tabs.js';
 import { createNewNote } from '../editor.js';
 import { setOpenMenu } from '../menus.js';
+import { createState as createFlashcardState } from '../sidebar/flashcards.js';
 
 class MenuItem {
     constructor(obj) {
@@ -66,6 +67,9 @@ export function createTabMenu(posX, posY) {
     menuItems.forEach((item) => {
         const element = item.createElement();
         element.addEventListener('click', () => {
+            if(item.type === 'pomodoro'){
+                createTab(null, item.type, createFlashcardState())
+            }
             createTab(null, item.type);
             menuEl.remove();
         });

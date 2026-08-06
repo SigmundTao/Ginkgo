@@ -1,7 +1,6 @@
 @import '../themes.css';
 
 .timer-module {
-    cursor: pointer;
     position: relative;
     height: 100%;
     width: 100%;

@@ -27,8 +27,15 @@ import {
 import { deleteFile } from './filetree.js';
 import { marked } from './markdown.js';
 import { createDashboard } from './dashboard.js';
-import { createFlashcardModule } from './sidebar/flashcards.js';
-import { createPomodoroModule, destroyPomodoroTimer } from './sidebar/pomodoro.js';
+import {
+        createFlashcardModule,
+        createState as createFlashcardState,
+} from './sidebar/flashcards.js';
+import { 
+    createPomodoroModule,
+    destroyPomodoroTimer,
+    updateTabTitle as updatePomodoroTabTitle,
+} from './sidebar/pomodoro.js';
 import { createToDoList } from './sidebar/todo.js';
 import { createTabMenu } from './tabs/tabMenu.js';
 
@@ -116,7 +123,13 @@ function resizeTextarea(textarea) {
 }
 
 export function createTab(fileId, moduleType = null) {
-    USER.tabs.push({ file: fileId, id: tabId, moduleType });
+    let tab = { file: fileId, id: tabId, moduleType};
+    if(moduleType) {
+        if(moduleType === 'flashcards') {
+            tab.state = createFlashcardState()
+        }
+    }
+    USER.tabs.push(tab);
     setCurrentTabId(tabId);
     incrementTabId();
     loadTab(currentTabId);
@@ -150,7 +163,7 @@ export function loadTab(id) {
     setCurrentTabId(id);
 
     if (tab.moduleType) {
-        createModuleView(tab.moduleType, id);
+        createModuleView(tab);
         setSelectedFileId(null);
         highlightSelectedFile();
     } else if (tab.file === null) {
@@ -165,21 +178,21 @@ export function loadTab(id) {
     }
 }
 
-function createModuleView(type, tabId) {
-    updateTabTitle(type);
+function createModuleView(tab) {
+    updateTabTitle(tab.type);
     currentTabEl.innerHTML = '';
-    const content = getModuleContent(type, tabId);
-    if(type === MODULE_TYPES.FLASHCARDS) content.classList.add('tab-flashcards');
+    const content = getModuleContent(tab);
+    if(tab.type === MODULE_TYPES.FLASHCARDS) {
+        content.classList.add('tab-flashcards');
+    }
     currentTabEl.appendChild(content);
     renderTabs();
 }
 
-function getModuleContent(type, tabId) {
-    if(type === MODULE_TYPES.POMODORO) {
-      return createPomodoroModule(tabId)
-    } else {
-      return MODULE_CREATORS[type]?.();
-    }
+function getModuleContent(tab) {
+    if(tab.moduleType === MODULE_TYPES.POMODORO) return createPomodoroModule(tab.id)
+    else if(tab.moduleType === MODULE_TYPES.FLASHCARDS) return createFlashcardModule(tab.state)
+    else return MODULE_CREATORS[tab.moduleType]?.();
 }
 
 export function createDefaultTab() {

@@ -140,7 +140,7 @@ a {
 .tab-card {
     flex: 1 1 150px;
     min-width: 60px;
-    max-width: 190px;
+    max-width: 150px;
     height: 65%;
     display: flex;
     align-items: center;
@@ -153,6 +153,7 @@ a {
     overflow: hidden;
     position: relative;
     color: var(--font-secondary);
+    font-size: 0.7rem;
 }
 
 .tab-card-title {
