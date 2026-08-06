@@ -452,8 +452,15 @@ function createRenameBtn(file, menu) {
 
 function changeTitleToInput(element, file) {
     element.innerHTML = ``;
+    const tempCard = document.createElement('div');
+    tempCard.classList.add('file-card-header', 'temp-card');
+
+    const folderImg = document.createElement('img');
+    folderImg.classList.add('file-card-img');
+    folderImg.src = "src/assets/folder-closed.svg"
+    
     const input = document.createElement('input');
-    input.classList.add('temp-card-input');
+    input.classList.add('temp-card-input', 'file-card');
     input.value = file.title;
 
     input.addEventListener('keydown', (e) => {
@@ -464,7 +471,8 @@ function changeTitleToInput(element, file) {
         }
     });
 
-    element.appendChild(input);
+    tempCard.append(folderImg, input);
+    element.appendChild(tempCard);
     input.focus();
 }
 
