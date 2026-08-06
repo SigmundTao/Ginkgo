@@ -24,8 +24,8 @@ import { showToast, TOAST_TYPES } from './toast.js';
 
 export function highlightSelectedFile(id) {
     document
-        .querySelectorAll('.file-card')
-        .forEach((card) => card.classList.remove('selected-file'));
+    .querySelectorAll('.file-card')
+    .forEach((card) => card.classList.remove('selected-file'));
     if (!id) return;
     const targets = document.querySelectorAll(`[id="${id}"]`);
     targets.forEach((target) => {
@@ -118,7 +118,7 @@ function indicateAutoSave() {
     }, 800); // hold on "Saved"
 }
 
-export function createNewNote(isDailyNote) {
+export function createNewNote(isDailyNote = false, parentIdentifier = null) {
     const date = getFormattedDate(new Date());
     const id = idNum;
     let title = getUntitledTitle();
@@ -128,6 +128,8 @@ export function createNewNote(isDailyNote) {
         title = date;
         body = USER.settings.dailyNote.preset;
         parent = USER.settings.dailyNote.folder;
+    } else {
+      parent = parentIdentifier;
     }
 
     USER.files.push({

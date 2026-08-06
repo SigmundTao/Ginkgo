@@ -291,7 +291,7 @@ function createRightClickMenu(posX, posY, file) {
     }
 
     if (file.type === 'folder') {
-        menu.appendChild(createRenameBtn(file, menu));
+        menu.append(createRenameBtn(file, menu), createFileInFolderBtn(file.id, menu));
 
         const folderContents = USER.files.filter(f => f.parentId === file.id);
         if(folderContents.length){
@@ -303,6 +303,24 @@ function createRightClickMenu(posX, posY, file) {
     menu.style.top = posY + 'px';
     menu.style.position = 'fixed';
     return menu;
+}
+
+function createFileInFolder(fileID) {
+    createNewNote(false, fileID)
+    console.log(fileID);
+}
+
+function createFileInFolderBtn(folderID, menu) {
+  const btn = document.createElement('div');
+  btn.classList.add('rc-menu-item');
+  btn.textContent = 'New Note';
+
+  btn.addEventListener('click', () => {
+    createFileInFolder(folderID);
+    menu.remove()
+  })
+
+  return btn;
 }
 
 function createDuplicateBtn(fileID, menu) {
