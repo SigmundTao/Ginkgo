@@ -221,7 +221,7 @@ a {
     top: 0;
     left: 50%;
     width: 100%;
-    background-color: transparent;
+    background-color: var(--bg-primary);
     transform: translateX(-50%);
     font-size: 0.85rem;
     height: 40px;
@@ -408,8 +408,8 @@ a {
     height: 100%;
     width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: flex-start;
     flex-direction: column;
     position: relative;
     overflow-y: scroll;
@@ -426,7 +426,7 @@ a {
     font-family: 'Noto Serif JP', serif;
     caret-color: var(--caret);
     width: 900px;
-    margin-top: 40px;
+    margin-top: auto;
     font-family: var(--font);
     padding-top: 25px;
 }
@@ -446,8 +446,12 @@ a {
     resize: none;
     width: 900px;
     padding-top: 5px;
+    padding-bottom: 90px;
     font-family: var(--font);
     background-color: var(--bg-primary);
+    margin-bottom: auto;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
 .note-body-input {

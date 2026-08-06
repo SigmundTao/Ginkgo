@@ -424,6 +424,7 @@ function createNoteView(file) {
     currentTabEl.appendChild(countHolder);
     currentTabEl.appendChild(tab);
     currentTabEl.appendChild(persistentTitle);
+    resizeTextarea()
 
     updateCountHolder(countHolder, file, currentNoteMode);
     switchToDisplayMode(noteContentInput, markdownDisplay);
