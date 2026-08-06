@@ -1,4 +1,5 @@
 import { USER, updateUserData } from '../../user.js';
+import { updateAppearance } from '../appearance.js';
 
 const fonts = ['Noto Serif JP',
   'Yuji Syuku',
@@ -15,10 +16,9 @@ export function createFontSelect() {
     });
 
     select.addEventListener('change', () => {
-        document.body.classList = '';
         USER.settings.appearance.font = select.value.split(' ').join('-');
         updateUserData();
-        document.body.classList = USER.settings.appearance.font;
+        updateAppearance()
     });
 
     return select;

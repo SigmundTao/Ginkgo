@@ -1,7 +1,6 @@
 import { USER, updateUserData } from '../user.js';
 import { createFontSelect } from './appearance/fonts.js';
 import { createThemeSelect } from './appearance/theme.js';
-import { createBackgroundSelect } from './appearance/backgrounds.js';
 
 const defaultURL = './src/assets/kangae-logo.svg';
 
@@ -57,7 +56,6 @@ export function createAppearanceMenu() {
 export function updateAppearance() {
     const font = USER.settings.appearance.font;
     const theme = USER.settings.appearance.theme;
-    const background = USER.settings.appearance.background;
     document.body.classList = '';
     document.body.classList.add(theme, font);
 }

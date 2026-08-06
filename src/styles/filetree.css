@@ -4,7 +4,7 @@
 #filetree {
     background-color: var(--bg-secondary);
     height: 100vh;
-    width: 200px;
+    width: 300px;
     transition: width 0.3s ease;
     z-index: 101;
     border-right: 1px solid var(--border-primary);
@@ -63,6 +63,7 @@
     border-radius: 2px;
     cursor: pointer;
     user-select: none;
+    font-size: 0.5rem;
 }
 
 .file-card:hover {
@@ -113,7 +114,8 @@
 }
 
 .temp-card {
-  border: 1px solid black;
+  border: 3px solid var(--border-primary);
+  border-radius: var(--border-radius-small)
 }
 
 .temp-card-input {
