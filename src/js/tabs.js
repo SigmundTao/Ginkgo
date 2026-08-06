@@ -487,10 +487,16 @@ export function updateCountHolder(holder, file, mode) {
     if (mode === 'display') imgClass = 'display-mode';
     else imgClass = 'edit-mode';
 
+    const wordCount = getWordCount(file)
+    const wordLabel = wordCount === 1 ? 'Word' : 'Words';
+
+    const charCount = getCharacterCount(file);
+    const charLabel = charCount === 1 ? 'Character' : 'Characters'
+
     holder.innerHTML = `
         <div class="note-mode-img ${imgClass}" ></div>
-        <div class="word-count">${getWordCount(file)} Words</div>
-        <div class="char-count">${getCharacterCount(file)} Characters</div>`;
+        <div class="word-count">${wordCount} ${wordLabel}</div>
+        <div class="char-count">${charCount} ${charLabel}</div>`;
 }
 
 export function getCountHolder() {

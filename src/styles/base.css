@@ -334,7 +334,7 @@ a {
 
 .search-result {
     padding: 15px;
-    border: 1px solid var(--border-secondary);
+    border: 1px solid var(--border-primary);
     height: 50px;
     width: 100%;
     display: flex;

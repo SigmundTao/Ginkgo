@@ -156,8 +156,7 @@
 }
 
 .selected-file {
-    background-color: var(--primary-active);
-    border-left: 2px solid var(--accent);
+    background-color: var(--bg-primary);
     color: var(--font-hover);
 }
 
