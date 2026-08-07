@@ -58,6 +58,7 @@ export function saveNote(file) {
 export function saveTitle(file) {
     const newTitle = getTitleInput().value.trim();
     const bodyInput = getBodyInput();
+    const persistentTitle = document.querySelector('.persistent-title');
 
     if (newTitle === file.title) {
         bodyInput.focus();
@@ -69,6 +70,7 @@ export function saveTitle(file) {
     file.title = newTitle;
     file.lastEdited = getFormattedDate(new Date());
     updateUserData();
+    persistentTitle.textContent = file.title;
     renderFiletree();
     renderTabs();
     indicateAutoSave();
