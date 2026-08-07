@@ -76,11 +76,14 @@ function render(method, output, files, fileID) {
 }
 
 function filter(method, string) {
-    let returning = 'nada';
-    if(method === 'merge') returning = USER.files.filter(file => file.type === 'note');
-    else if(method === 'move') returning = USER.files.filter(file => file.type === 'folder');
-    if(!string) return returning;
-    return returning;
+    let fileSet = null;
+    if(method === 'merge') fileSet = USER.files.filter(file => file.type === 'note');
+    else if(method === 'move') fileSet= USER.files.filter(file => file.type === 'folder');
+
+    if(!string) return fileSet;
+
+    const filesContainingString = fileSet.filter(f => f.title.includes(string))
+    return filesContainingString;
 }
 
 function getContent(method) {
