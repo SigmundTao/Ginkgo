@@ -281,7 +281,10 @@ function promptNewPack(root, state, container) {
     input.placeholder = 'Pack name...';
     input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && input.value.trim()) {
-            USER.settings.flashcards.packs.push({ title: input.value.trim(), cards: [] });
+            USER.settings.flashcards.packs.push({
+                title: input.value.trim(),
+                cards: [],
+            });
             updateUserData();
             render(root, state);
         }
@@ -330,7 +333,15 @@ function promptNewCard(root, state, pack) {
 function saveCard(root, state, front, back, pack) {
     if (front && back) {
         const colourCombo = FLASHCARD_COLOURS[randomNumberWithinRange(FLASHCARD_COLOURS.length - 1)];
-        pack.cards.push({ front, back, bg: colourCombo.bg, textColor: colourCombo.text });
+        pack.cards.push({ 
+            front,
+            back,
+            bg: colourCombo.bg,
+            textColor: colourCombo.text,
+            easeFactor: null,
+            nextReview: null,
+            reviewHistory: [],
+        });
         updateUserData();
         render(root, state);
     }
