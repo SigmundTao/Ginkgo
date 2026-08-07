@@ -37,8 +37,8 @@ class MenuItem {
         return btn;
     }
 
-    activate(fileID) {
-        this.fn(fileID)
+    activate(fileID, sourceEl) {
+        this.fn(fileID, sourceEl)
     }
 }
 
@@ -47,9 +47,9 @@ const menuItems = {
         rename: new MenuItem({
             text: 'Rename',
             classes: ['rc-rename-btn'],
-            fn: (fileID) => {
+            fn: (fileID, sourceEl) => {
                 const file = USER.files[getFileIndex(fileID)];
-                changeTitleToInput(findFiletreeEl(fileID), file);
+                changeTitleToInput(sourceEl, file);
             }
         }),
 

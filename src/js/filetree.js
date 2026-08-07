@@ -48,6 +48,7 @@ export function renderFiletree() {
             fileTreeContainerEl.appendChild(renderFile(file));
         }
     });
+    renderPinnedFiles()
     highlightSelectedFile(selectedFileId);
 }
 
@@ -119,7 +120,6 @@ class FileCard {
                     openFolderIds.add(this.id);
                 }
                 renderFiletree();
-                renderPinnedFiles();
             });
         }
         return card;
@@ -173,7 +173,7 @@ function drop(e) {
     } else if (e.currentTarget.id === 'pinned') {
         draggedFile.pinned = true;
         draggedFile.parentId = null;
-        renderPinnedFiles();
+        renderFiletree();
     } else {
         if (draggedId === selectedFileId && !openFolderIds.has(targetId)) {
             openFolderIds.add(targetId);
@@ -184,7 +184,6 @@ function drop(e) {
     setDraggedElid(null);
     updateUserData();
     renderFiletree();
-    renderPinnedFiles();
 }
 
 function isDescendant(draggedId, targetId) {
@@ -265,7 +264,7 @@ export function toggleFileHolder() {
     toggleFileHolderState();
 }
 
-function createRightClickMenu(posX, posY, file) {
+function createRightClickMenu(posX, posY, file, sourceEl) {
     const menu = document.createElement('div');
     menu.classList.add('right-click-menu');
 
@@ -273,7 +272,7 @@ function createRightClickMenu(posX, posY, file) {
     menuBtns.forEach(btn => {
         const btnEl = btn.createElement(file.id);
         btnEl.addEventListener('click', () => {
-            btn.activate(file.id)
+            btn.activate(file.id, sourceEl)
             menu.remove()
         })
         menu.appendChild(btnEl);
@@ -323,7 +322,6 @@ export function deleteFile(id) {
     USER.files.splice(getFileIndex(id), 1);
     updateUserData();
     renderFiletree();
-    renderPinnedFiles();
     if (id === getSelectedFileId()) {
         setSelectedFileId(null);
         setAppState('Idle');
@@ -372,7 +370,8 @@ fileTreeContainerEl.addEventListener('contextmenu', (event) => {
     const menu = createRightClickMenu(
         event.clientX,
         event.clientY,
-        USER.files[getFileIndex(Number(file.id))]
+        USER.files[getFileIndex(Number(file.id))],
+        file,
     );
     fileTreeEl.appendChild(menu);
     menu.addEventListener('click', (e) => e.stopPropagation());
@@ -387,7 +386,8 @@ pinnedDisplayEl.addEventListener('contextmenu', (event) => {
     const menu = createRightClickMenu(
         event.clientX,
         event.clientY,
-        USER.files[getFileIndex(Number(file.id))]
+        USER.files[getFileIndex(Number(file.id))],
+        file,
     );
     fileTreeEl.appendChild(menu);
     menu.addEventListener('click', (e) => e.stopPropagation());
@@ -397,13 +397,13 @@ pinnedDisplayEl.addEventListener('contextmenu', (event) => {
 export function unpinFile(file) {
     file.pinned = false;
     updateUserData();
-    renderPinnedFiles();
+    renderFiletree();
 }
 
 export function pinFile(file) {
     file.pinned = true;
     updateUserData();
-    renderPinnedFiles();
+    renderFiletree();
 }
 
 export function renderPinnedFiles() {
