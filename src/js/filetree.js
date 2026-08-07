@@ -17,6 +17,7 @@ import {
 } from './state.js';
 import { getFileIndex, getFormattedDate } from './storage.js';
 import { openFile, checkIfTabExists, deleteTab } from './tabs.js';
+import { getMenuBtns } from './filetree/rightClickMenu.js';
 
 export const fileTreeEl = document.getElementById('filetree');
 const fileTreeContainerEl = document.getElementById('files-container');
@@ -267,78 +268,31 @@ export function toggleFileHolder() {
 function createRightClickMenu(posX, posY, file) {
     const menu = document.createElement('div');
     menu.classList.add('right-click-menu');
-    menu.appendChild(createDeleteBtn(file.id, menu));
-    if (file.parentId) {
-        if (USER.files[getFileIndex(file.parentId)].pinned) {
-        }
-    } else {
-        menu.append(createPinBtn(file, menu));
-    }
 
-    if (file.type === 'note') {
-        const menuEditBtn = document.createElement('div');
-        menuEditBtn.classList.add('rc-menu-item');
-        menuEditBtn.textContent = 'Edit';
-        menuEditBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            openFile(file.id);
-            menu.remove();
-        });
-        menu.appendChild(menuEditBtn);
-
-        const duplicateBtn = createDuplicateBtn(file.id, menu);
-        menu.appendChild(duplicateBtn);
-    }
-
-    if (file.type === 'folder') {
-        menu.append(createRenameBtn(file, menu), createFileInFolderBtn(file.id, menu));
-
-        const folderContents = USER.files.filter(f => f.parentId === file.id);
-        if(folderContents.length){
-          menu.appendChild(createDeleteAllBtn(file.id, menu));
-        }
-    }
+    const menuBtns = getMenuBtns(file.type);
+    menuBtns.forEach(btn => {
+        const btnEl = btn.createElement(file.id);
+        btnEl.addEventListener('click', () => {
+            btn.activate(file.id)
+            updateUserData()
+            renderFiletree()
+            menu.remove()
+        })
+        menu.appendChild(btnEl);
+    }) 
 
     menu.style.left = posX + 'px';
     menu.style.top = posY + 'px';
     menu.style.position = 'fixed';
+
     return menu;
 }
 
-function createFileInFolder(fileID) {
+export function createFileInFolder(fileID) {
     createNewNote(false, fileID)
-    console.log(fileID);
 }
 
-function createFileInFolderBtn(folderID, menu) {
-  const btn = document.createElement('div');
-  btn.classList.add('rc-menu-item');
-  btn.textContent = 'New Note';
-
-  btn.addEventListener('click', () => {
-    createFileInFolder(folderID);
-    menu.remove()
-  })
-
-  return btn;
-}
-
-function createDuplicateBtn(fileID, menu) {
-    const btn = document.createElement('div');
-
-    btn.classList.add('rc-menu-item');
-    btn.classList.add('rc-duplicate-btn');
-    btn.textContent = 'duplicate';
-
-    btn.addEventListener('click', () => {
-        duplicateFile(fileID);
-        menu.remove();
-    });
-
-    return btn;
-}
-
-function duplicateFile(fileID) {
+export function duplicateFile(fileID) {
     const file = USER.files[getFileIndex(fileID)];
     const id = idNum;
     const date = getFormattedDate(new Date());
@@ -381,76 +335,7 @@ export function deleteFile(id) {
     }
 }
 
-function createDeleteBtn(toBeDeleted, menu) {
-    const deleteBtn = document.createElement('div');
-    deleteBtn.classList.add('rc-menu-item');
-    deleteBtn.id = 'rc-delete-btn';
-    deleteBtn.textContent = 'Delete';
-    deleteBtn.addEventListener('click', () => {
-        const file = USER.files[getFileIndex(toBeDeleted)];
-        if (file.type === 'folder') {
-            const folderContents = USER.files.filter((f) => f.parentId === toBeDeleted);
-            folderContents.forEach((item) => {
-                item.parentId = null;
-            });
-        }
-        deleteFile(toBeDeleted);
-        menu.remove();
-    });
-    return deleteBtn;
-}
-
-function createDeleteAllBtn(toBeDeleted, menu) {
-    const deleteAllBtn = document.createElement('div');
-    deleteAllBtn.classList.add('rc-menu-item');
-    deleteAllBtn.classList.add('rc-delete-all-btn');
-    deleteAllBtn.textContent = 'Delete All';
-    deleteAllBtn.onclick = () => {
-        const folderContents = USER.files.filter((f) => f.parentId === toBeDeleted);
-        folderContents.forEach((item) => deleteFile(item.id));
-        deleteFile(toBeDeleted);
-        menu.remove();
-    };
-
-    return deleteAllBtn;
-}
-
-function createPinBtn(file, menu) {
-    const pinBtn = document.createElement('div');
-    pinBtn.classList.add('rc-menu-item');
-    pinBtn.classList.add('rc-pin-btn');
-    if (file.pinned) {
-        pinBtn.textContent = 'Unpin';
-        pinBtn.addEventListener('click', () => {
-            unpinFile(file);
-            menu.remove();
-        });
-    } else {
-        pinBtn.textContent = 'Pin';
-        pinBtn.addEventListener('click', () => {
-            pinFile(file);
-            menu.remove();
-        });
-    }
-    return pinBtn;
-}
-
-function createRenameBtn(file, menu) {
-    const renameBtn = document.createElement('div');
-
-    renameBtn.classList.add('rc-menu-item');
-    renameBtn.classList.add('rc-rename-btn');
-    renameBtn.textContent = 'Rename';
-
-    renameBtn.addEventListener('click', () => {
-        changeTitleToInput(findFileTreeEl(file.id), file);
-        menu.remove();
-    });
-
-    return renameBtn;
-}
-
-function changeTitleToInput(element, file) {
+export function changeTitleToInput(element, file) {
     element.innerHTML = ``;
     const tempCard = document.createElement('div');
     tempCard.classList.add('file-card-header', 'temp-card');
@@ -476,7 +361,7 @@ function changeTitleToInput(element, file) {
     input.focus();
 }
 
-function findFileTreeEl(fileId) {
+export function findFiletreeEl(fileId) {
     const fileCards = document.querySelectorAll('.file-card');
     return Array.from(fileCards).find((card) => card.id === String(fileId));
 }
@@ -511,13 +396,13 @@ pinnedDisplayEl.addEventListener('contextmenu', (event) => {
     window.addEventListener('click', () => menu.remove(), { once: true });
 });
 
-function unpinFile(file) {
+export function unpinFile(file) {
     file.pinned = false;
     updateUserData();
     renderPinnedFiles();
 }
 
-function pinFile(file) {
+export function pinFile(file) {
     file.pinned = true;
     updateUserData();
     renderPinnedFiles();

@@ -4,6 +4,7 @@ import { removeModuleMenu } from './sidebar/sidebar.js';
 import { closeCmdPalette } from './commandPalette.js';
 import { removeCheatSheet, getCheatSheet } from './cheatsheet.js';
 import { closeSearchMenu } from './search.js';
+import { closeMethodMenu } from './filetree/methodMenu.js';
 
 export let openMenu = null;
 
@@ -15,6 +16,7 @@ const MENU_FUNCTIONS = {
     'quick capture': () => document.querySelector('.quick-capture')?.remove(),
     'md cheatsheet': () => removeCheatSheet(getCheatSheet()),
     'search': closeSearchMenu,
+    'method menu': closeMethodMenu,
 }
 
 export function setOpenMenu(menu) {

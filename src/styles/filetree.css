@@ -150,8 +150,7 @@
     background-color: var(--hover-dark);
 }
 
-#rc-delete-btn,
-.rc-delete-all-btn {
+#rc-delete-btn {
     color: #c0392b;
 }
 
@@ -164,4 +163,17 @@
     border-right: 1px solid var(--border-secondary);
     border-bottom: 1px solid var(--border-primary);
     padding: 10px;
+}
+
+.method-menu {
+    height: 500px;
+    width: 500px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 200;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--border-radius-large);
 }
