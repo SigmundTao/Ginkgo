@@ -10,6 +10,7 @@ import {
 import { USER } from '../user.js';
 import { getFileIndex } from '../storage.js';
 import { createMethodMenu } from './methodMenu.js';
+import { exportSingleFile } from '../export.js';
 
 class MenuItem {
     constructor(obj){
@@ -79,6 +80,14 @@ const menuItems = {
     },
     noteOnly: {
 
+        exportFile: new MenuItem({
+            text: 'Export',
+            classes: [],
+            fn: (fileID) => {
+                exportSingleFile(USER.files[getFileIndex(fileID)]);
+            }
+        }),
+
         merge: new MenuItem({
             text: 'Merge',
             classes: [],
@@ -139,6 +148,7 @@ export function getMenuBtns(fileType, fileID){
         buttons.push(menuItems.noteOnly.merge)
         buttons.push(menuItems.noteOnly.duplicate)
         buttons.push(menuItems.noteOnly.pin)
+        buttons.push(menuItems.noteOnly.exportFile)
         buttons.push(menuItems.both.delete)
 
     } else if(fileType === 'folder') {

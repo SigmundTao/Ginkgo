@@ -1,9 +1,9 @@
 import { USER } from './user.js';
 import { showToast, TOAST_TYPES } from './toast.js';
 
-function createTextFile(file, parentFolder) {
+function createFile(file, parentFolder) {
     const note = file;
-    parentFolder.file(`${note.title}.txt`, note.body);
+    parentFolder.file(`${note.title}.md`, note.body);
 }
 
 function createFolder(file, rootFolder, filesArr, parentFolder = null) {
@@ -19,9 +19,19 @@ function createFolder(file, rootFolder, filesArr, parentFolder = null) {
     folderContents.forEach((item) => {
         if (item.type === 'folder') createFolder(item, rootFolder, filesArr, folder.id);
         else {
-            createTextFile(item, folder);
+            createFile(item, folder);
         }
     });
+}
+
+export async function exportSingleFile(file) {
+    const blob = new Blob([file.body], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${file.title}.md`;
+    a.click();
+    URL.revokeObjectURL(url);
 }
 
 async function exportFiles(filesArr) {
@@ -32,9 +42,9 @@ async function exportFiles(filesArr) {
         return;
     }
 
-    filesArr.forEach((note) => {
-        if (note.type === 'folder') createFolder(note, zip, filesArr);
-        else createTextFile(note, zip);
+    filesArr.forEach((item) => {
+        if (item.type === 'folder') createFolder(item, rootFolder, filesArr, folder);
+        else createFile(note, zip);
     });
 
     const blob = await zip.generateAsync({
