@@ -332,18 +332,31 @@ export function deleteFile(id) {
 }
 
 export function changeTitleToInput(element, file) {
+    const existingTemp = document.querySelector('.temp-card');
+    if (existingTemp) {
+        existingTemp.remove();
+        renderFiletree();
+        element = document.getElementById(file.id);
+    }
+
     element.innerHTML = ``;
+    let imgSrc = 'src/assets/filetree-file.svg';
+    if (file.type === 'folder') imgSrc = 'src/assets/folder-closed.svg';
+
     const tempCard = document.createElement('div');
-    tempCard.classList.add('file-card-header', 'temp-card');
+    tempCard.innerHTML = `
+        <div class="file-card-header temp-card">
+            <img class="file-card-img" src="${imgSrc}">
+            <input type="text" class="temp-card-input" value="${file.title}">
+        </div>`;
 
-    const folderImg = document.createElement('img');
-    folderImg.classList.add('file-card-img');
-    folderImg.src = "src/assets/folder-closed.svg"
-    
-    const input = document.createElement('input');
-    input.classList.add('temp-card-input', 'file-card');
-    input.value = file.title;
+    const parentPadLeft = getComputedStyle(element).paddingLeft;
+    tempCard.style.setProperty('--indent', parentPadLeft);
+    element.appendChild(tempCard);
 
+    const input = tempCard.querySelector('.temp-card-input');
+
+    input.addEventListener('click', (e) => e.stopPropagation());
     input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             file.title = input.value;
@@ -351,10 +364,8 @@ export function changeTitleToInput(element, file) {
             renderFiletree();
         }
     });
-
-    tempCard.append(folderImg, input);
-    element.appendChild(tempCard);
     input.focus();
+    input.setSelectionRange(input.value.length, input.value.length);
 }
 
 export function findFiletreeEl(fileId) {

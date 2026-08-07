@@ -113,9 +113,23 @@
     border-left: 2px solid var(--gold);
 }
 
+
 .temp-card {
+  position: relative;
+  padding-left: 0;
+}
+
+.temp-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(-1 * var(--indent, 0px));
+  width: calc(100% + var(--indent, 0px));
   border: 3px solid var(--border-primary);
-  border-radius: var(--border-radius-small)
+  border-radius: var(--border-radius-small);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .temp-card-input {
@@ -124,7 +138,7 @@
     border-bottom: 1px solid var(--gold);
     outline: none;
     font-size: 13px;
-    width: 60%;
+    flex-grow: 1;
     color: var(--font-primary);
     caret-color: var(--caret);
 }
