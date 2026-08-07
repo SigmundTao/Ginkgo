@@ -131,11 +131,11 @@
 
 .right-click-menu {
     background-color: var(--bg-tertiary);
-    border: 1px solid var(--border-default);
+    border: 1px solid var(--border-primary);
     border-radius: 4px;
     padding: 4px;
     min-width: 120px;
-    z-index: 100;
+    z-index: 300;
     color: white;
 }
 
@@ -147,7 +147,7 @@
 }
 
 .rc-menu-item:hover {
-    background-color: var(--hover-dark);
+    background-color: var(--bg-secondary);
 }
 
 #rc-delete-btn {
@@ -172,7 +172,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 200;
+    z-index: 300;
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-primary);
     border-radius: var(--border-radius-large);
