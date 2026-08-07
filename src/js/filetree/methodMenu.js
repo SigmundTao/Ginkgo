@@ -24,7 +24,6 @@ class MethodTarget {
             })
         } else {
             el.addEventListener('click', () => {
-                console.log('btn-file-id:', this.targetID, 'clicked file id', this.targetFileID)
                 moveTo(this.targetFileID, this.file.id)
                 closeMethodMenu()
             })
@@ -48,7 +47,6 @@ export function createMethodMenu(method, fileID) {
 
     searchBar.addEventListener('input', () => {
         const newFiles = filter(method, searchBar.value.trim())
-        console.log('new files:', newFiles)
         render(method, output, newFiles, fileID);
     })
 
@@ -65,7 +63,6 @@ export function closeMethodMenu() {
 function render(method, output, files, fileID) {
     output.innerHTML = '';
 
-    console.log('files being passed to render: ', files)
     files.forEach(item => {
         const target = new MethodTarget({
                 file: item,
@@ -75,18 +72,14 @@ function render(method, output, files, fileID) {
 
         output.appendChild(target.createElement())
 
-        console.log('target:', target)
     })
 }
 
 function filter(method, string) {
-    console.log('method:', method)
-    console.log('string',string)
     let returning = 'nada';
     if(method === 'merge') returning = USER.files.filter(file => file.type === 'note');
     else if(method === 'move') returning = USER.files.filter(file => file.type === 'folder');
     if(!string) return returning;
-    console.log('returning:', returning);
     return returning;
 }
 

@@ -274,8 +274,6 @@ function createRightClickMenu(posX, posY, file) {
         const btnEl = btn.createElement(file.id);
         btnEl.addEventListener('click', () => {
             btn.activate(file.id)
-            updateUserData()
-            renderFiletree()
             menu.remove()
         })
         menu.appendChild(btnEl);
