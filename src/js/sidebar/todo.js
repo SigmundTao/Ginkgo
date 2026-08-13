@@ -114,6 +114,7 @@ export function createToDoList() {
     taskContainer.classList.add('task-container');
 
     const persistentInput = createDefaultInput();
+    persistentInput.placeholder = 'Enter task here...';
     persistentInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && persistentInput.value.length) {
             createTask(taskContainer, persistentInput.value.trim());

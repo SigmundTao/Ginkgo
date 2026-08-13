@@ -3,6 +3,7 @@ import { updateUserData} from '../user.js';
 import { renderFiletree, deleteFile } from '../filetree.js';
 import { USER } from '../user.js';
 import { setOpenMenu } from '../menus.js';
+import { currentTabId} from '../state.js';
 
 class MethodTarget {
     constructor(obj){
@@ -104,14 +105,12 @@ function merge(fileID, targetID) {
     const oldFile = USER.files[getFileIndex(fileID)]
     const targetFile = USER.files[getFileIndex(targetID)];
 
-    targetFile.body += `
-        ---
-        ${oldFile.body}
-    `
+    targetFile.body += `**${oldFile.title}**: ${oldFile.body}`;
 
     deleteFile(fileID);
     updateUserData();
     renderFiletree();
+    if(USER.tabs[getTabIndex(currentTabId)].fileId === fileID) deleteTab(currentTabId);
 }
 
 
