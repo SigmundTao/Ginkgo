@@ -365,7 +365,14 @@ export function openFile(fileId) {
 }
 
 export function checkForDefaultTabs() {
-    return USER.tabs.findIndex((t) => t.file === null);
+    const tabsWithoutFile = USER.tabs.findIndex(t => t.file === null);
+
+    if(tabsWithoutFile.length){
+        const tabsThatArentTools = tabsWithoutFile.filter(tab => tab.moduleType === false);
+        return tabsThatArentTools;
+    } else {
+        return -1;
+    }
 }
 
 export function checkIfTabExists(fileId) {
