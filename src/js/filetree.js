@@ -293,7 +293,7 @@ export function duplicateFile(fileID) {
     const file = USER.files[getFileIndex(fileID)];
     const id = idNum;
     const date = getFormattedDate(new Date());
-    let newTitle = `${file.title}*`;
+    let newTitle = getDuplicateTitle(fileID, file.title);
 
     USER.files.push({
         title: newTitle,
@@ -309,6 +309,18 @@ export function duplicateFile(fileID) {
     incrementIdNum();
     renderFiletree();
     openFile(id);
+}
+
+function getDuplicateTitle(ID, title, attempt=2) {
+    const titleTarget = `${title} ${attempt}`;
+    const duplicate = USER.files.find(file => file.title === titleTarget && file.id != ID);
+
+    if(duplicate) {
+        return getDuplicateTitle(ID, title, (attempt + 1))
+
+    } else {
+        return titleTarget;
+    }
 }
 
 export function deleteFile(id) {

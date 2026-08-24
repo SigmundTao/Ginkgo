@@ -1,6 +1,8 @@
 import { USER, updateUserData } from '../user.js';
 import { createFontSelect } from './appearance/fonts.js';
 import { createThemeSelect } from './appearance/theme.js';
+import { loadTab } from '../tabs.js';
+import { currentTabId } from '../state.js';
 
 const defaultURL = './src/assets/kangae-logo.svg';
 
@@ -40,6 +42,7 @@ export function createAppearanceMenu() {
             USER.settings.appearance.dashboardLogo = logoInput.value;
         }
         updateUserData();
+        loadTab(currentTabId);
     });
 
     containerEl.append(
