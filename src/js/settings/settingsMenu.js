@@ -110,6 +110,7 @@ export function createSettingsMenu() {
   removeBtn.classList.add('settings-remove-btn');
 }
 
+/*
 <dialog id="settings" class="settings-closed menu">
             <div id="settings-nav">
                 <div class="settings-nav-item" id="appearance-btn">Appearance</div>
@@ -123,3 +124,4 @@ export function createSettingsMenu() {
             <div id="settings-output"></div>
             <button id="close-settings-btn" class="settings-remove-btn">x</button>
         </dialog>
+*/

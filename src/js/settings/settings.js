@@ -9,7 +9,7 @@ import { createNoteRecoverySettings } from './recentlyDeleted.js';
 import { setOpenMenu } from '../menus.js';
 import { USER } from '../user.js';
 
-const settingEl = document.getElementById('settings');
+const settingsEl = document.getElementById('settings');
 const appearanceBtn = document.getElementById('appearance-btn');
 const closeSettingsBtn = document.getElementById('close-settings-btn');
 const openSettingsBtn = document.getElementById('settings-btn');
@@ -22,20 +22,20 @@ const exportBtn = document.getElementById('export-settings-btn');
 const recentlyDeletedBtn = document.getElementById('recently-deleted-btn');
 
 export function openSettingsMenu() {
-    settingEl.showModal();
+    settingsEl.classList.remove('settings-closed');
+    settingsEl.classList.add('settings-open');
     settingsOutputEl.innerHTML = '';
     setOpenMenu('settings')
 }
 
 export function closeSettingsMenu() {
-    settingEl.close();
-    settingEl.classList.add('settings-closed');
+    settingsEl.classList.remove('settings-open');
+    settingsEl.classList.add('settings-closed');
 }
 
 export function toggleConfigMenu() {
-    if (settingEl.classList.contains('settings-closed')) {
+    if (settingsEl.classList.contains('settings-closed')) {
         openSettingsMenu();
-        settingEl.classList.remove('settings-closed');
     } else {
         closeSettingsMenu();
     }

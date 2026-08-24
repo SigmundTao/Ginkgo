@@ -1,5 +1,26 @@
 @import url('./themes.css');
 
+.settings-open {
+    display: flex;
+    height: 500px;
+    width: 800px;
+    background-color: var(--bg-tertiary);
+    border: 2px solid var(--border-primary);
+    color: var(--font-tertiary);
+    z-index: var(--menu-z-index);
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: var(--border-radius-large);
+}
+
+#settings-btn {
+    background-image: url('../assets/settings.svg');
+    background-position: center;
+    background-size: contain;
+}
+
 .settings-select,
 .settings-input {
     background-color: var(--bg-four);
@@ -32,16 +53,6 @@
     border: 1px solid var(--border-secondary);
     color: var(--font-primary);
     border-radius: var(--border-radius-small);
-}
-
-#settings {
-    display: flex;
-    position: relative;
-    z-index: 98;
-    width: 1000px;
-    padding: 0;
-    border-radius: var(--border-radius-large);
-    border: 1px solid var(--border-primary);
 }
 
 #close-settings-btn {
@@ -77,6 +88,8 @@
     flex-direction: column;
     gap: 10px;
     border-right: 1px solid var(--border-secondary);
+    border-top-left-radius: var(--border-radius-large);
+    border-bottom-left-radius: var(--border-radius-large);
 }
 
 .settings-nav-item {
@@ -111,4 +124,10 @@
     padding: 25px;
     color: var(--font-primary);
     font-family: var(--font);
+}
+
+.settings-closed {
+    display: hidden;
+    height: 0;
+    width: 0;
 }

@@ -554,20 +554,6 @@ a {
     font-family: 'Noto Serif JP', serif;
 }
 
-#settings {
-    height: 800px;
-    width: 600px;
-    background-color: var(--bg-tertiary);
-    border: 1px solid var(--border-tertiary);
-    color: var(--font-tertiary);
-}
-
-#settings-btn {
-    background-image: url('../assets/settings.svg');
-    background-position: center;
-    background-size: contain;
-}
-
 input[type="checkbox"]:hover {
     cursor: pointer;
 }

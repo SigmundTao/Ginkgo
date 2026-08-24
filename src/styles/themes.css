@@ -25,6 +25,8 @@
     --padding-medium: 8px;
     --padding-large: 12px;
 
+    --menu-z-index: 200;
+
     --hover-dark: #101010;
 
     --cedar-hover: #f0e6d0;
