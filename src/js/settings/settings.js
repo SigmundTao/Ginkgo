@@ -24,7 +24,6 @@ const recentlyDeletedBtn = document.getElementById('recently-deleted-btn');
 export function openSettingsMenu() {
     settingsEl.classList.remove('settings-closed');
     settingsEl.classList.add('settings-open');
-    settingsOutputEl.innerHTML = '';
     setOpenMenu('settings')
 }
 
