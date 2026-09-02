@@ -190,4 +190,44 @@
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-primary);
     border-radius: var(--border-radius-large);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: var(--padding-large);
+    gap: var(--padding-large);
+}
+
+.method-menu-search {
+  width: 100%;
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--border-radius-medium);
+  padding: 4px;
+  padding-left: var(--padding-large);
+  height: 10%;
+  font-size: 1.1rem;
+  color: var(--font-primary);
+}
+
+.method-menu-output {
+  height: 90%;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.method-menu-item {
+  height: 50px;
+  width: 100%;
+  border: 1px solid var(--border-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.method-menu-item:hover {
+  cursor: pointer;
+}
+
+.method-menu-item:hover, .method-menu-item * {
+  text-decoration: underline;
 }

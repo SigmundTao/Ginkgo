@@ -5,7 +5,7 @@ import { USER } from '../user.js';
 import { setOpenMenu } from '../menus.js';
 import { currentTabId} from '../state.js';
 
-class MethodTarget {
+class MethodItem{
     constructor(obj){
         this.file = obj.file;
         this.method = obj.method;
@@ -14,6 +14,7 @@ class MethodTarget {
 
     createElement() {
         const el = document.createElement('div');
+        el.classList.add('method-menu-item');
 
         el.id = this.file.id;
         el.textContent = this.file.title;
@@ -39,9 +40,10 @@ export function createMethodMenu(method, fileID) {
     menu.classList.add('method-menu');
 
     const searchBar = document.createElement('input');
+    searchBar.classList.add('method-menu-search');
 
     const output = document.createElement('div');
-    output.classList.add('action-menu-output');
+    output.classList.add('method-menu-output');
 
     const filteredFiles = filter(method, null);
     render(method, output, filteredFiles, fileID);
@@ -65,7 +67,7 @@ function render(method, output, files, fileID) {
     output.innerHTML = '';
 
     files.forEach(item => {
-        const target = new MethodTarget({
+        const target = new MethodItem({
                 file: item,
                 targetFileID: fileID,
                 method,

@@ -89,7 +89,7 @@ const menuItems = {
         }),
 
         merge: new MenuItem({
-            text: 'Merge',
+            text: 'Merge Into',
             classes: [],
             fn: (fileID) => {
                 createMethodMenu('merge', fileID);
