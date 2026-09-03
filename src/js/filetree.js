@@ -384,7 +384,14 @@ fileTreeContainerEl.addEventListener('contextmenu', (event) => {
         USER.files[getFileIndex(Number(file.id))],
         file,
     );
+
     fileTreeEl.appendChild(menu);
+
+    const menuRect = menu.getBoundingClientRect()
+    if(menuRect.bottom > window.innerHeight) {
+        menu.style.top = (event.clientY - menuRect.height - 10) + 'px';
+    }
+
     menu.addEventListener('click', (e) => e.stopPropagation());
     window.addEventListener('click', () => menu.remove(), { once: true });
 });
@@ -401,6 +408,12 @@ pinnedDisplayEl.addEventListener('contextmenu', (event) => {
         file,
     );
     fileTreeEl.appendChild(menu);
+
+    const menuRect = menu.getBoundingClientRect()
+    if(menuRect.bottom > window.innerHeight) {
+        menu.style.top = (event.clientY - menuRect.height - 10) + 'px';
+    }
+
     menu.addEventListener('click', (e) => e.stopPropagation());
     window.addEventListener('click', () => menu.remove(), { once: true });
 });

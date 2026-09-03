@@ -26,7 +26,6 @@ initTodoLists();
 initCmdPalette();
 renderFiletree();
 updateLastLogIn();
-console.log(document.querySelector('#settings').classList);
 
 if (!USER.tabs.length >= 1) {
     createDefaultTab();
