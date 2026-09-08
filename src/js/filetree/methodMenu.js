@@ -45,11 +45,11 @@ export function createMethodMenu(method, fileID) {
     const output = document.createElement('div');
     output.classList.add('method-menu-output');
 
-    const filteredFiles = filter(method, null);
+    const filteredFiles = filter(method, null, fileID);
     render(method, output, filteredFiles, fileID);
 
     searchBar.addEventListener('input', () => {
-        const newFiles = filter(method, searchBar.value.trim())
+        const newFiles = filter(method, searchBar.value.trim(), fileID)
         render(method, output, newFiles, fileID);
     })
 
@@ -78,11 +78,14 @@ function render(method, output, files, fileID) {
     })
 }
 
-function filter(method, string) {
+function filter(method, string, fileID) {
     let fileSet = null;
     if(method === 'merge') fileSet = USER.files.filter(file => file.type === 'note');
-    else if(method === 'move') fileSet= USER.files.filter(file => file.type === 'folder');
+    else if(method === 'move') {
+        fileSet = USER.files.filter(file => file.type === 'folder');
+    }
 
+    fileSet = fileSet.filter(file => file.id !== fileID)
     if(!string) return fileSet;
 
     const filesContainingString = fileSet.filter(f => f.title.includes(string))
