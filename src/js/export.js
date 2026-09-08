@@ -34,7 +34,8 @@ export async function exportSingleFile(file) {
     URL.revokeObjectURL(url);
 }
 
-async function exportFiles(filesArr) {
+export async function exportFiles(filesArr, folderTitle) {
+    console.log(filesArr)
     const zip = new JSZip();
 
     if (!filesArr.length) {
@@ -44,7 +45,7 @@ async function exportFiles(filesArr) {
 
     filesArr.forEach((item) => {
         if (item.type === 'folder') createFolder(item, rootFolder, filesArr, folder);
-        else createFile(note, zip);
+        else createFile(item, zip);
     });
 
     const blob = await zip.generateAsync({
@@ -55,7 +56,7 @@ async function exportFiles(filesArr) {
 
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'kangae.zip';
+    a.download = `${folderTitle}.zip`;
     a.click();
 
     URL.revokeObjectURL(url);
@@ -77,7 +78,7 @@ export function createExportSettings() {
     downloadBtn.classList.add('settings-btn');
     downloadBtn.textContent = 'Download';
     containerEl.appendChild(downloadBtn);
-    downloadBtn.addEventListener('click', () => exportFiles(USER.files));
+    downloadBtn.addEventListener('click', () => exportFiles(USER.files, 'Kangae'));
 
     return containerEl;
 }

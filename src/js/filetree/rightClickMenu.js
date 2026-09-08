@@ -10,7 +10,7 @@ import {
 import { USER } from '../user.js';
 import { getFileIndex } from '../storage.js';
 import { createMethodMenu } from './methodMenu.js';
-import { exportSingleFile } from '../export.js';
+import { exportSingleFile, exportFiles } from '../export.js';
 
 class MenuItem {
     constructor(obj){
@@ -77,17 +77,21 @@ const menuItems = {
                 deleteFile(fileID);
             }
         }),
-    },
-    noteOnly: {
 
         exportFile: new MenuItem({
             text: 'Export',
             classes: [],
             fn: (fileID) => {
-                exportSingleFile(USER.files[getFileIndex(fileID)]);
+                const file = USER.files[getFileIndex(fileID)];
+                if(file.type === 'folder') {
+                    exportFiles(USER.files.filter(f => f.parentId === fileID), file.title);
+                } else {
+                    exportSingleFile(file);
+                }
             }
         }),
-
+    },
+    noteOnly: {
         merge: new MenuItem({
             text: 'Merge Into',
             classes: [],
@@ -152,11 +156,12 @@ export function getMenuBtns(file){
         }
         buttons.push(menuItems.noteOnly.duplicate)
         buttons.push(menuItems.noteOnly.pin)
-        buttons.push(menuItems.noteOnly.exportFile)
+        buttons.push(menuItems.both.exportFile)
         buttons.push(menuItems.both.delete)
 
     } else if(file.type === 'folder') {
         buttons.push(menuItems.both.rename)
+        buttons.push(menuItems.both.exportFile)
         if(USER.files.filter(file => file.type === 'folder').length > 1) {
             buttons.push(menuItems.both.moveTo)
         }
