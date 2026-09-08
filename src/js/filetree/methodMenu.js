@@ -36,6 +36,8 @@ class MethodItem{
 }
 
 export function createMethodMenu(method, fileID) {
+    document.querySelector('.method-menu')?.remove();
+
     const menu = document.createElement('div');
     menu.classList.add('method-menu');
 
