@@ -164,7 +164,7 @@
     background-color: var(--bg-secondary);
 }
 
-#rc-delete-btn {
+.rc-delete-btn {
     color: #c0392b;
 }
 
