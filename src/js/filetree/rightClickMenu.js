@@ -140,9 +140,9 @@ const menuItems = {
     },
 };
 
-export function getMenuBtns(fileType, fileID){
+export function getMenuBtns(file){
     const buttons = [];
-    if(fileType === 'note') {
+    if(file.type === 'note') {
         buttons.push(menuItems.both.rename)
         if(USER.files.find(file => file.type === 'folder')) {
             buttons.push(menuItems.both.moveTo)
@@ -155,14 +155,16 @@ export function getMenuBtns(fileType, fileID){
         buttons.push(menuItems.noteOnly.exportFile)
         buttons.push(menuItems.both.delete)
 
-    } else if(fileType === 'folder') {
+    } else if(file.type === 'folder') {
         buttons.push(menuItems.both.rename)
         if(USER.files.filter(file => file.type === 'folder').length > 1) {
             buttons.push(menuItems.both.moveTo)
         }
         buttons.push(menuItems.folderOnly.newNoteInFolder)
         buttons.push(menuItems.both.delete)
-        buttons.push(menuItems.folderOnly.deleteAll)
+        if(USER.files.filter(f => f.parentId === file.id).length) {
+            buttons.push(menuItems.folderOnly.deleteAll)
+        }
     }
 
     return buttons;

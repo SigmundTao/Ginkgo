@@ -268,7 +268,7 @@ function createRightClickMenu(posX, posY, file, sourceEl) {
     const menu = document.createElement('div');
     menu.classList.add('right-click-menu');
 
-    const menuBtns = getMenuBtns(file.type);
+    const menuBtns = getMenuBtns(file);
     menuBtns.forEach(btn => {
         const btnEl = btn.createElement(file.id);
         btnEl.addEventListener('click', () => {
