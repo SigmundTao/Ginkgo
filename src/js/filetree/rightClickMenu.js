@@ -144,8 +144,12 @@ export function getMenuBtns(fileType, fileID){
     const buttons = [];
     if(fileType === 'note') {
         buttons.push(menuItems.both.rename)
-        buttons.push(menuItems.both.moveTo)
-        buttons.push(menuItems.noteOnly.merge)
+        if(USER.files.find(file => file.type === 'folder')) {
+            buttons.push(menuItems.both.moveTo)
+        }
+        if(USER.files.length < 1) {
+            buttons.push(menuItems.noteOnly.merge)
+        }
         buttons.push(menuItems.noteOnly.duplicate)
         buttons.push(menuItems.noteOnly.pin)
         buttons.push(menuItems.noteOnly.exportFile)
@@ -153,7 +157,9 @@ export function getMenuBtns(fileType, fileID){
 
     } else if(fileType === 'folder') {
         buttons.push(menuItems.both.rename)
-        buttons.push(menuItems.both.moveTo)
+        if(USER.files.filter(file => file.type === 'folder').length > 1) {
+            buttons.push(menuItems.both.moveTo)
+        }
         buttons.push(menuItems.folderOnly.newNoteInFolder)
         buttons.push(menuItems.both.delete)
         buttons.push(menuItems.folderOnly.deleteAll)
